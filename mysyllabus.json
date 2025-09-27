@@ -1,0 +1,24 @@
+{
+  "P1": {
+    "sampleUnit": "Numbers and Counting",
+    "sampleCompetence": "Develop number sense up to 20 and perform simple operations",
+    "sampleObjective": "Learners should be able to identify numbers from 1 to 20 and perform addition within 20.",
+    "materials": "Number cards, chalkboard, counters",
+    "sampleLesson": "Counting objects up to 20",
+    "sampleIntro": "Show counters; ask learners to count aloud to 20.",
+    "sampleDevelopment": "Group activity: count sets of objects; teacher models addition using counters; learners practice in pairs.",
+    "sampleConclusion": "Recap counting rules and check understanding with quick questions.",
+    "sampleEval": "Give short oral quiz: addition problems within 20."
+  },
+  "P4": {
+    "sampleUnit": "Fractions",
+    "sampleCompetence": "Understand basic fractions and their representation",
+    "sampleObjective": "Learners should be able to recognise 1/2, 1/3 and 1/4 of shapes and sets.",
+    "materials": "Paper shapes, rulers, counters",
+    "sampleLesson": "Identifying halves and quarters",
+    "sampleIntro": "Show a circle; fold to show halves and quarters.",
+    "sampleDevelopment": "Hands-on folding activity; matching shapes to fraction labels.",
+    "sampleConclusion": "Learners explain how they found halves/quarters.",
+    "sampleEval": "Worksheet: shade halves and quarters."
+  }
+}

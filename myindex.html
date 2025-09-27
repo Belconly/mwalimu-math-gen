@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Math Lesson Plan Generator (Rwanda CBC)</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- html2pdf CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Math Lesson Plan Generator — Rwanda CBC (Primary)</h1>
+    <p class="note">No account · No saving · Generate → Download / Print</p>
+  </header>
+
+  <main class="container">
+    <section class="form-section">
+      <h2>Enter lesson details</h2>
+      <form id="lpForm">
+        <div class="row">
+          <label>School Name<input name="school" required></label>
+          <label>Teacher's Name<input name="teacher" required></label>
+        </div>
+
+        <div class="row">
+          <label>Term
+            <select name="term" required>
+              <option value="">--Select--</option>
+              <option>Term 1</option>
+              <option>Term 2</option>
+              <option>Term 3</option>
+            </select>
+          </label>
+
+          <label>Date<input type="date" name="date" required></label>
+        </div>
+
+        <div class="row">
+          <label>Subject<input name="subject" value="Mathematics" readonly></label>
+          <label>Class
+            <select name="class" id="classSelect" required>
+              <option value="">--Select--</option>
+              <option>P1</option><option>P2</option><option>P3</option>
+              <option>P4</option><option>P5</option><option>P6</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>Unit No<input name="unitNo"></label>
+          <label>Lesson No<input name="lessonNo"></label>
+        </div>
+
+        <div class="row">
+          <label>Duration (mins)<input name="duration" type="number" min="10" value="40" required></label>
+          <label>Class size<input name="classSize" type="number" min="1" value="30" required></label>
+        </div>
+
+        <div class="row">
+          <label>SEN info (if any)<input name="sen"></label>
+          <label>Unit Title<input name="unitTitle" required></label>
+        </div>
+
+        <div class="row">
+          <label>Key Unit Competence<textarea name="keyUnitCompetence" rows="2"></textarea></label>
+        </div>
+
+        <div class="row">
+          <label>Title of the Lesson<textarea name="lessonTitle" rows="2" required></textarea></label>
+        </div>
+
+        <div class="row">
+          <label>Instructional Objective<textarea name="instrObjective" rows="2" required></textarea></label>
+        </div>
+
+        <div class="row">
+          <label>Plan Location (e.g., classroom)<input name="planLocation"></label>
+          <label>Learning Materials<textarea name="learningMaterials" rows="2"></textarea></label>
+        </div>
+
+        <div class="row">
+          <label>References<textarea name="references" rows="2"></textarea></label>
+          <label>Cross-cutting Issue
+            <select name="crossCutting">
+              <option value="">--None--</option>
+              <option>Environment</option><option>Gender</option><option>Peace</option><option>ICT</option>
+            </select>
+          </label>
+        </div>
+
+        <h3>Timing table (fill main activities)</h3>
+        <div class="row">
+          <label>Introduction (what teacher does)<textarea name="intro" rows="3"></textarea></label>
+        </div>
+        <div class="row">
+          <label>Development (activities / teaching & learning)<textarea name="development" rows="4"></textarea></label>
+        </div>
+        <div class="row">
+          <label>Conclusion (reflection / summary)<textarea name="conclusion" rows="2"></textarea></label>
+        </div>
+        <div class="row">
+          <label>Evaluation / Assessment<textarea name="evaluation" rows="2"></textarea></label>
+        </div>
+
+        <div class="row">
+          <button type="button" id="autoFillBtn">Auto-fill from CBC (sample)</button>
+          <button type="submit" id="generateBtn">Generate & Download PDF</button>
+          <button type="button" id="printBtn">Print</button>
+        </div>
+      </form>
+      <p class="small">Tip: Use "Auto-fill from CBC" after selecting Class to load sample objectives.</p>
+    </section>
+
+    <section class="preview-section">
+      <h2>Preview / Printable Lesson Plan</h2>
+
+      <!-- Hidden printable template -->
+      <div id="printable" class="printable">
+        <h1>LESSON PLAN</h1>
+        <table class="meta">
+          <tr><td>School:</td><td id="p_school"></td><td>Teacher:</td><td id="p_teacher"></td></tr>
+          <tr><td>Term:</td><td id="p_term"></td><td>Date:</td><td id="p_date"></td></tr>
+          <tr><td>Subject:</td><td id="p_subject"></td><td>Class:</td><td id="p_class"></td></tr>
+          <tr><td>Unit No:</td><td id="p_unitNo"></td><td>Lesson No:</td><td id="p_lessonNo"></td></tr>
+          <tr><td>Duration:</td><td id="p_duration"></td><td>Class size:</td><td id="p_classSize"></td></tr>
+        </table>
+
+        <p><strong>SEN info:</strong> <span id="p_sen"></span></p>
+        <p><strong>Unit Title:</strong> <span id="p_unitTitle"></span></p>
+        <p><strong>Key Unit Competence:</strong> <span id="p_keyUnitCompetence"></span></p>
+        <p><strong>Title of the lesson:</strong> <span id="p_lessonTitle"></span></p>
+        <p><strong>Instructional Objective:</strong> <span id="p_instrObjective"></span></p>
+        <p><strong>Plan Location:</strong> <span id="p_planLocation"></span></p>
+        <p><strong>Learning Materials:</strong> <span id="p_learningMaterials"></span></p>
+        <p><strong>References:</strong> <span id="p_references"></span></p>
+        <p><strong>Cross-cutting issue:</strong> <span id="p_crossCutting"></span></p>
+
+        <h3>Timing / Activities</h3>
+        <table class="timing">
+          <tr><th>Stage</th><th>Teacher activities</th></tr>
+          <tr><td>Introduction</td><td id="p_intro"></td></tr>
+          <tr><td>Development</td><td id="p_development"></td></tr>
+          <tr><td>Conclusion</td><td id="p_conclusion"></td></tr>
+          <tr><td>Evaluation</td><td id="p_evaluation"></td></tr>
+        </table>
+
+        <h3>Teacher self-evaluation</h3>
+        <p>__________________________________________________________</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Generated locally — no data is sent to any server.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

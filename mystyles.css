@@ -1,0 +1,26 @@
+:root{--accent:#0b5;--muted:#666}
+*{box-sizing:border-box;font-family:system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial}
+body{margin:0;background:#f7f8fa;color:#111}
+.site-header{background:linear-gradient(90deg,#0b74ff,#00b09b);color:#fff;padding:16px}
+.site-header h1{margin:0;font-size:18px}
+.container{display:flex;flex-wrap:wrap;gap:20px;padding:18px}
+.form-section, .preview-section{background:#fff;border-radius:8px;box-shadow:0 6px 18px rgba(10,10,10,0.06);padding:16px;flex:1 1 420px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+label{flex:1;display:flex;flex-direction:column;font-size:13px}
+input,select,textarea{padding:8px;border:1px solid #ddd;border-radius:6px;font-size:14px}
+button{padding:10px 14px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer;margin-right:8px}
+button#autoFillBtn{background:#f0ad4e}
+.printable{background:#fff;padding:16px;border:1px solid #ddd}
+.printable h1{text-align:center;margin:0 0 12px}
+.meta{width:100%;border-collapse:collapse;margin-bottom:12px}
+.meta td{padding:6px;border:1px solid #eee;font-size:14px}
+.timing{width:100%;border-collapse:collapse;margin-top:8px}
+.timing th, .timing td{padding:8px;border:1px solid #eee;text-align:left}
+.site-footer{padding:12px;text-align:center;font-size:13px;color:var(--muted)}
+.small{font-size:12px;color:var(--muted)}
+.note{margin:4px 0 0;font-size:13px}
+@media(print){
+  body *{visibility:hidden}
+  #printable, #printable *{visibility:visible}
+  #printable{position:fixed;left:0;top:0;width:100%}
+}
