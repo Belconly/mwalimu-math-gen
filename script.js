@@ -517,7 +517,7 @@ function highlightUpdatedFields() {
   });
 }
 
-// Built-in REB CBC AI Engine (Procedural human-like synthesis)
+  // Built-in REB CBC AI Engine (Procedural human-like synthesis)
 function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, headers) {
   const clsData = syllabus[cls] || FALLBACK_SYLLABUS["P4"];
   
@@ -551,6 +551,46 @@ function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, header
   const senContext = headers.sen ? headers.sen : 'learners with mild SEN';
   const schoolContext = headers.school ? headers.school : 'school';
 
+  // If lesson has steps (new 6-step format), use them directly
+  if (lessonObj.steps && lessonObj.steps.length >= 6) {
+    const finalLessonTitle = customTopic ? `Rwanda CBC Focus: ${customTopic}` : lessonObj.lessonTitle;
+    const finalObjective = customTopic ?
+      `Using concrete classroom materials and REB textbooks, learners should be able to understand, calculate, and solve problems involving ${customTopic} correctly and explain their steps in pairs.` :
+      lessonObj.instrObjective;
+
+    return {
+      unitNo: form.unitNo.value || unitObj.unitNo || 'Unit 1',
+      lessonNo: form.lessonNo.value || lessonObj.lessonNo || 'Lesson 1 of 6',
+      unitTitle: unitObj.unitTitle,
+      keyUnitCompetence: unitObj.keyUnitCompetence,
+      lessonTitle: finalLessonTitle,
+      instrObjective: finalObjective,
+      planLocation: form.planLocation.value || `${cls} Primary Classroom / Math Corner`,
+      learningMaterials: lessonObj.materials,
+      references: `${unitObj.unitTitle} — REB Primary Mathematics ${cls} Student Book (SB) & Teacher's Guide (TG); elearning.reb.rw/course/index.php?categoryid=19`,
+      crossCutting: lessonObj.crossCutting || 'Inclusive Education',
+      step1: lessonObj.steps[0].activity,
+      step1_exercise: lessonObj.steps[0].pupilBookExercise,
+      step1_gcci: lessonObj.steps[0].gcOrCci,
+      step2: lessonObj.steps[1].activity,
+      step2_exercise: lessonObj.steps[1].pupilBookExercise,
+      step2_gcci: lessonObj.steps[1].gcOrCci,
+      step3: lessonObj.steps[2].activity,
+      step3_exercise: lessonObj.steps[2].pupilBookExercise,
+      step3_gcci: lessonObj.steps[2].gcOrCci,
+      step4: lessonObj.steps[3].activity,
+      step4_exercise: lessonObj.steps[3].pupilBookExercise,
+      step4_gcci: lessonObj.steps[3].gcOrCci,
+      step5: lessonObj.steps[4].activity,
+      step5_exercise: lessonObj.steps[4].pupilBookExercise,
+      step5_gcci: lessonObj.steps[4].gcOrCci,
+      step6: lessonObj.steps[5].activity,
+      step6_exercise: lessonObj.steps[5].pupilBookExercise,
+      step6_gcci: lessonObj.steps[5].gcOrCci
+    };
+  }
+
+  // Fallback to old format for backward compatibility
   const introVariations = [
     `${teacherNames} greets the ${cls} learners warmly and leads a 3-minute mental math warm-up related to ${unitObj.unitTitle.toLowerCase()}. Teacher asks probing questions to connect today's topic (${lessonObj.lessonTitle}) with real-life experiences in Rwanda.`,
     `Teacher begins by checking attendance and homework from the previous lesson. To introduce ${lessonObj.lessonTitle}, ${teacherNames} displays classroom concrete materials and invites two learners to explain what they observe on the teacher's table.`,
@@ -597,7 +637,25 @@ function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, header
     intro: randomChoice(introVariations),
     development: randomChoice(devVariations),
     conclusion: randomChoice(concVariations),
-    evaluation: randomChoice(evalVariations)
+    evaluation: randomChoice(evalVariations),
+    step1: '',
+    step1_exercise: '',
+    step1_gcci: '',
+    step2: '',
+    step2_exercise: '',
+    step2_gcci: '',
+    step3: '',
+    step3_exercise: '',
+    step3_gcci: '',
+    step4: '',
+    step4_exercise: '',
+    step4_gcci: '',
+    step5: '',
+    step5_exercise: '',
+    step5_gcci: '',
+    step6: '',
+    step6_exercise: '',
+    step6_gcci: ''
   };
 }
 
@@ -718,6 +776,16 @@ function populateFormWithAiResult(aiData, headers) {
   if (aiData.learningMaterials) form.learningMaterials.value = aiData.learningMaterials;
   if (aiData.references) form.references.value = aiData.references;
   if (aiData.crossCutting) form.crossCutting.value = aiData.crossCutting;
+  
+  // Populate 6-step format
+  if (aiData.step1) form.step1.value = aiData.step1;
+  if (aiData.step2) form.step2.value = aiData.step2;
+  if (aiData.step3) form.step3.value = aiData.step3;
+  if (aiData.step4) form.step4.value = aiData.step4;
+  if (aiData.step5) form.step5.value = aiData.step5;
+  if (aiData.step6) form.step6.value = aiData.step6;
+  
+  // Backward compatibility: populate old fields if they exist
   if (aiData.intro) form.intro.value = aiData.intro;
   if (aiData.development) form.development.value = aiData.development;
   if (aiData.conclusion) form.conclusion.value = aiData.conclusion;
@@ -750,6 +818,26 @@ function fillPrintableFromForm() {
     p_learningMaterials: data.get('learningMaterials') || '',
     p_references: data.get('references') || '',
     p_crossCutting: data.get('crossCutting') || '',
+    // 6-step format
+    p_step1: data.get('step1') || '',
+    p_step1_exercise: data.get('step1_exercise') || '',
+    p_step1_gcci: data.get('step1_gcci') || '',
+    p_step2: data.get('step2') || '',
+    p_step2_exercise: data.get('step2_exercise') || '',
+    p_step2_gcci: data.get('step2_gcci') || '',
+    p_step3: data.get('step3') || '',
+    p_step3_exercise: data.get('step3_exercise') || '',
+    p_step3_gcci: data.get('step3_gcci') || '',
+    p_step4: data.get('step4') || '',
+    p_step4_exercise: data.get('step4_exercise') || '',
+    p_step4_gcci: data.get('step4_gcci') || '',
+    p_step5: data.get('step5') || '',
+    p_step5_exercise: data.get('step5_exercise') || '',
+    p_step5_gcci: data.get('step5_gcci') || '',
+    p_step6: data.get('step6') || '',
+    p_step6_exercise: data.get('step6_exercise') || '',
+    p_step6_gcci: data.get('step6_gcci') || '',
+    // Backward compatibility
     p_intro: data.get('intro') || '',
     p_development: data.get('development') || '',
     p_conclusion: data.get('conclusion') || '',

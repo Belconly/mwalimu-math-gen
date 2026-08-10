@@ -16,11 +16,56 @@
             "instrObjective": "Using number cards and real classroom objects, learners should be able to count, read, and write whole numbers from 1 to 20 correctly without hesitation.",
             "materials": "Number cards (1-20), chalkboard, counters, bottle caps, small sticks, Manila paper, REB P1 Student Book pp. 12-16",
             "references": "REB Primary Mathematics P1 Student Book (SB), Unit 1, pp. 12-16; REB P1 Teacher's Guide (TG), pp. 8-11; REB e-Learning Portal (elearning.reb.rw/course/index.php?categoryid=19)",
-            "crossCutting": "Inclusive Education",
-            "intro": "Teacher greets the class and sings a short counting rhyme from 1 to 10 with learners. Teacher shows 5 bottle caps and asks learners to count aloud together, activating prior knowledge of numbers.",
-            "development": "Teacher models counting objects up to 20 on the teacher's table. Learners work in small groups of 4 with counters to make groups of 10, 15, and 20. Teacher circulates to assist learners with SEN by providing tactile number cards and guiding their hand counting. Selected learners come to the chalkboard to write numbers corresponding to groups of counters drawn by the teacher.",
-            "conclusion": "Teacher leads a quick class recap where learners count aloud from 20 backwards to 1. Teacher praises correct participation and clarifies any confusion between numbers like 12 and 20.",
-            "evaluation": "Learners complete Exercise 1 in REB P1 Student Book page 15: matching drawn object sets with correct number symbols from 1 to 20. Teacher checks notebooks and provides immediate remedial feedback."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Counting Rhyme and Prior Knowledge Activation",
+                "duration": "5-10 mins",
+                "activity": "Teacher greets the class and sings a short counting rhyme from 1 to 10 with learners. Teacher shows 5 bottle caps and asks learners to count aloud together, activating prior knowledge of numbers.",
+                "pupilBookExercise": "Exercise 1a - Counting objects 1-10",
+                "gcOrCci": "Inclusive Education - Providing tactile number cards for SEN learners"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Modeling Counting up to 20",
+                "duration": "20-25 mins",
+                "activity": "Teacher models counting objects up to 20 on the teacher's table. Learners work in small groups of 4 with counters to make groups of 10, 15, and 20. Teacher circulates to assist learners with SEN by providing tactile number cards and guiding their hand counting.",
+                "pupilBookExercise": "Exercise 1b - Group counting and number recognition",
+                "gcOrCci": "Inclusive Education - Guided hand counting for SEN learners"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Chalkboard Number Writing",
+                "duration": "20-25 mins",
+                "activity": "Selected learners come to the chalkboard to write numbers corresponding to groups of counters drawn by the teacher.",
+                "pupilBookExercise": "Exercise 1c - Writing numbers 1-20",
+                "gcOrCci": "Peace - Cooperative learning in groups"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Class Recap and Counting Backwards",
+                "duration": "5 mins",
+                "activity": "Teacher leads a quick class recap where learners count aloud from 20 backwards to 1. Teacher praises correct participation and clarifies any confusion between numbers like 12 and 20.",
+                "pupilBookExercise": "Exercise 1d - Reverse counting practice",
+                "gcOrCci": "Peace - Positive reinforcement and clarification"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Pupil's Book Exercise",
+                "duration": "5 mins",
+                "activity": "Learners complete Exercise 1 in REB P1 Student Book page 15: matching drawn object sets with correct number symbols from 1 to 20.",
+                "pupilBookExercise": "Exercise 1 - Matching object sets with numbers (SB p. 15)",
+                "gcOrCci": "Gender - Equal opportunity for all learners to participate"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Number Writing Practice",
+                "duration": "After class",
+                "activity": "Teacher checks notebooks and provides immediate remedial feedback. Learners practice writing numbers 1-20 in their exercise books.",
+                "pupilBookExercise": "Exercise 1e - Homework: Write numbers 1-20",
+                "gcOrCci": "Inclusive Education - Immediate remedial feedback for struggling learners"
+              }
+            ]
           },
           {
             "lessonNo": "Lesson 2",
@@ -28,11 +73,56 @@
             "instrObjective": "Using counters and number lines, learners should be able to add two single-digit numbers with sums up to 20 accurately and explain their steps.",
             "materials": "Counters, counting sticks, ten-frames, number cards, REB P1 Student Book pp. 18-22",
             "references": "REB Primary Mathematics P1 Student Book (SB), Unit 1, pp. 18-22; REB P1 Teacher's Guide (TG), pp. 14-17; REB e-Learning Portal (elearning.reb.rw/course/index.php?categoryid=19)",
-            "crossCutting": "Peace",
-            "intro": "Teacher displays two small baskets with 6 sticks in one and 4 in another. Teacher asks: 'How many sticks do we have in total if we combine both baskets?' Learners share ideas.",
-            "development": "Teacher demonstrates addition as combining sets using counters on the table and writing the horizontal addition equation on the chalkboard (e.g., 8 + 5 = 13). In pairs, learners practice adding sets of counters and recording equations in their exercise books. Teacher provides differentiated support for SEN learners by using a physical 20-bead abacus.",
-            "conclusion": "Two pairs demonstrate their addition method on the chalkboard while the rest of the class verifies the answer by clapping.",
-            "evaluation": "Short oral and written assessment: 5 simple addition problems on the chalkboard (e.g., 7 + 6, 9 + 4). Teacher inspects exercise books."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Real-World Addition Problem",
+                "duration": "5-10 mins",
+                "activity": "Teacher displays two small baskets with 6 sticks in one and 4 in another. Teacher asks: 'How many sticks do we have in total if we combine both baskets?' Learners share ideas.",
+                "pupilBookExercise": "Exercise 2a - Understanding addition concept",
+                "gcOrCci": "Peace - Encouraging sharing of ideas without conflict"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Addition as Combining Sets",
+                "duration": "20-25 mins",
+                "activity": "Teacher demonstrates addition as combining sets using counters on the table and writing the horizontal addition equation on the chalkboard (e.g., 8 + 5 = 13).",
+                "pupilBookExercise": "Exercise 2b - Combining sets with counters",
+                "gcOrCci": "Peace - Cooperative problem-solving"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Pair Practice with Equations",
+                "duration": "20-25 mins",
+                "activity": "In pairs, learners practice adding sets of counters and recording equations in their exercise books. Teacher provides differentiated support for SEN learners by using a physical 20-bead abacus.",
+                "pupilBookExercise": "Exercise 2c - Recording addition equations",
+                "gcOrCci": "Inclusive Education - Using abacus for SEN learners"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Peer Demonstration",
+                "duration": "5 mins",
+                "activity": "Two pairs demonstrate their addition method on the chalkboard while the rest of the class verifies the answer by clapping.",
+                "pupilBookExercise": "Exercise 2d - Verifying addition solutions",
+                "gcOrCci": "Peace - Peer verification and celebration"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Oral and Written Assessment",
+                "duration": "5 mins",
+                "activity": "Short oral and written assessment: 5 simple addition problems on the chalkboard (e.g., 7 + 6, 9 + 4).",
+                "pupilBookExercise": "Exercise 2 - Addition problems (SB pp. 18-22)",
+                "gcOrCci": "Gender - Equal assessment opportunities"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Additional Practice",
+                "duration": "After class",
+                "activity": "Teacher inspects exercise books and provides remedial support. Learners complete additional addition problems in their notebooks.",
+                "pupilBookExercise": "Exercise 2e - Homework: 10 addition problems",
+                "gcOrCci": "Inclusive Education - Targeted remedial support"
+              }
+            ]
           }
         ]
       },
@@ -47,11 +137,56 @@
             "instrObjective": "Using paper cutouts and classroom objects, learners should be able to identify, name, and sort basic 2D shapes correctly.",
             "materials": "Cardboard shape cutouts, rulers, scissors, classroom objects (books, clocks), REB P1 Student Book pp. 45-48",
             "references": "REB Primary Mathematics P1 Student Book (SB), Unit 2, pp. 45-48; REB P1 Teacher's Guide (TG), pp. 30-33; REB e-Learning Portal (elearning.reb.rw)",
-            "crossCutting": "Environment",
-            "intro": "Teacher shows a classroom clock and a textbook, asking learners to describe their outline shapes.",
-            "development": "Teacher introduces square, rectangle, triangle, and circle cutouts, explaining their features (corners and sides). Learners in small groups sort mixed paper shapes into matching piles and find matching shapes around the classroom.",
-            "conclusion": "Learners share which shapes they discovered in the classroom environment and explain why a circle is different from a square.",
-            "evaluation": "Worksheet: color all triangles green, circles red, squares blue, and rectangles yellow."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Shape Identification in Environment",
+                "duration": "5-10 mins",
+                "activity": "Teacher shows a classroom clock and a textbook, asking learners to describe their outline shapes.",
+                "pupilBookExercise": "Exercise 3a - Identifying shapes in classroom",
+                "gcOrCci": "Environment - Connecting shapes to real-world objects"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Shape Cutouts and Features",
+                "duration": "20-25 mins",
+                "activity": "Teacher introduces square, rectangle, triangle, and circle cutouts, explaining their features (corners and sides).",
+                "pupilBookExercise": "Exercise 3b - Learning shape properties",
+                "gcOrCci": "Environment - Understanding natural and man-made shapes"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Sorting and Classifying Shapes",
+                "duration": "20-25 mins",
+                "activity": "Learners in small groups sort mixed paper shapes into matching piles and find matching shapes around the classroom.",
+                "pupilBookExercise": "Exercise 3c - Sorting shapes by properties",
+                "gcOrCci": "Peace - Cooperative group work"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Shape Discovery Sharing",
+                "duration": "5 mins",
+                "activity": "Learners share which shapes they discovered in the classroom environment and explain why a circle is different from a square.",
+                "pupilBookExercise": "Exercise 3d - Explaining shape differences",
+                "gcOrCci": "Peace - Respectful sharing and listening"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Shape Coloring Worksheet",
+                "duration": "5 mins",
+                "activity": "Worksheet: color all triangles green, circles red, squares blue, and rectangles yellow.",
+                "pupilBookExercise": "Exercise 3 - Shape coloring (SB pp. 45-48)",
+                "gcOrCci": "Gender - Equal participation in coloring activity"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Shape Drawing Practice",
+                "duration": "After class",
+                "activity": "Learners draw and label 5 different shapes they find at home in their exercise books.",
+                "pupilBookExercise": "Exercise 3e - Homework: Draw and label shapes",
+                "gcOrCci": "Environment - Connecting classroom learning to home environment"
+              }
+            ]
           }
         ]
       }
@@ -74,11 +209,56 @@
             "instrObjective": "Using bundles of 10 sticks and loose sticks, learners should be able to decompose 2-digit numbers into tens and ones correctly.",
             "materials": "Bundles of 10 sticks, rubber bands, place-value table chart, number cards, REB P2 Student Book pp. 10-14",
             "references": "REB Primary Mathematics P2 Student Book (SB), Unit 1, pp. 10-14; REB P2 Teacher's Guide (TG), pp. 8-12; REB e-Learning Portal (elearning.reb.rw/course/index.php?categoryid=19)",
-            "crossCutting": "Inclusive Education",
-            "intro": "Teacher asks learners to count from 10 to 50 by tens (10, 20, 30...). Teacher displays 3 bundles of 10 sticks and 4 single sticks and asks how many sticks are shown in total.",
-            "development": "Teacher introduces the Place Value Chart (Tens | Ones) on the chalkboard. Teacher explains that 34 has 3 Tens and 4 Ones. Learners work in pairs with counting sticks to build numbers called out by the teacher (e.g., 47, 62, 85). Teacher gives learners with SEN color-coded tens and ones cards to reinforce the concept visually and tactilely.",
-            "conclusion": "Teacher invites three learners to write numbers on the chalkboard place-value chart and explain their tens and ones digits.",
-            "evaluation": "Learners complete Exercise 2 in REB P2 Student Book p. 13: writing tens and ones for given 2-digit numbers (e.g., 58 = ___ Tens and ___ Ones)."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Counting by Tens",
+                "duration": "5-10 mins",
+                "activity": "Teacher asks learners to count from 10 to 50 by tens (10, 20, 30...). Teacher displays 3 bundles of 10 sticks and 4 single sticks and asks how many sticks are shown in total.",
+                "pupilBookExercise": "Exercise 1a - Counting by tens practice",
+                "gcOrCci": "Inclusive Education - Visual demonstration for all learners"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Place Value Chart Introduction",
+                "duration": "20-25 mins",
+                "activity": "Teacher introduces the Place Value Chart (Tens | Ones) on the chalkboard. Teacher explains that 34 has 3 Tens and 4 Ones.",
+                "pupilBookExercise": "Exercise 1b - Understanding place value chart",
+                "gcOrCci": "Inclusive Education - Clear visual representation"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Hands-on Number Building",
+                "duration": "20-25 mins",
+                "activity": "Learners work in pairs with counting sticks to build numbers called out by the teacher (e.g., 47, 62, 85). Teacher gives learners with SEN color-coded tens and ones cards to reinforce the concept visually and tactilely.",
+                "pupilBookExercise": "Exercise 1c - Building 2-digit numbers",
+                "gcOrCci": "Inclusive Education - Color-coded cards for SEN learners"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Chalkboard Presentation",
+                "duration": "5 mins",
+                "activity": "Teacher invites three learners to write numbers on the chalkboard place-value chart and explain their tens and ones digits.",
+                "pupilBookExercise": "Exercise 1d - Explaining place value",
+                "gcOrCci": "Peace - Confidence building through presentation"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Pupil's Book Exercise",
+                "duration": "5 mins",
+                "activity": "Learners complete Exercise 2 in REB P2 Student Book p. 13: writing tens and ones for given 2-digit numbers (e.g., 58 = ___ Tens and ___ Ones).",
+                "pupilBookExercise": "Exercise 2 - Writing tens and ones (SB p. 13)",
+                "gcOrCci": "Gender - Equal assessment opportunities"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Place Value Practice",
+                "duration": "After class",
+                "activity": "Learners complete 10 additional place value problems in their exercise books. Teacher provides extra support for struggling learners.",
+                "pupilBookExercise": "Exercise 1e - Homework: Place value problems",
+                "gcOrCci": "Inclusive Education - Extra support for struggling learners"
+              }
+            ]
           },
           {
             "lessonNo": "Lesson 2",
@@ -86,11 +266,56 @@
             "instrObjective": "Using number lines and comparison symbols (>, <, =), learners should be able to compare pairs of 2-digit numbers accurately.",
             "materials": "Number line chart, symbol cards (>, <, =), counters, REB P2 Student Book pp. 22-26",
             "references": "REB Primary Mathematics P2 Student Book (SB), Unit 1, pp. 22-26; REB P2 Teacher's Guide (TG), pp. 18-21; REB e-Learning Portal (elearning.reb.rw)",
-            "crossCutting": "Gender",
-            "intro": "Teacher writes 45 and 54 on the chalkboard and asks the class which number is larger and how they know.",
-            "development": "Teacher demonstrates how to compare tens digits first, then ones digits, using the symbols >, <, and =. In mixed-gender groups, learners play a card comparison game where each learner draws two number cards and places the correct comparison symbol between them. Teacher monitors and ensures equal speaking time for boys and girls.",
-            "conclusion": "Class reviews 5 tricky pairs on the chalkboard (e.g., 79 vs 81, 60 vs 60) and explains the rule.",
-            "evaluation": "Individual written exercise: insert >, <, or = in 6 number pairs in exercise books."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Comparison Challenge",
+                "duration": "5-10 mins",
+                "activity": "Teacher writes 45 and 54 on the chalkboard and asks the class which number is larger and how they know.",
+                "pupilBookExercise": "Exercise 2a - Comparing two numbers",
+                "gcOrCci": "Gender - Encouraging all learners to share opinions"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Comparison Rules and Symbols",
+                "duration": "20-25 mins",
+                "activity": "Teacher demonstrates how to compare tens digits first, then ones digits, using the symbols >, <, and =.",
+                "pupilBookExercise": "Exercise 2b - Learning comparison rules",
+                "gcOrCci": "Gender - Equal participation in mixed-gender groups"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Card Comparison Game",
+                "duration": "20-25 mins",
+                "activity": "In mixed-gender groups, learners play a card comparison game where each learner draws two number cards and places the correct comparison symbol between them. Teacher monitors and ensures equal speaking time for boys and girls.",
+                "pupilBookExercise": "Exercise 2c - Card comparison practice",
+                "gcOrCci": "Gender - Equal speaking time for boys and girls"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Tricky Pairs Review",
+                "duration": "5 mins",
+                "activity": "Class reviews 5 tricky pairs on the chalkboard (e.g., 79 vs 81, 60 vs 60) and explains the rule.",
+                "pupilBookExercise": "Exercise 2d - Reviewing tricky comparisons",
+                "gcOrCci": "Peace - Collaborative rule clarification"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Written Comparison Exercise",
+                "duration": "5 mins",
+                "activity": "Individual written exercise: insert >, <, or = in 6 number pairs in exercise books.",
+                "pupilBookExercise": "Exercise 2 - Comparison symbols (SB pp. 22-26)",
+                "gcOrCci": "Inclusive Education - Individual assessment for all"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Additional Comparison Problems",
+                "duration": "After class",
+                "activity": "Learners complete 10 comparison problems at home. Teacher provides extra practice for those who need it.",
+                "pupilBookExercise": "Exercise 2e - Homework: 10 comparison problems",
+                "gcOrCci": "Inclusive Education - Additional practice for remediation"
+              }
+            ]
           }
         ]
       },
@@ -105,11 +330,56 @@
             "instrObjective": "Using paper folding and fruit models, learners should be able to divide whole shapes into two equal halves and write 1/2 correctly.",
             "materials": "Paper circles and rectangles, safe plastic scissors, drawings of fruits, REB P2 Student Book pp. 60-64",
             "references": "REB Primary Mathematics P2 Student Book (SB), Unit 2, pp. 60-64; REB P2 Teacher's Guide (TG), pp. 45-48; REB e-Learning Portal (elearning.reb.rw)",
-            "crossCutting": "Peace",
-            "intro": "Teacher shows a whole paper circle and asks how two friends can share it equally without fighting.",
-            "development": "Teacher demonstrates folding a circular paper in half and cutting along the fold, showing that two equal parts make a whole (1/2 + 1/2 = 1). Learners practice folding rectangle and square paper sheets into halves in pairs. Teacher emphasizes that both parts must be exactly equal in size.",
-            "conclusion": "Learners hold up their folded shapes and explain why unequal pieces are not halves.",
-            "evaluation": "Worksheet: tick shapes that are cut into two equal halves and shade 1/2 of each shape."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Equal Sharing Concept",
+                "duration": "5-10 mins",
+                "activity": "Teacher shows a whole paper circle and asks how two friends can share it equally without fighting.",
+                "pupilBookExercise": "Exercise 3a - Understanding equal sharing",
+                "gcOrCci": "Peace - Conflict-free sharing concepts"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Folding and Cutting Halves",
+                "duration": "20-25 mins",
+                "activity": "Teacher demonstrates folding a circular paper in half and cutting along the fold, showing that two equal parts make a whole (1/2 + 1/2 = 1).",
+                "pupilBookExercise": "Exercise 3b - Folding paper into halves",
+                "gcOrCci": "Peace - Understanding equality in division"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Practicing with Different Shapes",
+                "duration": "20-25 mins",
+                "activity": "Learners practice folding rectangle and square paper sheets into halves in pairs. Teacher emphasizes that both parts must be exactly equal in size.",
+                "pupilBookExercise": "Exercise 3c - Folding different shapes",
+                "gcOrCci": "Peace - Pair work and cooperation"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Understanding Equal Parts",
+                "duration": "5 mins",
+                "activity": "Learners hold up their folded shapes and explain why unequal pieces are not halves.",
+                "pupilBookExercise": "Exercise 3d - Explaining equal parts",
+                "gcOrCci": "Peace - Respectful explanation and listening"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Halves Worksheet",
+                "duration": "5 mins",
+                "activity": "Worksheet: tick shapes that are cut into two equal halves and shade 1/2 of each shape.",
+                "pupilBookExercise": "Exercise 3 - Halves worksheet (SB pp. 60-64)",
+                "gcOrCci": "Gender - Equal participation in worksheet activity"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Fraction Practice",
+                "duration": "After class",
+                "activity": "Learners draw 5 objects at home and show how to divide each into halves. Teacher provides extra support for those struggling with the concept.",
+                "pupilBookExercise": "Exercise 3e - Homework: Drawing and dividing objects",
+                "gcOrCci": "Inclusive Education - Extra support for struggling learners"
+              }
+            ]
           }
         ]
       }
@@ -132,11 +402,56 @@
             "instrObjective": "Using place-value abacus charts and base-ten blocks, learners should be able to identify hundreds, tens, and ones in 3-digit numbers correctly.",
             "materials": "Base-ten blocks, wooden abacus, place value cards (Hundreds, Tens, Ones), REB P3 Student Book pp. 8-13",
             "references": "REB Primary Mathematics P3 Student Book (SB), Unit 1, pp. 8-13; REB P3 Teacher's Guide (TG), pp. 6-10; REB e-Learning Portal (elearning.reb.rw/course/index.php?categoryid=19)",
-            "crossCutting": "Inclusive Education",
-            "intro": "Teacher asks learners to count by 100s up to 500 (100, 200, 300...). Teacher writes 345 on the chalkboard and asks learners what each digit stands for.",
-            "development": "Teacher demonstrates representing 345 on a 3-spike abacus (3 Hundreds, 4 Tens, 5 Ones). In groups of 5, learners use number cards to construct 3-digit numbers called out by the teacher and decompose them into expanded form (300 + 40 + 5). Teacher supports SEN learners by using large print number flashcards and physical base-ten blocks.",
-            "conclusion": "Learners volunteer to come to the front and challenge the class to read a 3-digit number they have formed on the abacus.",
-            "evaluation": "Exercise in REB P3 Student Book p. 12: Write 5 given numbers in words and in expanded place value form."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Counting by Hundreds",
+                "duration": "5-10 mins",
+                "activity": "Teacher asks learners to count by 100s up to 500 (100, 200, 300...). Teacher writes 345 on the chalkboard and asks learners what each digit stands for.",
+                "pupilBookExercise": "Exercise 1a - Counting by hundreds",
+                "gcOrCci": "Inclusive Education - Auditory and visual learning"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Abacus Representation",
+                "duration": "20-25 mins",
+                "activity": "Teacher demonstrates representing 345 on a 3-spike abacus (3 Hundreds, 4 Tens, 5 Ones).",
+                "pupilBookExercise": "Exercise 1b - Representing numbers on abacus",
+                "gcOrCci": "Inclusive Education - Visual and tactile learning"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Constructing and Decomposing Numbers",
+                "duration": "20-25 mins",
+                "activity": "In groups of 5, learners use number cards to construct 3-digit numbers called out by the teacher and decompose them into expanded form (300 + 40 + 5). Teacher supports SEN learners by using large print number flashcards and physical base-ten blocks.",
+                "pupilBookExercise": "Exercise 1c - Constructing and decomposing numbers",
+                "gcOrCci": "Inclusive Education - Large print and physical materials for SEN"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Number Challenge Game",
+                "duration": "5 mins",
+                "activity": "Learners volunteer to come to the front and challenge the class to read a 3-digit number they have formed on the abacus.",
+                "pupilBookExercise": "Exercise 1d - Reading 3-digit numbers",
+                "gcOrCci": "Peace - Positive challenge and friendly competition"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Pupil's Book Exercise",
+                "duration": "5 mins",
+                "activity": "Exercise in REB P3 Student Book p. 12: Write 5 given numbers in words and in expanded place value form.",
+                "pupilBookExercise": "Exercise 1 - Writing numbers in words and expanded form (SB p. 12)",
+                "gcOrCci": "Gender - Equal assessment opportunities"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Place Value Practice",
+                "duration": "After class",
+                "activity": "Learners write 10 numbers in words and expanded form in their exercise books. Teacher provides extra support for struggling learners.",
+                "pupilBookExercise": "Exercise 1e - Homework: Number writing practice",
+                "gcOrCci": "Inclusive Education - Extra support for struggling learners"
+              }
+            ]
           },
           {
             "lessonNo": "Lesson 2",
@@ -144,11 +459,56 @@
             "instrObjective": "Using standard vertical column addition and place-value charts, learners should be able to add two 3-digit numbers with carrying correctly.",
             "materials": "Place value grid charts, number flashcards, REB P3 Student Book pp. 24-28",
             "references": "REB Primary Mathematics P3 Student Book (SB), Unit 1, pp. 24-28; REB P3 Teacher's Guide (TG), pp. 18-22; REB e-Learning Portal (elearning.reb.rw)",
-            "crossCutting": "Peace",
-            "intro": "Teacher writes a review problem without carrying (e.g., 234 + 142) on the chalkboard for a quick 2-minute warm-up.",
-            "development": "Teacher introduces a problem requiring regrouping: 368 + 257. Teacher models step-by-step column addition on the chalkboard, showing how 8 ones + 7 ones = 15 ones (write 5 ones and carry 1 ten to the tens column). Learners practice in pairs with 4 similar problems, discussing their carrying steps cooperatively without rushing each other.",
-            "conclusion": "Teacher selects two pairs to demonstrate their worked solutions on the chalkboard and explain the carrying step clearly.",
-            "evaluation": "Individual written evaluation: solve 4 column addition problems with carrying in exercise books."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Warm-up Addition",
+                "duration": "5-10 mins",
+                "activity": "Teacher writes a review problem without carrying (e.g., 234 + 142) on the chalkboard for a quick 2-minute warm-up.",
+                "pupilBookExercise": "Exercise 2a - Addition without carrying",
+                "gcOrCci": "Peace - Quick mental math practice"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Introducing Carrying Concept",
+                "duration": "20-25 mins",
+                "activity": "Teacher introduces a problem requiring regrouping: 368 + 257. Teacher models step-by-step column addition on the chalkboard, showing how 8 ones + 7 ones = 15 ones (write 5 ones and carry 1 ten to the tens column).",
+                "pupilBookExercise": "Exercise 2b - Understanding carrying",
+                "gcOrCci": "Peace - Step-by-step problem solving"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Pair Practice with Carrying",
+                "duration": "20-25 mins",
+                "activity": "Learners practice in pairs with 4 similar problems, discussing their carrying steps cooperatively without rushing each other.",
+                "pupilBookExercise": "Exercise 2c - Practicing addition with carrying",
+                "gcOrCci": "Peace - Cooperative learning without pressure"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Solution Demonstration",
+                "duration": "5 mins",
+                "activity": "Teacher selects two pairs to demonstrate their worked solutions on the chalkboard and explain the carrying step clearly.",
+                "pupilBookExercise": "Exercise 2d - Explaining carrying steps",
+                "gcOrCci": "Peace - Respectful presentation and listening"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Individual Written Assessment",
+                "duration": "5 mins",
+                "activity": "Individual written evaluation: solve 4 column addition problems with carrying in exercise books.",
+                "pupilBookExercise": "Exercise 2 - Column addition with carrying (SB pp. 24-28)",
+                "gcOrCci": "Gender - Equal assessment opportunities"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Additional Practice",
+                "duration": "After class",
+                "activity": "Learners solve 5 additional column addition problems at home. Teacher provides extra support for those who need it.",
+                "pupilBookExercise": "Exercise 2e - Homework: 5 addition problems",
+                "gcOrCci": "Inclusive Education - Extra support for struggling learners"
+              }
+            ]
           }
         ]
       },
@@ -163,11 +523,56 @@
             "instrObjective": "Using counters arranged in rows and columns (arrays), learners should be able to calculate multiplication products accurately and explain multiplication as repeated addition.",
             "materials": "Counters, grid paper, multiplication chart, REB P3 Student Book pp. 52-56",
             "references": "REB Primary Mathematics P3 Student Book (SB), Unit 3, pp. 52-56; REB P3 Teacher's Guide (TG), pp. 38-42; REB e-Learning Portal (elearning.reb.rw)",
-            "crossCutting": "Gender",
-            "intro": "Teacher shows 4 groups of 3 bottle caps and asks: 'How many bottle caps are there? Can we find the total without counting one by one?'",
-            "development": "Teacher explains 3 + 3 + 3 + 3 = 12 is the same as 4 x 3 = 12. Learners work in mixed-gender groups to build rectangular arrays using counters on their desks for 5 x 4, 3 x 6, and 4 x 7. Teacher ensures equal participation of boys and girls during array construction.",
-            "conclusion": "Class recites the multiplication patterns for 2, 3, 4, and 5 together and reflects on how arrays make counting faster.",
-            "evaluation": "Worksheet: Convert 5 repeated addition sentences into multiplication equations and solve."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Group Counting Concept",
+                "duration": "5-10 mins",
+                "activity": "Teacher shows 4 groups of 3 bottle caps and asks: 'How many bottle caps are there? Can we find the total without counting one by one?'",
+                "pupilBookExercise": "Exercise 3a - Understanding repeated addition",
+                "gcOrCci": "Gender - Encouraging all learners to think critically"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Connecting Addition to Multiplication",
+                "duration": "20-25 mins",
+                "activity": "Teacher explains 3 + 3 + 3 + 3 = 12 is the same as 4 x 3 = 12.",
+                "pupilBookExercise": "Exercise 3b - Converting addition to multiplication",
+                "gcOrCci": "Gender - Equal participation in explanation"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Building Arrays",
+                "duration": "20-25 mins",
+                "activity": "Learners work in mixed-gender groups to build rectangular arrays using counters on their desks for 5 x 4, 3 x 6, and 4 x 7. Teacher ensures equal participation of boys and girls during array construction.",
+                "pupilBookExercise": "Exercise 3c - Building multiplication arrays",
+                "gcOrCci": "Gender - Equal participation of boys and girls"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Multiplication Patterns",
+                "duration": "5 mins",
+                "activity": "Class recites the multiplication patterns for 2, 3, 4, and 5 together and reflects on how arrays make counting faster.",
+                "pupilBookExercise": "Exercise 3d - Reciting multiplication tables",
+                "gcOrCci": "Peace - Collaborative recitation"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Repeated Addition Worksheet",
+                "duration": "5 mins",
+                "activity": "Worksheet: Convert 5 repeated addition sentences into multiplication equations and solve.",
+                "pupilBookExercise": "Exercise 3 - Repeated addition to multiplication (SB pp. 52-56)",
+                "gcOrCci": "Inclusive Education - Individual worksheet assessment"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Multiplication Practice",
+                "duration": "After class",
+                "activity": "Learners complete 10 multiplication problems at home. Teacher provides extra support for those struggling with the concept.",
+                "pupilBookExercise": "Exercise 3e - Homework: 10 multiplication problems",
+                "gcOrCci": "Inclusive Education - Extra support for struggling learners"
+              }
+            ]
           }
         ]
       }
@@ -190,11 +595,56 @@
             "instrObjective": "Using place value charts up to Ten Thousands, learners should be able to identify the place value and numeric value of each digit in a 5-digit number correctly.",
             "materials": "Place value table (Ten Thousands, Thousands, Hundreds, Tens, Ones), number flashcards, REB P4 Student Book pp. 14-19",
             "references": "REB Primary Mathematics P4 Student Book (SB), Unit 1, pp. 14-19; REB P4 Teacher's Guide (TG), pp. 10-14; REB e-Learning Portal (elearning.reb.rw/course/index.php?categoryid=19)",
-            "crossCutting": "Inclusive Education",
-            "intro": "Teacher asks learners to read 9,999 on the chalkboard, then asks what number comes next when we add 1.",
-            "development": "Teacher introduces 10,000 and expands the place value chart to 5 columns. Teacher writes 64,825 and guides learners to state the place value of 6 (Ten Thousands) and its value (60,000). In groups, learners draw 5-digit place value tables on Manila paper and represent numbers given by the teacher. Teacher provides enlarged digit cards for SEN learners with visual difficulties.",
-            "conclusion": "Learners summarize the difference between 'place value' (name of the column) and 'value' (number of units).",
-            "evaluation": "REB P4 Student Book p. 18 Exercise 1: State the place value and value of the underlined digits in 6 given 5-digit numbers."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Number Sequence Challenge",
+                "duration": "5-10 mins",
+                "activity": "Teacher asks learners to read 9,999 on the chalkboard, then asks what number comes next when we add 1.",
+                "pupilBookExercise": "Exercise 1a - Understanding number sequences",
+                "gcOrCci": "Inclusive Education - Visual and auditory learning"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Introducing 5-Digit Numbers",
+                "duration": "20-25 mins",
+                "activity": "Teacher introduces 10,000 and expands the place value chart to 5 columns. Teacher writes 64,825 and guides learners to state the place value of 6 (Ten Thousands) and its value (60,000).",
+                "pupilBookExercise": "Exercise 1b - Understanding 5-digit place value",
+                "gcOrCci": "Inclusive Education - Clear step-by-step explanation"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Hands-on Place Value Tables",
+                "duration": "20-25 mins",
+                "activity": "In groups, learners draw 5-digit place value tables on Manila paper and represent numbers given by the teacher. Teacher provides enlarged digit cards for SEN learners with visual difficulties.",
+                "pupilBookExercise": "Exercise 1c - Drawing place value tables",
+                "gcOrCci": "Inclusive Education - Enlarged materials for SEN learners"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Place Value vs Value",
+                "duration": "5 mins",
+                "activity": "Learners summarize the difference between 'place value' (name of the column) and 'value' (number of units).",
+                "pupilBookExercise": "Exercise 1d - Explaining place value concepts",
+                "gcOrCci": "Peace - Collaborative summarization"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Pupil's Book Exercise",
+                "duration": "5 mins",
+                "activity": "REB P4 Student Book p. 18 Exercise 1: State the place value and value of the underlined digits in 6 given 5-digit numbers.",
+                "pupilBookExercise": "Exercise 1 - Place value and digit value (SB p. 18)",
+                "gcOrCci": "Gender - Equal assessment opportunities"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Additional Practice",
+                "duration": "After class",
+                "activity": "Learners complete 10 place value problems at home. Teacher provides extra support for those who need it.",
+                "pupilBookExercise": "Exercise 1e - Homework: Place value problems",
+                "gcOrCci": "Inclusive Education - Extra support for struggling learners"
+              }
+            ]
           }
         ]
       },
@@ -209,11 +659,56 @@
             "instrObjective": "Using fraction strips and circular models, learners should be able to distinguish between proper fractions, improper fractions, and mixed numbers accurately.",
             "materials": "Fraction strips, cardboard circular pies, colored markers, REB P4 Student Book pp. 68-73",
             "references": "REB Primary Mathematics P4 Student Book (SB), Unit 5, pp. 68-73; REB P4 Teacher's Guide (TG), pp. 50-55; REB e-Learning Portal (elearning.reb.rw/course/index.php?categoryid=19)",
-            "crossCutting": "Peace",
-            "intro": "Teacher displays 3 equal paper loaves of bread and asks how 2 learners can share 3 loaves equally.",
-            "development": "Teacher explains proper fractions (numerator < denominator, e.g., 3/4), improper fractions (numerator >= denominator, e.g., 5/4), and mixed numbers (whole number + fraction, e.g., 1 1/4). Learners work in small groups with paper models to convert 5/4 into 1 1/4 by combining whole circles and remaining quarters.",
-            "conclusion": "Learners explain the relationship between improper fractions and mixed numbers on the chalkboard.",
-            "evaluation": "Exercise: Classify a list of 10 fractions into Proper, Improper, or Mixed Numbers in exercise books."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Real-World Fraction Problem",
+                "duration": "5-10 mins",
+                "activity": "Teacher displays 3 equal paper loaves of bread and asks how 2 learners can share 3 loaves equally.",
+                "pupilBookExercise": "Exercise 1a - Understanding equal sharing of fractions",
+                "gcOrCci": "Peace - Conflict-free sharing concepts"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Types of Fractions",
+                "duration": "20-25 mins",
+                "activity": "Teacher explains proper fractions (numerator < denominator, e.g., 3/4), improper fractions (numerator >= denominator, e.g., 5/4), and mixed numbers (whole number + fraction, e.g., 1 1/4).",
+                "pupilBookExercise": "Exercise 1b - Learning fraction types",
+                "gcOrCci": "Peace - Clear explanation without confusion"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Converting Improper to Mixed",
+                "duration": "20-25 mins",
+                "activity": "Learners work in small groups with paper models to convert 5/4 into 1 1/4 by combining whole circles and remaining quarters.",
+                "pupilBookExercise": "Exercise 1c - Converting between fraction types",
+                "gcOrCci": "Peace - Cooperative group work"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Relationship Between Fraction Types",
+                "duration": "5 mins",
+                "activity": "Learners explain the relationship between improper fractions and mixed numbers on the chalkboard.",
+                "pupilBookExercise": "Exercise 1d - Explaining fraction relationships",
+                "gcOrCci": "Peace - Respectful explanation and discussion"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Fraction Classification",
+                "duration": "5 mins",
+                "activity": "Exercise: Classify a list of 10 fractions into Proper, Improper, or Mixed Numbers in exercise books.",
+                "pupilBookExercise": "Exercise 1 - Classifying fractions (SB pp. 68-73)",
+                "gcOrCci": "Gender - Equal assessment opportunities"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Fraction Practice",
+                "duration": "After class",
+                "activity": "Learners identify 5 fractions at home and classify them. Teacher provides extra support for those struggling with the concept.",
+                "pupilBookExercise": "Exercise 1e - Homework: Identifying and classifying fractions",
+                "gcOrCci": "Inclusive Education - Extra support for struggling learners"
+              }
+            ]
           },
           {
             "lessonNo": "Lesson 2",
@@ -221,11 +716,56 @@
             "instrObjective": "Using shaded fraction bars, learners should be able to add and subtract proper fractions with the same denominator correctly.",
             "materials": "Fraction bars, grid paper, colored pencils, REB P4 Student Book pp. 76-80",
             "references": "REB Primary Mathematics P4 Student Book (SB), Unit 5, pp. 76-80; REB P4 Teacher's Guide (TG), pp. 58-62; REB e-Learning Portal (elearning.reb.rw)",
-            "crossCutting": "Environment",
-            "intro": "Teacher draws a rectangle divided into 5 equal parts on the board, shades 2 parts green and 1 part blue, and asks what fraction is shaded in total.",
-            "development": "Teacher establishes the rule: to add or subtract fractions with the same denominator, add or subtract the numerators and keep the denominator the same (e.g., 2/7 + 3/7 = 5/7). Learners practice with word problems involving sharing garden plots and resources.",
-            "conclusion": "Teacher asks: 'Why don't we add the denominators together?' Class discusses and clarifies.",
-            "evaluation": "Written assessment: Solve 5 addition and subtraction fraction equations with like denominators."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Fraction Addition Visual",
+                "duration": "5-10 mins",
+                "activity": "Teacher draws a rectangle divided into 5 equal parts on the board, shades 2 parts green and 1 part blue, and asks what fraction is shaded in total.",
+                "pupilBookExercise": "Exercise 2a - Visual fraction addition",
+                "gcOrCci": "Environment - Connecting to real-world scenarios"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Fraction Addition Rule",
+                "duration": "20-25 mins",
+                "activity": "Teacher establishes the rule: to add or subtract fractions with the same denominator, add or subtract the numerators and keep the denominator the same (e.g., 2/7 + 3/7 = 5/7).",
+                "pupilBookExercise": "Exercise 2b - Learning fraction addition rule",
+                "gcOrCci": "Environment - Understanding resource sharing"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Word Problems with Fractions",
+                "duration": "20-25 mins",
+                "activity": "Learners practice with word problems involving sharing garden plots and resources.",
+                "pupilBookExercise": "Exercise 2c - Solving fraction word problems",
+                "gcOrCci": "Environment - Real-world application"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Understanding Denominators",
+                "duration": "5 mins",
+                "activity": "Teacher asks: 'Why don't we add the denominators together?' Class discusses and clarifies.",
+                "pupilBookExercise": "Exercise 2d - Explaining denominator concept",
+                "gcOrCci": "Peace - Collaborative discussion and clarification"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Fraction Operations Assessment",
+                "duration": "5 mins",
+                "activity": "Written assessment: Solve 5 addition and subtraction fraction equations with like denominators.",
+                "pupilBookExercise": "Exercise 2 - Fraction operations (SB pp. 76-80)",
+                "gcOrCci": "Gender - Equal assessment opportunities"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Additional Practice",
+                "duration": "After class",
+                "activity": "Learners solve 5 fraction problems at home. Teacher provides extra support for those who need it.",
+                "pupilBookExercise": "Exercise 2e - Homework: 5 fraction problems",
+                "gcOrCci": "Inclusive Education - Extra support for struggling learners"
+              }
+            ]
           }
         ]
       }
@@ -248,11 +788,56 @@
             "instrObjective": "Using factor trees and prime factorization tables, learners should be able to calculate the LCM and GCF of two or three whole numbers correctly.",
             "materials": "Factor tree charts, multiplication tables, REB P5 Student Book pp. 20-25",
             "references": "REB Primary Mathematics P5 Student Book (SB), Unit 1, pp. 20-25; REB P5 Teacher's Guide (TG), pp. 15-20; REB e-Learning Portal (elearning.reb.rw/course/index.php?categoryid=19)",
-            "crossCutting": "Inclusive Education",
-            "intro": "Teacher writes the numbers 12 and 18 on the board and asks learners to list all numbers that divide 12 without a remainder.",
-            "development": "Teacher demonstrates prime factorization using factor trees for 12 (2 x 2 x 3) and 18 (2 x 3 x 3). Teacher explains how to extract GCF (common prime factors = 2 x 3 = 6) and LCM (highest powers = 36). In groups of 4, learners solve real-life problems involving recurring events (e.g., two buses departing every 15 and 20 mins). Teacher assists SEN learners with clear step-by-step division ladders.",
-            "conclusion": "Learners present their factor trees on the chalkboard and explain the practical difference between LCM and GCF.",
-            "evaluation": "REB P5 Student Book p. 24 Exercise 3: Calculate the GCF and LCM for three pairs of numbers (16 and 24; 20 and 30; 18 and 27)."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Factor Listing",
+                "duration": "5-10 mins",
+                "activity": "Teacher writes the numbers 12 and 18 on the board and asks learners to list all numbers that divide 12 without a remainder.",
+                "pupilBookExercise": "Exercise 1a - Listing factors",
+                "gcOrCci": "Inclusive Education - Visual and auditory learning"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Prime Factorization with Factor Trees",
+                "duration": "20-25 mins",
+                "activity": "Teacher demonstrates prime factorization using factor trees for 12 (2 x 2 x 3) and 18 (2 x 3 x 3).",
+                "pupilBookExercise": "Exercise 1b - Creating factor trees",
+                "gcOrCci": "Inclusive Education - Step-by-step demonstration"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Calculating GCF and LCM",
+                "duration": "20-25 mins",
+                "activity": "Teacher explains how to extract GCF (common prime factors = 2 x 3 = 6) and LCM (highest powers = 36). In groups of 4, learners solve real-life problems involving recurring events (e.g., two buses departing every 15 and 20 mins). Teacher assists SEN learners with clear step-by-step division ladders.",
+                "pupilBookExercise": "Exercise 1c - Calculating GCF and LCM",
+                "gcOrCci": "Inclusive Education - Clear step-by-step support for SEN"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Practical Applications",
+                "duration": "5 mins",
+                "activity": "Learners present their factor trees on the chalkboard and explain the practical difference between LCM and GCF.",
+                "pupilBookExercise": "Exercise 1d - Explaining LCM and GCF applications",
+                "gcOrCci": "Peace - Collaborative presentation and explanation"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Pupil's Book Exercise",
+                "duration": "5 mins",
+                "activity": "REB P5 Student Book p. 24 Exercise 3: Calculate the GCF and LCM for three pairs of numbers (16 and 24; 20 and 30; 18 and 27).",
+                "pupilBookExercise": "Exercise 3 - Calculating GCF and LCM (SB p. 24)",
+                "gcOrCci": "Gender - Equal assessment opportunities"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Additional Practice",
+                "duration": "After class",
+                "activity": "Learners solve 5 GCF and LCM problems at home. Teacher provides extra support for those who need it.",
+                "pupilBookExercise": "Exercise 1e - Homework: GCF and LCM problems",
+                "gcOrCci": "Inclusive Education - Extra support for struggling learners"
+              }
+            ]
           }
         ]
       },
@@ -267,11 +852,56 @@
             "instrObjective": "Using 100-square grids, learners should be able to convert fractions and decimals to percentages and vice-versa accurately.",
             "materials": "100-square grid sheets, colored markers, calculator, REB P5 Student Book pp. 62-67",
             "references": "REB Primary Mathematics P5 Student Book (SB), Unit 3, pp. 62-67; REB P5 Teacher's Guide (TG), pp. 48-52; REB e-Learning Portal (elearning.reb.rw)",
-            "crossCutting": "Financial Education",
-            "intro": "Teacher asks learners where they have seen the symbol '%' in daily life (e.g., shop discounts, test scores, bank savings).",
-            "development": "Teacher explains that 'percent' means 'out of 100' (e.g., 25% = 25/100 = 1/4 = 0.25). Learners work in pairs shading 100-grid sheets to represent 20%, 50%, 75%, and 10% and record the equivalent fractions and decimals in a table. Teacher connects percentage savings to good financial habits.",
-            "conclusion": "Class completes a rapid chalkboard conversion drill matching percentage cards to fraction cards.",
-            "evaluation": "Worksheet: Complete a 5-row conversion table (Fraction | Decimal | Percentage)."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Real-World Percentage Examples",
+                "duration": "5-10 mins",
+                "activity": "Teacher asks learners where they have seen the symbol '%' in daily life (e.g., shop discounts, test scores, bank savings).",
+                "pupilBookExercise": "Exercise 1a - Identifying percentage examples",
+                "gcOrCci": "Financial Education - Connecting to real-life financial scenarios"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Understanding Percent Concept",
+                "duration": "20-25 mins",
+                "activity": "Teacher explains that 'percent' means 'out of 100' (e.g., 25% = 25/100 = 1/4 = 0.25).",
+                "pupilBookExercise": "Exercise 1b - Understanding percent concept",
+                "gcOrCci": "Financial Education - Teaching financial literacy"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Hands-on Grid Shading",
+                "duration": "20-25 mins",
+                "activity": "Learners work in pairs shading 100-grid sheets to represent 20%, 50%, 75%, and 10% and record the equivalent fractions and decimals in a table. Teacher connects percentage savings to good financial habits.",
+                "pupilBookExercise": "Exercise 1c - Shading grids and recording equivalents",
+                "gcOrCci": "Financial Education - Connecting percentages to savings"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Conversion Drill",
+                "duration": "5 mins",
+                "activity": "Class completes a rapid chalkboard conversion drill matching percentage cards to fraction cards.",
+                "pupilBookExercise": "Exercise 1d - Rapid conversion practice",
+                "gcOrCci": "Peace - Collaborative conversion drill"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Conversion Table Worksheet",
+                "duration": "5 mins",
+                "activity": "Worksheet: Complete a 5-row conversion table (Fraction | Decimal | Percentage).",
+                "pupilBookExercise": "Exercise 1 - Conversion table (SB pp. 62-67)",
+                "gcOrCci": "Gender - Equal assessment opportunities"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Additional Conversion Practice",
+                "duration": "After class",
+                "activity": "Learners complete 10 conversion problems at home. Teacher provides extra support for those who need it.",
+                "pupilBookExercise": "Exercise 1e - Homework: 10 conversion problems",
+                "gcOrCci": "Inclusive Education - Extra support for struggling learners"
+              }
+            ]
           }
         ]
       }
@@ -294,11 +924,56 @@
             "instrObjective": "Using prime factorization, learners should be able to express numbers in index notation and calculate square roots of perfect squares accurately.",
             "materials": "Square grid paper, prime factorization charts, scientific calculator (for verification), REB P6 Student Book pp. 15-21",
             "references": "REB Primary Mathematics P6 Student Book (SB), Unit 1, pp. 15-21; REB P6 Teacher's Guide (TG), pp. 12-16; REB e-Learning Portal (elearning.reb.rw/course/index.php?categoryid=19)",
-            "crossCutting": "Inclusive Education",
-            "intro": "Teacher draws a 4x4 square on grid paper and asks learners to count the total squares (16). Teacher explains 4 squared = 4 x 4 = 16.",
-            "development": "Teacher introduces square root notation and models finding the square root of 144 using prime factorization (144 = 2^4 x 3^2, square root = 2^2 x 3 = 12). In small groups, learners find square roots of 196, 225, and 400 using prime factor trees. Teacher supports SEN learners by providing visual reference tables of squares from 1x1 to 15x15.",
-            "conclusion": "Learners explain the inverse relationship between squaring a number and finding its square root.",
-            "evaluation": "REB P6 Student Book p. 20 Exercise 2: Calculate the square root of 5 given perfect squares using prime factorization."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Understanding Squares",
+                "duration": "5-10 mins",
+                "activity": "Teacher draws a 4x4 square on grid paper and asks learners to count the total squares (16). Teacher explains 4 squared = 4 x 4 = 16.",
+                "pupilBookExercise": "Exercise 1a - Counting squares in grids",
+                "gcOrCci": "Inclusive Education - Visual and auditory learning"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Square Root Notation",
+                "duration": "20-25 mins",
+                "activity": "Teacher introduces square root notation and models finding the square root of 144 using prime factorization (144 = 2^4 x 3^2, square root = 2^2 x 3 = 12).",
+                "pupilBookExercise": "Exercise 1b - Understanding square root notation",
+                "gcOrCci": "Inclusive Education - Step-by-step demonstration"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Calculating Square Roots",
+                "duration": "20-25 mins",
+                "activity": "In small groups, learners find square roots of 196, 225, and 400 using prime factor trees. Teacher supports SEN learners by providing visual reference tables of squares from 1x1 to 15x15.",
+                "pupilBookExercise": "Exercise 1c - Calculating square roots",
+                "gcOrCci": "Inclusive Education - Visual reference tables for SEN"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Inverse Relationship",
+                "duration": "5 mins",
+                "activity": "Learners explain the inverse relationship between squaring a number and finding its square root.",
+                "pupilBookExercise": "Exercise 1d - Explaining inverse relationship",
+                "gcOrCci": "Peace - Collaborative explanation"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Pupil's Book Exercise",
+                "duration": "5 mins",
+                "activity": "REB P6 Student Book p. 20 Exercise 2: Calculate the square root of 5 given perfect squares using prime factorization.",
+                "pupilBookExercise": "Exercise 2 - Calculating square roots (SB p. 20)",
+                "gcOrCci": "Gender - Equal assessment opportunities"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Additional Practice",
+                "duration": "After class",
+                "activity": "Learners calculate square roots of 10 perfect squares at home. Teacher provides extra support for those who need it.",
+                "pupilBookExercise": "Exercise 1e - Homework: Square root calculations",
+                "gcOrCci": "Inclusive Education - Extra support for struggling learners"
+              }
+            ]
           }
         ]
       },
@@ -313,11 +988,56 @@
             "instrObjective": "Using balance scale models, learners should be able to form and solve simple linear equations of the form ax + b = c correctly.",
             "materials": "Physical balance scale, weights/counters, algebra cards, REB P6 Student Book pp. 88-93",
             "references": "REB Primary Mathematics P6 Student Book (SB), Unit 4, pp. 88-93; REB P6 Teacher's Guide (TG), pp. 68-72; REB e-Learning Portal (elearning.reb.rw/course/index.php?categoryid=19)",
-            "crossCutting": "Peace",
-            "intro": "Teacher displays a two-pan balance scale with a mystery box on one side and weights on the other, asking what must be done to keep the scale balanced.",
-            "development": "Teacher introduces variables (e.g., x) to represent unknown quantities and explains the golden rule of algebra: whatever operation is performed on one side of an equation must be performed on the other side to maintain balance (e.g., solve 2x + 5 = 15). Learners practice in pairs solving 4 equations and checking their solutions by substitution.",
-            "conclusion": "Two learners demonstrate solving 3x - 4 = 11 on the chalkboard, explaining each balancing step.",
-            "evaluation": "Written quiz: Solve 5 linear equations in one variable and verify the answer."
+            "steps": [
+              {
+                "stepNo": "Step 1",
+                "stepTitle": "Introduction - Balance Scale Concept",
+                "duration": "5-10 mins",
+                "activity": "Teacher displays a two-pan balance scale with a mystery box on one side and weights on the other, asking what must be done to keep the scale balanced.",
+                "pupilBookExercise": "Exercise 1a - Understanding balance concept",
+                "gcOrCci": "Peace - Understanding balance and fairness"
+              },
+              {
+                "stepNo": "Step 2",
+                "stepTitle": "Development - Introducing Variables",
+                "duration": "20-25 mins",
+                "activity": "Teacher introduces variables (e.g., x) to represent unknown quantities and explains the golden rule of algebra: whatever operation is performed on one side of an equation must be performed on the other side to maintain balance (e.g., solve 2x + 5 = 15).",
+                "pupilBookExercise": "Exercise 1b - Understanding variables and balance",
+                "gcOrCci": "Peace - Understanding fairness in equations"
+              },
+              {
+                "stepNo": "Step 3",
+                "stepTitle": "Development - Solving Equations in Pairs",
+                "duration": "20-25 mins",
+                "activity": "Learners practice in pairs solving 4 equations and checking their solutions by substitution.",
+                "pupilBookExercise": "Exercise 1c - Solving equations in pairs",
+                "gcOrCci": "Peace - Cooperative problem solving"
+              },
+              {
+                "stepNo": "Step 4",
+                "stepTitle": "Conclusion - Equation Demonstration",
+                "duration": "5 mins",
+                "activity": "Two learners demonstrate solving 3x - 4 = 11 on the chalkboard, explaining each balancing step.",
+                "pupilBookExercise": "Exercise 1d - Explaining equation solving steps",
+                "gcOrCci": "Peace - Respectful demonstration and explanation"
+              },
+              {
+                "stepNo": "Step 5",
+                "stepTitle": "Evaluation - Written Quiz",
+                "duration": "5 mins",
+                "activity": "Written quiz: Solve 5 linear equations in one variable and verify the answer.",
+                "pupilBookExercise": "Exercise 1 - Solving linear equations (SB pp. 88-93)",
+                "gcOrCci": "Gender - Equal assessment opportunities"
+              },
+              {
+                "stepNo": "Step 6",
+                "stepTitle": "Homework/Remediation - Additional Practice",
+                "duration": "After class",
+                "activity": "Learners solve 5 linear equations at home. Teacher provides extra support for those who need it.",
+                "pupilBookExercise": "Exercise 1e - Homework: 5 linear equations",
+                "gcOrCci": "Inclusive Education - Extra support for struggling learners"
+              }
+            ]
           }
         ]
       }
