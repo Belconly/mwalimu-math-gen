@@ -214,31 +214,46 @@
           </label>
         </div>
 
-        <!-- Section 3: Timed Stage-by-Stage Teacher Activities -->
+        <!-- Section 3: REB 6-Step Lesson Plan Format -->
         <div class="form-section-header">
-          <h3>3. Timed Stage-by-Stage Teacher Activities (Scheme of Work)</h3>
+          <h3>3. REB 6-Step Lesson Plan Format (with Indexed Pupil's Book Exercises & G.C/C.C.I per Step)</h3>
         </div>
 
         <div class="row">
-          <label>Introduction (5–10 mins: what teacher does & learner warm-up)
-            <textarea name="intro" rows="3" placeholder="Engaging warm-up, activating prior knowledge, checking attendance and homework..."></textarea>
+          <label>Step 1 - Introduction (5–10 mins)
+            <textarea name="step1" rows="3" placeholder="Engaging warm-up, activating prior knowledge, checking attendance and homework... (Include G.C/C.C.I)"></textarea>
           </label>
         </div>
         <div class="row">
-          <label>Development (20–25 mins: teaching & learning activities, SEN support, pair work)
-            <textarea name="development" rows="4" placeholder="Step-by-step interactive teaching & learning activities, group work, teacher modeling, differentiated support for SEN learners..."></textarea>
+          <label>Step 2 - Development Part 1 (20–25 mins)
+            <textarea name="step2" rows="4" placeholder="First development activity with indexed Pupil's Book exercise... (Include G.C/C.C.I)"></textarea>
           </label>
         </div>
         <div class="row">
-          <label>Conclusion (5 mins: reflection / summary / chalkboard recap)
-            <textarea name="conclusion" rows="2" placeholder="Summary, reflection questions, learner feedback, chalkboard synthesis..."></textarea>
+          <label>Step 3 - Development Part 2 (20–25 mins)
+            <textarea name="step3" rows="4" placeholder="Second development activity with indexed Pupil's Book exercise... (Include G.C/C.C.I)"></textarea>
           </label>
         </div>
         <div class="row">
-          <label>Evaluation / Assessment (5 mins: quiz, exercise, or board work)
-            <textarea name="evaluation" rows="2" placeholder="Short formative quiz, board work, worksheet exercise, or oral assessment..."></textarea>
+          <label>Step 4 - Conclusion (5 mins)
+            <textarea name="step4" rows="2" placeholder="Summary, reflection questions, learner feedback... (Include G.C/C.C.I)"></textarea>
           </label>
         </div>
+        <div class="row">
+          <label>Step 5 - Evaluation / Assessment (5 mins)
+            <textarea name="step5" rows="2" placeholder="Short formative quiz, board work, worksheet exercise... (Include G.C/C.C.I)"></textarea>
+          </label>
+        </div>
+        <div class="row">
+          <label>Step 6 - Homework/Remediation (After class)
+            <textarea name="step6" rows="2" placeholder="Homework assignment or remediation activities... (Include G.C/C.C.I)"></textarea>
+          </label>
+        </div>
+        <!-- Backward compatibility: keep old fields hidden -->
+        <input type="hidden" name="intro" />
+        <input type="hidden" name="development" />
+        <input type="hidden" name="conclusion" />
+        <input type="hidden" name="evaluation" />
 
         <div class="row form-actions">
           <button type="button" id="aiGenerateBtnBottom" class="btn-ai-primary">
@@ -313,30 +328,52 @@
           <p><strong>Cross-cutting Issue:</strong> <span id="p_crossCutting"></span></p>
         </div>
 
-        <h3>Timed Stage-by-Stage Activities (Scheme of Work)</h3>
+        <h3>REB 6-Step Lesson Plan with Indexed Pupil's Book Exercises & G.C/C.C.I</h3>
         <table class="timing">
           <thead>
             <tr>
-              <th style="width: 22%;">Lesson Stage & Timing</th>
+              <th style="width: 20%;">Step & Timing</th>
+              <th style="width: 15%;">Pupil's Book Exercise</th>
+              <th style="width: 15%;">G.C / C.C.I</th>
               <th>Teacher Activities & Learner Interaction</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Introduction</strong><br /><small>(5–10 minutes)</small></td>
-              <td id="p_intro"></td>
+              <td><strong>Step 1: Introduction</strong><br /><small>(5–10 minutes)</small></td>
+              <td id="p_step1_exercise"></td>
+              <td id="p_step1_gcci"></td>
+              <td id="p_step1"></td>
             </tr>
             <tr>
-              <td><strong>Development</strong><br /><small>(20–25 minutes)</small></td>
-              <td id="p_development"></td>
+              <td><strong>Step 2: Development Part 1</strong><br /><small>(20–25 minutes)</small></td>
+              <td id="p_step2_exercise"></td>
+              <td id="p_step2_gcci"></td>
+              <td id="p_step2"></td>
             </tr>
             <tr>
-              <td><strong>Conclusion</strong><br /><small>(5 minutes)</small></td>
-              <td id="p_conclusion"></td>
+              <td><strong>Step 3: Development Part 2</strong><br /><small>(20–25 minutes)</small></td>
+              <td id="p_step3_exercise"></td>
+              <td id="p_step3_gcci"></td>
+              <td id="p_step3"></td>
             </tr>
             <tr>
-              <td><strong>Evaluation / Assessment</strong><br /><small>(5 minutes)</small></td>
-              <td id="p_evaluation"></td>
+              <td><strong>Step 4: Conclusion</strong><br /><small>(5 minutes)</small></td>
+              <td id="p_step4_exercise"></td>
+              <td id="p_step4_gcci"></td>
+              <td id="p_step4"></td>
+            </tr>
+            <tr>
+              <td><strong>Step 5: Evaluation / Assessment</strong><br /><small>(5 minutes)</small></td>
+              <td id="p_step5_exercise"></td>
+              <td id="p_step5_gcci"></td>
+              <td id="p_step5"></td>
+            </tr>
+            <tr>
+              <td><strong>Step 6: Homework/Remediation</strong><br /><small>(After class)</small></td>
+              <td id="p_step6_exercise"></td>
+              <td id="p_step6_gcci"></td>
+              <td id="p_step6"></td>
             </tr>
           </tbody>
         </table>
