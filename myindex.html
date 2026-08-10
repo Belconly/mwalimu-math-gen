@@ -6,7 +6,6 @@
   <title>Math Lesson Plan Generator (Rwanda CBC P1–P6)</title>
   <link rel="stylesheet" href="mystyles.css" />
   <link rel="stylesheet" href="styles.css" />
-  <!-- html2pdf CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </head>
 <body>
@@ -24,14 +23,11 @@
 
   <main class="container">
     <section class="form-section">
-      <!-- NEW: REB e-Learning Curriculum & AI Lesson Plan Generator Panel -->
       <div class="ai-panel">
         <div class="ai-panel-header">
           <h2>✨ AI Lesson Plan Generator (REB SB, TG & Scheme of Work)</h2>
           <button type="button" id="toggleAiSettingsBtn" class="btn-icon" title="AI Model & API Settings">⚙️ AI Settings</button>
         </div>
-        
-        <!-- REB Curriculum Status Card -->
         <div id="rebStatusCard" class="reb-status-card">
           <div class="reb-status-icon">📚</div>
           <div class="reb-status-content">
@@ -44,8 +40,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Topic Selection & Custom Prompt Row -->
         <div class="ai-controls-row">
           <label class="ai-label">
             Select REB Curriculum Unit / Topic
@@ -58,20 +52,14 @@
             <input type="text" id="customTopicInput" placeholder="e.g., Adding 3-digit numbers with carrying, place value..." />
           </label>
         </div>
-
-        <!-- AI Generation Button -->
         <div class="ai-action-row">
           <button type="button" id="aiGenerateBtn" class="btn-ai-primary">
             ✨ AI Generate Lesson Plan (from REB SB, TG & Scheme of Work)
           </button>
         </div>
-
-        <!-- Expandable AI API Settings Drawer -->
         <div id="aiSettingsDrawer" class="ai-settings-drawer hidden">
           <h3>⚙️ Integrated AI Model & API Configuration</h3>
-          <p class="small">
-            Choose between our Built-in REB CBC AI Engine (free, no key required) or plug in your own API key for OpenAI, Google Gemini, Anthropic Claude, or OpenRouter.
-          </p>
+          <p class="small">Choose between our Built-in REB CBC AI Engine (free, no key required) or plug in your own API key for OpenAI, Google Gemini, Anthropic Claude, or OpenRouter.</p>
           <div class="row">
             <label>AI Provider / Engine
               <select id="aiProviderSelect">
@@ -102,7 +90,6 @@
       </div>
 
       <form id="lpForm">
-        <!-- Section 1: Standard Administrative Metadata (with LocalStorage) -->
         <div class="form-section-header">
           <h3>1. Standard Administrative Metadata (Header Table)</h3>
           <div class="ls-header-controls">
@@ -111,12 +98,10 @@
             <button type="button" id="clearHeadersBtn" class="btn-danger btn-sm">🗑️ Clear Saved Headers</button>
           </div>
         </div>
-
         <div class="row">
           <label>School Name<input name="school" required placeholder="e.g., GS Kigali Primary School"></label>
           <label>Teacher's Name<input name="teacher" required placeholder="e.g., Teacher Mwalimu"></label>
         </div>
-
         <div class="row">
           <label>Term
             <select name="term" required>
@@ -126,10 +111,8 @@
               <option value="Term 3">Term 3</option>
             </select>
           </label>
-
           <label>Date<input type="date" name="date" id="dateInput" required></label>
         </div>
-
         <div class="row">
           <label>Subject<input name="subject" value="Mathematics" readonly></label>
           <label>Class (P1–P6)
@@ -144,17 +127,14 @@
             </select>
           </label>
         </div>
-
         <div class="row">
           <label>Unit No<input name="unitNo" placeholder="e.g., Unit 3"></label>
           <label>Lesson No<input name="lessonNo" placeholder="e.g., Lesson 2 of 6"></label>
         </div>
-
         <div class="row">
           <label>Duration (mins)<input name="duration" type="number" min="10" value="40" required></label>
           <label>Class size<input name="classSize" type="number" min="1" value="30" required></label>
         </div>
-
         <div class="row">
           <label>SEN info (Special Educational Needs)
             <input name="sen" placeholder="e.g., 2 learners with visual impairment, 1 slow learner">
@@ -164,158 +144,337 @@
           </label>
         </div>
 
-        <!-- Section 2: Curriculum and Pedagogical Details -->
         <div class="form-section-header">
           <h3>2. Curriculum and Pedagogical Details (from REB SB & TG)</h3>
         </div>
-
         <div class="row">
           <label>Unit Title<input name="unitTitle" required placeholder="e.g., Whole Numbers up to 1,000"></label>
         </div>
-
         <div class="row">
           <label>Key Unit Competence
             <textarea name="keyUnitCompetence" rows="2" placeholder="Official Rwanda CBC Key Unit Competence..."></textarea>
           </label>
         </div>
-
         <div class="row">
           <label>Title of the Lesson
             <textarea name="lessonTitle" rows="2" required placeholder="Specific lesson topic..."></textarea>
           </label>
         </div>
-
         <div class="row">
           <label>Instructional Objective (SMART Format)
             <textarea name="instrObjective" rows="3" required placeholder="Using [materials], learners should be able to [action verb] correctly and confidently..."></textarea>
           </label>
         </div>
-
         <div class="row">
           <label>Learning Materials
             <textarea name="learningMaterials" rows="2" placeholder="e.g., Number cards, place value charts, counters, bottle caps, Manila paper..."></textarea>
           </label>
         </div>
-
         <div class="row">
           <label>References (REB Student Book SB & Teacher's Guide TG)
             <textarea name="references" rows="2" placeholder="e.g., REB Primary Mathematics P3 Student Book (SB), Unit 2, pp. 24–28; Teacher's Guide (TG), pp. 18–22; elearning.reb.rw"></textarea>
           </label>
-          <label>Cross-cutting Issue
+          <label>Cross-cutting Issue (Header)
             <select name="crossCutting">
               <option value="">--Select Cross-Cutting Issue--</option>
+              <option value="Peace and Values Education">Peace and Values Education</option>
+              <option value="Gender">Gender</option>
               <option value="Inclusive Education">Inclusive Education</option>
               <option value="Environment">Environment</option>
-              <option value="Gender">Gender</option>
-              <option value="Peace">Peace</option>
               <option value="Financial Education">Financial Education</option>
-              <option value="ICT">ICT</option>
+              <option value="Standardization Culture">Standardization Culture</option>
+              <option value="Impact of Social Media">Impact of Social Media</option>
+              <option value="Comprehensive Sexuality Education">Comprehensive Sexuality Education</option>
+              <option value="Genocide Studies">Genocide Studies</option>
+              <option value="Disaster Risk Reduction">Disaster Risk Reduction</option>
             </select>
           </label>
         </div>
 
-        <!-- Section 3: REB 6-Step Lesson Plan Format -->
+        <!-- Section 3: REB CBC Official 5-Column 6-Step Format -->
         <div class="form-section-header">
-          <h3>3. REB 6-Step Lesson Plan Format (with Indexed Pupil's Book Exercises & G.C/C.C.I per Step)</h3>
+          <h3>3. REB CBC Official Format — 5-Column Table (Timing · Teacher Activities · Learners Activities · Generic Competence · Cross-Cutting Issue) — 6 Steps</h3>
+        </div>
+        <p class="small" style="margin-top:-8px;margin-bottom:12px;color:#6b7280;">Official REB CBC structure: Introduction → Development Part 1 &amp; 2 → Conclusion/Summary → Assessment → New Lesson/Discovery Activity. Each step has dropdowns for G.C. and C.C.I.</p>
+
+        <!-- Step 1 -->
+        <div class="step-card">
+          <h4>Step 1 — Introduction (5–10 mins)</h4>
+          <div class="row">
+            <label>Teacher Activities<textarea name="step1_teacher" rows="2" placeholder="What the teacher does... e.g., Greets class, sings counting rhyme, checks homework, activates prior knowledge"></textarea></label>
+            <label>Learners Activities<textarea name="step1_learner" rows="2" placeholder="What learners do... e.g., Respond to greeting, sing along, count aloud, answer probing questions"></textarea></label>
+          </div>
+          <div class="row">
+            <label>Generic Competence (G.C.)
+              <select name="step1_gc">
+                <option value="">--Select G.C.--</option>
+                <option value="Critical Thinking">Critical Thinking</option>
+                <option value="Problem Solving">Problem Solving</option>
+                <option value="Creativity and Innovation">Creativity and Innovation</option>
+                <option value="Communication">Communication</option>
+                <option value="Collaboration">Collaboration</option>
+                <option value="Digital Literacy">Digital Literacy</option>
+                <option value="Lifelong Learning">Lifelong Learning</option>
+                <option value="Cultural Identity">Cultural Identity</option>
+                <option value="Self-Confidence">Self-Confidence</option>
+              </select>
+            </label>
+            <label>Cross-Cutting Issue (C.C.I.)
+              <select name="step1_cci">
+                <option value="">--Select C.C.I.--</option>
+                <option value="Peace and Values Education">Peace and Values Education</option>
+                <option value="Gender">Gender</option>
+                <option value="Inclusive Education">Inclusive Education</option>
+                <option value="Environment">Environment</option>
+                <option value="Financial Education">Financial Education</option>
+                <option value="Standardization Culture">Standardization Culture</option>
+                <option value="Impact of Social Media">Impact of Social Media</option>
+                <option value="Comprehensive Sexuality Education">Comprehensive Sexuality Education</option>
+                <option value="Genocide Studies">Genocide Studies</option>
+                <option value="Disaster Risk Reduction">Disaster Risk Reduction</option>
+              </select>
+            </label>
+          </div>
         </div>
 
-        <div class="row">
-          <label>Step 1 - Introduction (5–10 mins)
-            <textarea name="step1" rows="3" placeholder="Engaging warm-up, activating prior knowledge, checking attendance and homework... (Include G.C/C.C.I)"></textarea>
-          </label>
+        <!-- Step 2 -->
+        <div class="step-card">
+          <h4>Step 2 — Development Part 1 (15 mins)</h4>
+          <div class="row">
+            <label>Teacher Activities<textarea name="step2_teacher" rows="3" placeholder="Teacher models/demonstrates concept on chalkboard, explains using REB SB, provides visual aids..."></textarea></label>
+            <label>Learners Activities<textarea name="step2_learner" rows="3" placeholder="Learners observe, work in groups of 4 with counters/manipulatives, discuss, practice on mini-boards..."></textarea></label>
+          </div>
+          <div class="row">
+            <label>Generic Competence (G.C.)
+              <select name="step2_gc">
+                <option value="">--Select G.C.--</option>
+                <option value="Critical Thinking">Critical Thinking</option>
+                <option value="Problem Solving">Problem Solving</option>
+                <option value="Creativity and Innovation">Creativity and Innovation</option>
+                <option value="Communication">Communication</option>
+                <option value="Collaboration">Collaboration</option>
+                <option value="Digital Literacy">Digital Literacy</option>
+                <option value="Lifelong Learning">Lifelong Learning</option>
+                <option value="Cultural Identity">Cultural Identity</option>
+                <option value="Self-Confidence">Self-Confidence</option>
+              </select>
+            </label>
+            <label>Cross-Cutting Issue (C.C.I.)
+              <select name="step2_cci">
+                <option value="">--Select C.C.I.--</option>
+                <option value="Peace and Values Education">Peace and Values Education</option>
+                <option value="Gender">Gender</option>
+                <option value="Inclusive Education">Inclusive Education</option>
+                <option value="Environment">Environment</option>
+                <option value="Financial Education">Financial Education</option>
+                <option value="Standardization Culture">Standardization Culture</option>
+                <option value="Impact of Social Media">Impact of Social Media</option>
+                <option value="Comprehensive Sexuality Education">Comprehensive Sexuality Education</option>
+                <option value="Genocide Studies">Genocide Studies</option>
+                <option value="Disaster Risk Reduction">Disaster Risk Reduction</option>
+              </select>
+            </label>
+          </div>
         </div>
-        <div class="row">
-          <label>Step 2 - Development Part 1 (20–25 mins)
-            <textarea name="step2" rows="4" placeholder="First development activity with indexed Pupil's Book exercise... (Include G.C/C.C.I)"></textarea>
-          </label>
+
+        <!-- Step 3 -->
+        <div class="step-card">
+          <h4>Step 3 — Development Part 2 (15 mins)</h4>
+          <div class="row">
+            <label>Teacher Activities<textarea name="step3_teacher" rows="3" placeholder="Teacher guides second development activity, circulates to support SEN learners, provides differentiated tasks..."></textarea></label>
+            <label>Learners Activities<textarea name="step3_learner" rows="3" placeholder="Learners continue group work, present solutions on chalkboard, peer-teach, verify answers..."></textarea></label>
+          </div>
+          <div class="row">
+            <label>Generic Competence (G.C.)
+              <select name="step3_gc">
+                <option value="">--Select G.C.--</option>
+                <option value="Critical Thinking">Critical Thinking</option>
+                <option value="Problem Solving">Problem Solving</option>
+                <option value="Creativity and Innovation">Creativity and Innovation</option>
+                <option value="Communication">Communication</option>
+                <option value="Collaboration">Collaboration</option>
+                <option value="Digital Literacy">Digital Literacy</option>
+                <option value="Lifelong Learning">Lifelong Learning</option>
+                <option value="Cultural Identity">Cultural Identity</option>
+                <option value="Self-Confidence">Self-Confidence</option>
+              </select>
+            </label>
+            <label>Cross-Cutting Issue (C.C.I.)
+              <select name="step3_cci">
+                <option value="">--Select C.C.I.--</option>
+                <option value="Peace and Values Education">Peace and Values Education</option>
+                <option value="Gender">Gender</option>
+                <option value="Inclusive Education">Inclusive Education</option>
+                <option value="Environment">Environment</option>
+                <option value="Financial Education">Financial Education</option>
+                <option value="Standardization Culture">Standardization Culture</option>
+                <option value="Impact of Social Media">Impact of Social Media</option>
+                <option value="Comprehensive Sexuality Education">Comprehensive Sexuality Education</option>
+                <option value="Genocide Studies">Genocide Studies</option>
+                <option value="Disaster Risk Reduction">Disaster Risk Reduction</option>
+              </select>
+            </label>
+          </div>
         </div>
-        <div class="row">
-          <label>Step 3 - Development Part 2 (20–25 mins)
-            <textarea name="step3" rows="4" placeholder="Second development activity with indexed Pupil's Book exercise... (Include G.C/C.C.I)"></textarea>
-          </label>
+
+        <!-- Step 4 -->
+        <div class="step-card">
+          <h4>Step 4 — Conclusion / Summary (5 mins)</h4>
+          <div class="row">
+            <label>Teacher Activities<textarea name="step4_teacher" rows="2" placeholder="Teacher recaps key points, asks summary questions, clarifies misconceptions, praises learners..."></textarea></label>
+            <label>Learners Activities<textarea name="step4_learner" rows="2" placeholder="Learners summarise lesson, answer reflection questions, explain key rules to class..."></textarea></label>
+          </div>
+          <div class="row">
+            <label>Generic Competence (G.C.)
+              <select name="step4_gc">
+                <option value="">--Select G.C.--</option>
+                <option value="Critical Thinking">Critical Thinking</option>
+                <option value="Problem Solving">Problem Solving</option>
+                <option value="Creativity and Innovation">Creativity and Innovation</option>
+                <option value="Communication">Communication</option>
+                <option value="Collaboration">Collaboration</option>
+                <option value="Digital Literacy">Digital Literacy</option>
+                <option value="Lifelong Learning">Lifelong Learning</option>
+                <option value="Cultural Identity">Cultural Identity</option>
+                <option value="Self-Confidence">Self-Confidence</option>
+              </select>
+            </label>
+            <label>Cross-Cutting Issue (C.C.I.)
+              <select name="step4_cci">
+                <option value="">--Select C.C.I.--</option>
+                <option value="Peace and Values Education">Peace and Values Education</option>
+                <option value="Gender">Gender</option>
+                <option value="Inclusive Education">Inclusive Education</option>
+                <option value="Environment">Environment</option>
+                <option value="Financial Education">Financial Education</option>
+                <option value="Standardization Culture">Standardization Culture</option>
+                <option value="Impact of Social Media">Impact of Social Media</option>
+                <option value="Comprehensive Sexuality Education">Comprehensive Sexuality Education</option>
+                <option value="Genocide Studies">Genocide Studies</option>
+                <option value="Disaster Risk Reduction">Disaster Risk Reduction</option>
+              </select>
+            </label>
+          </div>
         </div>
-        <div class="row">
-          <label>Step 4 - Conclusion (5 mins)
-            <textarea name="step4" rows="2" placeholder="Summary, reflection questions, learner feedback... (Include G.C/C.C.I)"></textarea>
-          </label>
+
+        <!-- Step 5 -->
+        <div class="step-card">
+          <h4>Step 5 — Assessment (5 mins)</h4>
+          <div class="row">
+            <label>Teacher Activities<textarea name="step5_teacher" rows="2" placeholder="Teacher administers formative quiz, writes 3–4 problems on board, marks exercise books, gives feedback..."></textarea></label>
+            <label>Learners Activities<textarea name="step5_learner" rows="2" placeholder="Learners solve assessment individually, demonstrate on chalkboard, self/peer-check answers..."></textarea></label>
+          </div>
+          <div class="row">
+            <label>Generic Competence (G.C.)
+              <select name="step5_gc">
+                <option value="">--Select G.C.--</option>
+                <option value="Critical Thinking">Critical Thinking</option>
+                <option value="Problem Solving">Problem Solving</option>
+                <option value="Creativity and Innovation">Creativity and Innovation</option>
+                <option value="Communication">Communication</option>
+                <option value="Collaboration">Collaboration</option>
+                <option value="Digital Literacy">Digital Literacy</option>
+                <option value="Lifelong Learning">Lifelong Learning</option>
+                <option value="Cultural Identity">Cultural Identity</option>
+                <option value="Self-Confidence">Self-Confidence</option>
+              </select>
+            </label>
+            <label>Cross-Cutting Issue (C.C.I.)
+              <select name="step5_cci">
+                <option value="">--Select C.C.I.--</option>
+                <option value="Peace and Values Education">Peace and Values Education</option>
+                <option value="Gender">Gender</option>
+                <option value="Inclusive Education">Inclusive Education</option>
+                <option value="Environment">Environment</option>
+                <option value="Financial Education">Financial Education</option>
+                <option value="Standardization Culture">Standardization Culture</option>
+                <option value="Impact of Social Media">Impact of Social Media</option>
+                <option value="Comprehensive Sexuality Education">Comprehensive Sexuality Education</option>
+                <option value="Genocide Studies">Genocide Studies</option>
+                <option value="Disaster Risk Reduction">Disaster Risk Reduction</option>
+              </select>
+            </label>
+          </div>
         </div>
-        <div class="row">
-          <label>Step 5 - Evaluation / Assessment (5 mins)
-            <textarea name="step5" rows="2" placeholder="Short formative quiz, board work, worksheet exercise... (Include G.C/C.C.I)"></textarea>
-          </label>
+
+        <!-- Step 6 -->
+        <div class="step-card">
+          <h4>Step 6 — New Lesson / Discovery Activity</h4>
+          <div class="row">
+            <label>Teacher Activities<textarea name="step6_teacher" rows="2" placeholder="Teacher previews next lesson, assigns discovery/homework activity, gives remedial guidance..."></textarea></label>
+            <label>Learners Activities<textarea name="step6_learner" rows="2" placeholder="Learners note homework, ask questions, engage in discovery task, prepare materials for next lesson..."></textarea></label>
+          </div>
+          <div class="row">
+            <label>Generic Competence (G.C.)
+              <select name="step6_gc">
+                <option value="">--Select G.C.--</option>
+                <option value="Critical Thinking">Critical Thinking</option>
+                <option value="Problem Solving">Problem Solving</option>
+                <option value="Creativity and Innovation">Creativity and Innovation</option>
+                <option value="Communication">Communication</option>
+                <option value="Collaboration">Collaboration</option>
+                <option value="Digital Literacy">Digital Literacy</option>
+                <option value="Lifelong Learning">Lifelong Learning</option>
+                <option value="Cultural Identity">Cultural Identity</option>
+                <option value="Self-Confidence">Self-Confidence</option>
+              </select>
+            </label>
+            <label>Cross-Cutting Issue (C.C.I.)
+              <select name="step6_cci">
+                <option value="">--Select C.C.I.--</option>
+                <option value="Peace and Values Education">Peace and Values Education</option>
+                <option value="Gender">Gender</option>
+                <option value="Inclusive Education">Inclusive Education</option>
+                <option value="Environment">Environment</option>
+                <option value="Financial Education">Financial Education</option>
+                <option value="Standardization Culture">Standardization Culture</option>
+                <option value="Impact of Social Media">Impact of Social Media</option>
+                <option value="Comprehensive Sexuality Education">Comprehensive Sexuality Education</option>
+                <option value="Genocide Studies">Genocide Studies</option>
+                <option value="Disaster Risk Reduction">Disaster Risk Reduction</option>
+              </select>
+            </label>
+          </div>
         </div>
-        <div class="row">
-          <label>Step 6 - Homework/Remediation (After class)
-            <textarea name="step6" rows="2" placeholder="Homework assignment or remediation activities... (Include G.C/C.C.I)"></textarea>
-          </label>
-        </div>
-        <!-- Backward compatibility: keep old fields hidden -->
+
+        <!-- Backward compatibility hidden fields -->
+        <input type="hidden" name="step1" />
+        <input type="hidden" name="step2" />
+        <input type="hidden" name="step3" />
+        <input type="hidden" name="step4" />
+        <input type="hidden" name="step5" />
+        <input type="hidden" name="step6" />
         <input type="hidden" name="intro" />
         <input type="hidden" name="development" />
         <input type="hidden" name="conclusion" />
         <input type="hidden" name="evaluation" />
 
         <div class="row form-actions">
-          <button type="button" id="aiGenerateBtnBottom" class="btn-ai-primary">
-            ✨ AI Generate Lesson Plan
-          </button>
-          <button type="submit" id="generateBtn" class="btn-primary">
-            📄 Generate & Download PDF
-          </button>
-          <button type="button" id="printBtn" class="btn-secondary">
-            🖨️ Print
-          </button>
+          <button type="button" id="aiGenerateBtnBottom" class="btn-ai-primary">✨ AI Generate Lesson Plan</button>
+          <button type="submit" id="generateBtn" class="btn-primary">📄 Generate & Download PDF</button>
+          <button type="button" id="printBtn" class="btn-secondary">🖨️ Print</button>
         </div>
       </form>
-      <p class="small">Tip: Use "✨ AI Generate Lesson Plan" after selecting Class to read REB curriculum books and create human-like lesson plans.</p>
+      <p class="small">Tip: Select P1, Unit 1, Lesson 1 and click ✨ AI Generate to verify the REB CBC 5-column official format.</p>
     </section>
 
     <section class="preview-section">
       <div class="preview-header">
         <h2>Preview / Printable Lesson Plan</h2>
-        <span class="preview-tag">Rwanda CBC Official Format</span>
+        <span class="preview-tag">Rwanda CBC Official Format — 5 Columns</span>
       </div>
-
-      <!-- Hidden printable template -->
       <div id="printable" class="printable">
         <div class="lp-doc-header">
           <h1>REPUBLIC OF RWANDA — BASIC EDUCATION BOARD (REB)</h1>
           <h2>COMPETENCY-BASED CURRICULUM — MATHEMATICS LESSON PLAN</h2>
         </div>
-        
         <table class="meta">
-          <tr>
-            <td><strong>School Name:</strong></td>
-            <td id="p_school"></td>
-            <td><strong>Teacher's Name:</strong></td>
-            <td id="p_teacher"></td>
-          </tr>
-          <tr>
-            <td><strong>Term:</strong></td>
-            <td id="p_term"></td>
-            <td><strong>Date:</strong></td>
-            <td id="p_date"></td>
-          </tr>
-          <tr>
-            <td><strong>Subject:</strong></td>
-            <td id="p_subject">Mathematics</td>
-            <td><strong>Class:</strong></td>
-            <td id="p_class"></td>
-          </tr>
-          <tr>
-            <td><strong>Unit No:</strong></td>
-            <td id="p_unitNo"></td>
-            <td><strong>Lesson No:</strong></td>
-            <td id="p_lessonNo"></td>
-          </tr>
-          <tr>
-            <td><strong>Duration:</strong></td>
-            <td id="p_duration"></td>
-            <td><strong>Class Size:</strong></td>
-            <td id="p_classSize"></td>
-          </tr>
+          <tr><td><strong>School Name:</strong></td><td id="p_school"></td><td><strong>Teacher's Name:</strong></td><td id="p_teacher"></td></tr>
+          <tr><td><strong>Term:</strong></td><td id="p_term"></td><td><strong>Date:</strong></td><td id="p_date"></td></tr>
+          <tr><td><strong>Subject:</strong></td><td id="p_subject">Mathematics</td><td><strong>Class:</strong></td><td id="p_class"></td></tr>
+          <tr><td><strong>Unit No:</strong></td><td id="p_unitNo"></td><td><strong>Lesson No:</strong></td><td id="p_lessonNo"></td></tr>
+          <tr><td><strong>Duration:</strong></td><td id="p_duration"></td><td><strong>Class Size:</strong></td><td id="p_classSize"></td></tr>
         </table>
-
         <div class="lp-section-block">
           <p><strong>SEN Info (Special Educational Needs):</strong> <span id="p_sen"></span></p>
           <p><strong>Unit Title:</strong> <span id="p_unitTitle"></span></p>
@@ -327,57 +486,62 @@
           <p><strong>References (REB SB & TG):</strong> <span id="p_references"></span></p>
           <p><strong>Cross-cutting Issue:</strong> <span id="p_crossCutting"></span></p>
         </div>
-
-        <h3>REB 6-Step Lesson Plan with Indexed Pupil's Book Exercises & G.C/C.C.I</h3>
+        <h3>Lesson Development — REB CBC Official 5-Column Table</h3>
         <table class="timing">
           <thead>
             <tr>
-              <th style="width: 20%;">Step & Timing</th>
-              <th style="width: 15%;">Pupil's Book Exercise</th>
-              <th style="width: 15%;">G.C / C.C.I</th>
-              <th>Teacher Activities & Learner Interaction</th>
+              <th style="width:13%;">Timing</th>
+              <th style="width:27%;">Teacher Activities</th>
+              <th style="width:27%;">Learners Activities</th>
+              <th style="width:16%;">Generic Competence (G.C.)</th>
+              <th style="width:17%;">Cross-Cutting Issue (C.C.I.)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Step 1: Introduction</strong><br /><small>(5–10 minutes)</small></td>
-              <td id="p_step1_exercise"></td>
-              <td id="p_step1_gcci"></td>
-              <td id="p_step1"></td>
+              <td><strong>Step 1: Introduction</strong><br><small>(5–10 mins)</small></td>
+              <td id="p_step1_teacher"></td>
+              <td id="p_step1_learner"></td>
+              <td id="p_step1_gc"></td>
+              <td id="p_step1_cci"></td>
             </tr>
             <tr>
-              <td><strong>Step 2: Development Part 1</strong><br /><small>(20–25 minutes)</small></td>
-              <td id="p_step2_exercise"></td>
-              <td id="p_step2_gcci"></td>
-              <td id="p_step2"></td>
+              <td><strong>Step 2: Development Part 1</strong><br><small>(15 mins)</small></td>
+              <td id="p_step2_teacher"></td>
+              <td id="p_step2_learner"></td>
+              <td id="p_step2_gc"></td>
+              <td id="p_step2_cci"></td>
             </tr>
             <tr>
-              <td><strong>Step 3: Development Part 2</strong><br /><small>(20–25 minutes)</small></td>
-              <td id="p_step3_exercise"></td>
-              <td id="p_step3_gcci"></td>
-              <td id="p_step3"></td>
+              <td><strong>Step 3: Development Part 2</strong><br><small>(15 mins)</small></td>
+              <td id="p_step3_teacher"></td>
+              <td id="p_step3_learner"></td>
+              <td id="p_step3_gc"></td>
+              <td id="p_step3_cci"></td>
             </tr>
             <tr>
-              <td><strong>Step 4: Conclusion</strong><br /><small>(5 minutes)</small></td>
-              <td id="p_step4_exercise"></td>
-              <td id="p_step4_gcci"></td>
-              <td id="p_step4"></td>
+              <td><strong>Step 4: Conclusion / Summary</strong><br><small>(5 mins)</small></td>
+              <td id="p_step4_teacher"></td>
+              <td id="p_step4_learner"></td>
+              <td id="p_step4_gc"></td>
+              <td id="p_step4_cci"></td>
             </tr>
             <tr>
-              <td><strong>Step 5: Evaluation / Assessment</strong><br /><small>(5 minutes)</small></td>
-              <td id="p_step5_exercise"></td>
-              <td id="p_step5_gcci"></td>
-              <td id="p_step5"></td>
+              <td><strong>Step 5: Assessment</strong><br><small>(5 mins)</small></td>
+              <td id="p_step5_teacher"></td>
+              <td id="p_step5_learner"></td>
+              <td id="p_step5_gc"></td>
+              <td id="p_step5_cci"></td>
             </tr>
             <tr>
-              <td><strong>Step 6: Homework/Remediation</strong><br /><small>(After class)</small></td>
-              <td id="p_step6_exercise"></td>
-              <td id="p_step6_gcci"></td>
-              <td id="p_step6"></td>
+              <td><strong>Step 6: New Lesson / Discovery Activity</strong><br><small>(5 mins / Homework)</small></td>
+              <td id="p_step6_teacher"></td>
+              <td id="p_step6_learner"></td>
+              <td id="p_step6_gc"></td>
+              <td id="p_step6_cci"></td>
             </tr>
           </tbody>
         </table>
-
         <div class="lp-footer-signatures">
           <div class="signature-block">
             <p><strong>Teacher Self-Evaluation & Remarks:</strong></p>
@@ -385,12 +549,8 @@
             <p class="sig-line">__________________________________________________________________________________________</p>
           </div>
           <div class="signature-row">
-            <div>
-              <p><strong>Teacher's Signature:</strong> _______________________</p>
-            </div>
-            <div>
-              <p><strong>Head Teacher / DOS Signature:</strong> _______________________</p>
-            </div>
+            <div><p><strong>Teacher's Signature:</strong> _______________________</p></div>
+            <div><p><strong>Head Teacher / DOS Signature:</strong> _______________________</p></div>
           </div>
         </div>
       </div>
@@ -398,22 +558,15 @@
   </main>
 
   <footer class="site-footer">
-    <p>
-      Rwanda CBC Mathematics Lesson Plan Generator ·
-      <a href="https://elearning.reb.rw/course/index.php?categoryid=19" target="_blank" rel="noopener noreferrer">REB e-Learning Math Books (Category 19)</a> ·
-      Integrated AI Model API & LocalStorage Header Support
-    </p>
+    <p>Rwanda CBC Mathematics Lesson Plan Generator · <a href="https://elearning.reb.rw/course/index.php?categoryid=19" target="_blank" rel="noopener noreferrer">REB e-Learning Math Books (Category 19)</a> · Integrated AI Model API &amp; LocalStorage Header Support</p>
   </footer>
 
-  <!-- Interactive AI Progress Modal Overlay -->
   <div id="aiProgressModal" class="modal-overlay hidden">
     <div class="modal-content">
       <div class="modal-spinner">⚙️</div>
       <h3 id="modalTitle">AI Reading REB Curriculum Books...</h3>
       <p id="modalStepText" class="modal-step">Connecting to elearning.reb.rw (Category 19)...</p>
-      <div class="progress-bar-container">
-        <div id="modalProgressBar" class="progress-bar-fill" style="width: 20%;"></div>
-      </div>
+      <div class="progress-bar-container"><div id="modalProgressBar" class="progress-bar-fill" style="width: 20%;"></div></div>
       <p class="small text-muted" style="margin-top: 10px;">Synthesizing human-like SMART objectives, SEN differentiation, and timed stage activities...</p>
     </div>
   </div>
