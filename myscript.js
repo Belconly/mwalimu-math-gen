@@ -249,8 +249,74 @@ function finishModalAndPreview() {
 }
 
 function highlightUpdatedFields() {
-  const fields = ['unitTitle','keyUnitCompetence','lessonTitle','instrObjective','learningMaterials','references','crossCutting','activityOverview','selfAssessment','step1_teacher','step1_learner','step1_note','step2_teacher','step2_learner','step2_note','step3_teacher','step3_learner','step3_note','step4_teacher','step4_learner','step4_note','step5_teacher','step5_learner','step5_note','step6_teacher','step6_learner','step6_note'];
+  const fields = ['unitTitle','keyUnitCompetence','lessonTitle','instrObjective','learningMaterials','references','crossCutting','activityOverview','selfAssessment','step1_time','step1_teacher','step1_learner','step1_note','step2_time','step2_teacher','step2_learner','step2_note','step3_time','step3_teacher','step3_learner','step3_note'];
   fields.forEach(f => { const el = form[f]; if (el) { el.style.backgroundColor = '#f0fdf4'; setTimeout(() => el.style.backgroundColor = '', 1500); } });
+}
+
+function defaultStageTimings(durationMins) {
+  const d = parseInt(durationMins, 10) || 40;
+  const intro = Math.max(5, Math.round(d * 0.125));
+  const conclusion = Math.max(5, Math.round(d * 0.25));
+  const development = Math.max(10, d - intro - conclusion);
+  return {
+    step1: `${intro} minutes`,
+    step2: `${development} minutes`,
+    step3: `${conclusion} minutes`
+  };
+}
+
+function toHyphenBullets(...texts) {
+  const items = [];
+  texts.filter(Boolean).forEach(text => {
+    String(text).split(/\n+/).forEach(line => {
+      const cleaned = line.replace(/^[-•*]\s*/, '').trim();
+      if (!cleaned) return;
+      const sentences = cleaned.split(/(?<=[.!?])\s+(?=[A-Z“"'])/).map(s => s.trim()).filter(Boolean);
+      (sentences.length ? sentences : [cleaned]).forEach(s => {
+        const item = s.replace(/\s+/g, ' ').trim();
+        if (item) items.push(item.replace(/[.]+$/, ''));
+      });
+    });
+  });
+  const unique = [];
+  items.forEach(item => { if (!unique.includes(item)) unique.push(item); });
+  return unique.map(item => `- ${item}.`.replace(/\.\.$/, '.')).join('\n');
+}
+
+function formatGcciCell(gc, cci, note) {
+  if (note && String(note).trim()) return String(note).trim();
+  const lines = [];
+  if (gc) lines.push(`G.C: ${gc}`);
+  if (cci) lines.push(`C.C.I: ${cci}`);
+  return lines.join('\n');
+}
+
+function formatClassSize(data) {
+  const boys = data.get('classBoys');
+  const girls = data.get('classGirls');
+  const total = data.get('classSize') || '';
+  if (boys !== null && boys !== '' || girls !== null && girls !== '') {
+    return `Boys: ${boys || 0}\nGirls: ${girls || 0}\nTotal: ${total || ((parseInt(boys, 10) || 0) + (parseInt(girls, 10) || 0))}`;
+  }
+  return total;
+}
+
+function collapseLegacySteps(aiData) {
+  if (!aiData) return aiData;
+  const hasLegacy = !!(aiData.step4_teacher || aiData.step5_teacher || aiData.step6_teacher || aiData.step4 || aiData.step5 || aiData.step6);
+  if (!hasLegacy) return aiData;
+  const out = { ...aiData };
+  out.step2_teacher = toHyphenBullets(aiData.step2_teacher || aiData.step2, aiData.step3_teacher || aiData.step3, aiData.step4_teacher || aiData.step4);
+  out.step2_learner = toHyphenBullets(aiData.step2_learner, aiData.step3_learner, aiData.step4_learner);
+  out.step2_gc = aiData.step2_gc || aiData.step3_gc || aiData.step4_gc || '';
+  out.step2_cci = aiData.step2_cci || aiData.step3_cci || aiData.step4_cci || '';
+  out.step2_note = [aiData.step2_note, aiData.step3_note, aiData.step4_note].filter(Boolean).join('\n') || out.step2_note;
+  out.step3_teacher = toHyphenBullets(aiData.step5_teacher || aiData.step5, aiData.step6_teacher || aiData.step6);
+  out.step3_learner = toHyphenBullets(aiData.step5_learner, aiData.step6_learner);
+  out.step3_gc = aiData.step5_gc || aiData.step3_gc || aiData.step6_gc || '';
+  out.step3_cci = aiData.step5_cci || aiData.step3_cci || aiData.step6_cci || '';
+  out.step3_note = [aiData.step5_note, aiData.step6_note, aiData.step3_note].filter(Boolean).join('\n') || out.step3_note;
+  return out;
 }
 
 // Helper to split combined activity into teacher/learner
@@ -300,11 +366,13 @@ function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, header
   const finalLessonTitle = customTopic ? `Rwanda CBC Focus: ${customTopic}` : lessonObj.lessonTitle;
   const finalObjective = customTopic ? `Using concrete classroom materials and REB textbooks, learners should be able to understand, calculate, and solve problems involving ${customTopic} correctly and explain their steps in pairs.` : lessonObj.instrObjective;
 
-  // If syllabus has 6 steps, map to new 5-column structure
-  if (lessonObj.steps && lessonObj.steps.length >= 6) {
+  const timings = defaultStageTimings(headers.duration || (form.duration && form.duration.value) || 40);
+
+  // If syllabus has detailed steps, collapse them into the 3-row plan
+  if (lessonObj.steps && lessonObj.steps.length >= 3) {
     const mapStep = (idx, defaults) => {
-      const s = lessonObj.steps[idx];
-      const split = splitTeacherLearner(s.activity);
+      const s = lessonObj.steps[idx] || {};
+      const split = splitTeacherLearner(s.activity || '');
       const parsed = parseGcCci(s.gcOrCci);
       // For GC/CCI, try to intelligently assign: if gcOrCci contains GC label, use it; otherwise default
       let gc = parsed.gc || defaults.gc;
@@ -329,20 +397,24 @@ function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, header
       learningMaterials: lessonObj.materials,
       references: `${unitObj.unitTitle} — REB Primary Mathematics ${cls} Student Book (SB) & Teacher's Guide (TG); elearning.reb.rw/course/index.php?categoryid=19`,
       crossCutting: lessonObj.crossCutting || m1.cci,
-      activityOverview: `In introduction, learners brainstorm their experience related to ${lessonObj.lessonTitle}. In new lesson, learners work in pairs/groups to discover the concept. In the conclusion, learners work with the teacher to summarize the lesson.`,
+      activityOverview: `In introduction, learners brainstorm their experience related to ${lessonObj.lessonTitle}. In lesson development, learners work in pairs/groups to discover, present, and exploit the concept. In the conclusion, learners work with the teacher to summarize the lesson.`,
       selfAssessment: 'The lesson was completed as planned.',
-      step1_teacher: m1.teacher, step1_learner: m1.learner, step1_gc: m1.gc, step1_cci: m1.cci, step1_note: `G.C: ${m1.gc}\nLearners activate prior knowledge through discussion.\nC.C.I: ${m1.cci}`,
-      step2_teacher: m2.teacher, step2_learner: m2.learner, step2_gc: m2.gc, step2_cci: m2.cci, step2_note: `G.C: ${m2.gc}\nDeveloped when learners manipulate materials in groups.\nC.C.I: ${m2.cci}`,
-      step3_teacher: m3.teacher, step3_learner: m3.learner, step3_gc: m3.gc, step3_cci: m3.cci, step3_note: `C.C.I: ${m3.cci}\nBoys and girls are encouraged to participate actively.`,
-      step4_teacher: m4.teacher, step4_learner: m4.learner, step4_gc: m4.gc, step4_cci: m4.cci, step4_note: `G.C: ${m4.gc}\nLearners discuss strategies and harmonize answers.\nC.C.I: ${m4.cci}`,
-      step5_teacher: m5.teacher, step5_learner: m5.learner, step5_gc: m5.gc, step5_cci: m5.cci, step5_note: `G.C: ${m5.gc}\nDeveloped as learners recall and explain the concept.`,
-      step6_teacher: m6.teacher, step6_learner: m6.learner, step6_gc: m6.gc, step6_cci: m6.cci, step6_note: `G.C: ${m6.gc}\nWhen learners define the concept using examples.`
+      step1_time: timings.step1,
+      step1_teacher: toHyphenBullets(m1.teacher), step1_learner: toHyphenBullets(m1.learner), step1_gc: m1.gc, step1_cci: m1.cci, step1_note: `G.C: ${m1.gc}\nLearners activate prior knowledge through discussion.\nC.C.I: ${m1.cci}`,
+      step2_time: timings.step2,
+      step2_teacher: toHyphenBullets(m2.teacher, m3.teacher, m4.teacher), step2_learner: toHyphenBullets(m2.learner, m3.learner, m4.learner), step2_gc: m2.gc || m3.gc, step2_cci: m2.cci || m3.cci, step2_note: `G.C: ${m2.gc || m3.gc}\nDeveloped when learners manipulate materials, present productions, and discuss strategies.\nC.C.I: ${m2.cci || m3.cci}`,
+      step3_time: timings.step3,
+      step3_teacher: toHyphenBullets(m5.teacher, m6.teacher), step3_learner: toHyphenBullets(m5.learner, m6.learner), step3_gc: m5.gc, step3_cci: m5.cci, step3_note: `G.C: ${m5.gc}\nDeveloped as learners recall, apply, and explain the concept.\nC.C.I: ${m5.cci}`
     };
   }
 
   // Fallback procedural generation for lessons without detailed steps
   const teacherNames = headers.teacher || 'Teacher';
   const senContext = headers.sen || 'learners with mild SEN';
+  const introSplit = splitTeacherLearner(lessonObj.intro || '');
+  const devSplit = splitTeacherLearner(lessonObj.development || '');
+  const concSplit = splitTeacherLearner(lessonObj.conclusion || '');
+  const evalSplit = splitTeacherLearner(lessonObj.evaluation || '');
   return {
     unitNo: form.unitNo.value || unitObj.unitNo || 'Unit 1',
     lessonNo: form.lessonNo.value || lessonObj.lessonNo || 'Lesson 1 of 6',
@@ -354,36 +426,32 @@ function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, header
     learningMaterials: lessonObj.materials,
     references: `${unitObj.unitTitle} — REB Primary Mathematics ${cls} Student Book (SB) & Teacher's Guide (TG); elearning.reb.rw/course/index.php?categoryid=19`,
     crossCutting: lessonObj.crossCutting || 'Inclusive Education',
-    step1_teacher: `${teacherNames} greets the ${cls} learners warmly, checks attendance and homework, and sings a counting rhyme to activate prior knowledge of ${unitObj.unitTitle.toLowerCase()}.`,
-    step1_learner: `Learners respond to greeting, sing along, recall previous lesson content, and answer probing questions about ${lessonObj.lessonTitle}.`,
+    activityOverview: `In introduction, learners brainstorm their experience related to ${lessonObj.lessonTitle}. In lesson development, learners work in pairs/groups to discover, present, and exploit the concept. In the conclusion, learners work with the teacher to summarize the lesson.`,
+    selfAssessment: 'The lesson was completed as planned.',
+    step1_time: timings.step1,
+    step1_teacher: toHyphenBullets(introSplit.teacher || `${teacherNames} greets the ${cls} learners warmly, checks attendance and homework, and sings a counting rhyme to activate prior knowledge of ${unitObj.unitTitle.toLowerCase()}.`),
+    step1_learner: toHyphenBullets(introSplit.learner || `Learners respond to greeting, sing along, recall previous lesson content, and answer probing questions about ${lessonObj.lessonTitle}.`),
     step1_gc: "Communication",
     step1_cci: "Inclusive Education",
-    step2_teacher: `Teacher models ${lessonObj.lessonTitle} on the chalkboard using visual aids and REB SB examples, demonstrating step-by-step procedures. Teacher circulates to support ${senContext} with enlarged charts and tactile materials.`,
-    step2_learner: `Learners observe demonstration, work in groups of 4 with concrete materials (counters, bottle caps) to practice examples, discuss solutions, and peer-support SEN learners.`,
-    step2_gc: "Critical Thinking",
+    step1_note: `G.C: Communication\nLearners activate prior knowledge through discussion.\nC.C.I: Inclusive Education`,
+    step2_time: timings.step2,
+    step2_teacher: toHyphenBullets(devSplit.teacher || `Teacher models ${lessonObj.lessonTitle} on the chalkboard using visual aids and REB SB examples.`, `Teacher circulates to support ${senContext} with enlarged charts and tactile materials.`, `Teacher invites groups to present productions and guides exploitation of their strategies.`),
+    step2_learner: toHyphenBullets(devSplit.learner || `Learners observe the demonstration and work in groups of 4 with concrete materials.`, `Learners present solutions on the chalkboard and verify each other's work respectfully.`),
+    step2_gc: "Collaboration",
     step2_cci: "Inclusive Education",
-    step3_teacher: `Teacher guides second development activity, assigns differentiated group tasks, monitors progress, asks guiding questions to stimulate critical thinking, and provides one-on-one support for slow learners.`,
-    step3_learner: `Learners collaborate in mixed-ability pairs/groups, solve REB Pupil's Book exercises, present solutions on chalkboard, and verify each other's work respectfully.`,
-    step3_gc: "Collaboration",
-    step3_cci: "Peace and Values Education",
-    step4_teacher: `Teacher leads a 5-minute summary, asks learners to state golden rules learned, clarifies misconceptions, and praises active participation.`,
-    step4_learner: `Learners summarise key concepts, explain rules to the class, share reflections on challenges faced, and copy summary notes into notebooks.`,
-    step4_gc: "Communication",
-    step4_cci: "Peace and Values Education",
-    step5_teacher: `Teacher administers a short formative assessment (4–5 problems on chalkboard from REB SB), marks exercise books, and provides immediate feedback.`,
-    step5_learner: `Learners complete assessment individually, demonstrate solutions on chalkboard, self-assess, and note areas needing improvement.`,
-    step5_gc: "Problem Solving",
-    step5_cci: "Gender",
-    step6_teacher: `Teacher previews next lesson topic, assigns discovery/homework activity from REB SB, and gives remedial guidance for struggling learners.`,
-    step6_learner: `Learners note homework, ask clarification questions, collect materials for next discovery activity, and commit to completing tasks at home.`,
-    step6_gc: "Lifelong Learning",
-    step6_cci: "Inclusive Education"
+    step2_note: `G.C: Collaboration\nDeveloped when learners manipulate materials, present productions, and discuss strategies.\nC.C.I: Inclusive Education`,
+    step3_time: timings.step3,
+    step3_teacher: toHyphenBullets(concSplit.teacher || `Teacher leads a short recap and asks learners to state the golden rules learned.`, evalSplit.teacher || `Teacher administers a short formative assessment from REB SB and gives immediate feedback.`),
+    step3_learner: toHyphenBullets(concSplit.learner || `Learners summarise key concepts and explain rules to the class.`, evalSplit.learner || `Learners complete the assessment individually, self-check answers, and note homework.`),
+    step3_gc: "Problem Solving",
+    step3_cci: "Gender",
+    step3_note: `G.C: Problem Solving\nDeveloped as learners recall, apply, and explain the concept.\nC.C.I: Gender`
   };
 }
 
 async function callExternalLLM(provider, apiKey, model, endpoint, headers, selectedUnitIndex, customTopic) {
   const cls = headers.class || 'P4';
-  const prompt = `You are an expert Rwandan Primary School Mathematics teacher using the official REB Teacher's Guide SAMPLE LESSON PLAN format.\nGenerate JSON lesson plan for Class ${cls} matching that table.\nContext: Class ${cls}, Term ${headers.term}, Duration ${headers.duration} mins, SEN ${headers.sen}, Topic ${customTopic || 'standard REB unit for '+cls}\nReturn ONLY JSON with keys: unitNo, lessonNo, unitTitle, keyUnitCompetence, lessonTitle, instrObjective, planLocation, learningMaterials, references, crossCutting, step1_teacher, step1_learner, step1_gc, step1_cci, step2_teacher, step2_learner, step2_gc, step2_cci, step3_teacher, step3_learner, step3_gc, step3_cci, step4_teacher, step4_learner, step4_gc, step4_cci, step5_teacher, step5_learner, step5_gc, step5_cci, step6_teacher, step6_learner, step6_gc, step6_cci\nGC must be one of: Critical Thinking, Problem Solving, Creativity and Innovation, Communication, Collaboration, Digital Literacy, Lifelong Learning, Cultural Identity, Self-Confidence\nCCI must be one of: Peace and Values Education, Gender, Inclusive Education, Environment, Financial Education, Standardization Culture, Impact of Social Media, Comprehensive Sexuality Education, Genocide Studies, Disaster Risk Reduction`;
+  const prompt = `You are an expert Rwandan Primary School Mathematics teacher.\nGenerate a 3-row lesson plan JSON for Class ${cls}: Introduction, Lesson development, Conclusion.\nContext: Class ${cls}, Term ${headers.term}, Duration ${headers.duration} mins, SEN ${headers.sen}, Topic ${customTopic || 'standard REB unit for '+cls}\nReturn ONLY JSON with keys: unitNo, lessonNo, unitTitle, keyUnitCompetence, lessonTitle, instrObjective, planLocation, learningMaterials, references, crossCutting, activityOverview, selfAssessment, step1_time, step1_teacher, step1_learner, step1_gc, step1_cci, step1_note, step2_time, step2_teacher, step2_learner, step2_gc, step2_cci, step2_note, step3_time, step3_teacher, step3_learner, step3_gc, step3_cci, step3_note\nWrite teacher and learner activities as hyphen bullets, one action per line (e.g. \"- Greet the class\").\nGC must be one of: Critical Thinking, Problem Solving, Creativity and Innovation, Communication, Collaboration, Digital Literacy, Lifelong Learning, Cultural Identity, Self-Confidence\nCCI must be one of: Peace and Values Education, Gender, Inclusive Education, Environment, Financial Education, Standardization Culture, Impact of Social Media, Comprehensive Sexuality Education, Genocide Studies, Disaster Risk Reduction`;
   let apiUrl='', fetchOptions={};
   if (provider==='openai' || provider==='custom') { apiUrl = endpoint || 'https://api.openai.com/v1/chat/completions'; const chosenModel=model||'gpt-4o-mini'; fetchOptions={method:'POST', headers:{'Content-Type':'application/json','Authorization':`Bearer ${apiKey}`}, body:JSON.stringify({model:chosenModel, messages:[{role:'user',content:prompt}], temperature:0.7})}; }
   else if (provider==='gemini') { const chosenModel=model||'gemini-1.5-flash'; apiUrl=`https://generativelanguage.googleapis.com/v1beta/models/${chosenModel}:generateContent?key=${apiKey}`; fetchOptions={method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})}; }
@@ -402,6 +470,7 @@ async function callExternalLLM(provider, apiKey, model, endpoint, headers, selec
 
 function populateFormWithAiResult(aiData, headers) {
   if (!aiData) return;
+  aiData = collapseLegacySteps(aiData);
   if (aiData.unitNo) form.unitNo.value = aiData.unitNo;
   if (aiData.lessonNo) form.lessonNo.value = aiData.lessonNo;
   if (aiData.unitTitle) form.unitTitle.value = aiData.unitTitle;
@@ -414,32 +483,45 @@ function populateFormWithAiResult(aiData, headers) {
   if (aiData.crossCutting) form.crossCutting.value = aiData.crossCutting;
   if (aiData.activityOverview && form.activityOverview) form.activityOverview.value = aiData.activityOverview;
   if (aiData.selfAssessment && form.selfAssessment) form.selfAssessment.value = aiData.selfAssessment;
-  // Official activity columns
-  for (let i=1;i<=6;i++) {
-    if (aiData[`step${i}_teacher`]) form[`step${i}_teacher`].value = aiData[`step${i}_teacher`];
-    if (aiData[`step${i}_learner`]) form[`step${i}_learner`].value = aiData[`step${i}_learner`];
-    if (aiData[`step${i}_gc`]) form[`step${i}_gc`].value = aiData[`step${i}_gc`];
-    if (aiData[`step${i}_cci`]) form[`step${i}_cci`].value = aiData[`step${i}_cci`];
+  const timings = defaultStageTimings((headers && headers.duration) || (form.duration && form.duration.value) || 40);
+  for (let i=1;i<=3;i++) {
+    if (form[`step${i}_time`]) form[`step${i}_time`].value = aiData[`step${i}_time`] || timings[`step${i}`];
+    if (aiData[`step${i}_teacher`] && form[`step${i}_teacher`]) form[`step${i}_teacher`].value = toHyphenBullets(aiData[`step${i}_teacher`]);
+    if (aiData[`step${i}_learner`] && form[`step${i}_learner`]) form[`step${i}_learner`].value = toHyphenBullets(aiData[`step${i}_learner`]);
+    if (aiData[`step${i}_gc`] && form[`step${i}_gc`]) form[`step${i}_gc`].value = aiData[`step${i}_gc`];
+    if (aiData[`step${i}_cci`] && form[`step${i}_cci`]) form[`step${i}_cci`].value = aiData[`step${i}_cci`];
     if (aiData[`step${i}_note`] && form[`step${i}_note`]) form[`step${i}_note`].value = aiData[`step${i}_note`];
-    // Legacy single field support
-    if (aiData[`step${i}`] && !aiData[`step${i}_teacher`]) {
+    if (aiData[`step${i}`] && form[`step${i}_teacher`] && !form[`step${i}_teacher`].value) {
       const split = splitTeacherLearner(aiData[`step${i}`]);
-      form[`step${i}_teacher`].value = split.teacher;
-      form[`step${i}_learner`].value = split.learner;
+      form[`step${i}_teacher`].value = toHyphenBullets(split.teacher);
+      form[`step${i}_learner`].value = toHyphenBullets(split.learner);
     }
-    if (aiData[`step${i}_gcci`]) {
+    if (aiData[`step${i}_gcci`] && form[`step${i}_gc`]) {
       const parsed = parseGcCci(aiData[`step${i}_gcci`]);
       if (parsed.gc) form[`step${i}_gc`].value = parsed.gc;
       if (parsed.cci) form[`step${i}_cci`].value = parsed.cci;
     }
   }
-  // Backward compat old fields
-  if (aiData.intro && form.step1_teacher && !form.step1_teacher.value) { const s=splitTeacherLearner(aiData.intro); form.step1_teacher.value=s.teacher; form.step1_learner.value=s.learner; }
-  if (aiData.development && form.step2_teacher && !form.step2_teacher.value) { const s=splitTeacherLearner(aiData.development); form.step2_teacher.value=s.teacher; form.step2_learner.value=s.learner; }
+  if (aiData.intro && form.step1_teacher && !form.step1_teacher.value) {
+    const s = splitTeacherLearner(aiData.intro);
+    form.step1_teacher.value = toHyphenBullets(s.teacher);
+    form.step1_learner.value = toHyphenBullets(s.learner);
+  }
+  if (aiData.development && form.step2_teacher && !form.step2_teacher.value) {
+    const s = splitTeacherLearner(aiData.development);
+    form.step2_teacher.value = toHyphenBullets(s.teacher);
+    form.step2_learner.value = toHyphenBullets(s.learner);
+  }
+  if (aiData.conclusion && form.step3_teacher && !form.step3_teacher.value) {
+    const s = splitTeacherLearner(aiData.conclusion + ' ' + (aiData.evaluation || ''));
+    form.step3_teacher.value = toHyphenBullets(s.teacher);
+    form.step3_learner.value = toHyphenBullets(s.learner);
+  }
 }
 
 function fillPrintableFromForm() {
   const data = new FormData(form);
+  const timings = defaultStageTimings(data.get('duration') || 40);
   const map = {
     p_school: data.get('school') || '',
     p_teacher: data.get('teacher') || '',
@@ -450,7 +532,7 @@ function fillPrintableFromForm() {
     p_unitNo: data.get('unitNo') || '',
     p_lessonNo: data.get('lessonNo') || '',
     p_duration: (data.get('duration') || '') + ' mins',
-    p_classSize: data.get('classSize') || '',
+    p_classSize: formatClassSize(data),
     p_sen: data.get('sen') || 'None reported',
     p_unitTitle: data.get('unitTitle') || '',
     p_keyUnitCompetence: data.get('keyUnitCompetence') || '',
@@ -459,13 +541,15 @@ function fillPrintableFromForm() {
     p_planLocation: data.get('planLocation') || '',
     p_learningMaterials: data.get('learningMaterials') || '',
     p_references: data.get('references') || '',
-    p_crossCutting: data.get('crossCutting') || ''
+    p_crossCutting: data.get('crossCutting') || '',
+    p_activityOverview: data.get('activityOverview') || '',
+    p_selfAssessment: data.get('selfAssessment') || ''
   };
-  for (let i=1;i<=6;i++) {
-    map[`p_step${i}_teacher`] = data.get(`step${i}_teacher`) || data.get(`step${i}`) || '';
-    map[`p_step${i}_learner`] = data.get(`step${i}_learner`) || '';
-    map[`p_step${i}_gc`] = data.get(`step${i}_gc`) || '';
-    map[`p_step${i}_cci`] = data.get(`step${i}_cci`) || '';
+  for (let i=1;i<=3;i++) {
+    map[`p_step${i}_time`] = data.get(`step${i}_time`) || timings[`step${i}`];
+    map[`p_step${i}_teacher`] = toHyphenBullets(data.get(`step${i}_teacher`) || data.get(`step${i}`) || '');
+    map[`p_step${i}_learner`] = toHyphenBullets(data.get(`step${i}_learner`) || '');
+    map[`p_step${i}_gcci`] = formatGcciCell(data.get(`step${i}_gc`), data.get(`step${i}_cci`), data.get(`step${i}_note`));
   }
   for (const k in map) { const el = document.getElementById(k); if (el) el.textContent = map[k]; }
 }

@@ -18,12 +18,11 @@ An AI-powered web tool that helps Rwandan Primary School Mathematics teachers ge
    - Collects all essential header metadata: School Name, Teacher's Name, Term (`Term 1`–`Term 3`), Date, Subject (`Mathematics`), Class (`P1`–`P6`), Unit No, Lesson No, Duration, Class Size, SEN Info, and Plan Location.
    - **Auto-saves to LocalStorage:** Automatically saves and restores header metadata across sessions so teachers do not have to re-type their School Name, Teacher Name, Term, or Class Size. Includes quick action controls (`💾 Save Header Defaults` and `🗑️ Clear Saved Headers`).
 
-4. **Timed Stage-by-Stage Activities Table:**
-   - Structured according to REB Scheme of Work and daily pedagogical stages:
-     - **Introduction (5–10 mins):** Warm-up, activating prior knowledge, checking attendance/homework.
-     - **Development (20–25 mins):** Interactive teaching & learning, group/pair work, chalkboard modeling, SEN differentiation.
-     - **Conclusion (5 mins):** Reflection, chalkboard recap, student feedback.
-     - **Evaluation / Assessment (5 mins):** Formative quiz, exercise book check, or chalkboard challenge.
+4. **3-row timed activities table (editable timings + hyphen bullets):**
+   - **Introduction** (default ~5 mins): Warm-up, activating prior knowledge, checking attendance/homework.
+   - **Lesson development** (default ~25 mins): Discovery, presentation, and exploitation of learners’ productions.
+   - **Conclusion** (default ~10 mins): Recap, formative assessment, and homework.
+   - Each stage timing is editable. Teacher and learner activities render as hyphen bullets.
 
 5. **Instant A4 PDF Download & Browser Print:**
    - Generates official Basic Education Board (REB) A4 PDF lesson plans locally in the browser using `html2pdf.js`.
