@@ -133,7 +133,9 @@
         </div>
         <div class="row">
           <label>Duration (mins)<input name="duration" type="number" min="10" value="40" required></label>
-          <label>Class size<input name="classSize" type="number" min="1" value="30" required></label>
+          <label>Boys<input name="classBoys" type="number" min="0" value="15" required></label>
+          <label>Girls<input name="classGirls" type="number" min="0" value="15" required></label>
+          <label>Class size (Total)<input name="classSize" type="number" min="1" value="30" required></label>
         </div>
         <div class="row">
           <label>SEN info (Special Educational Needs)
@@ -191,15 +193,26 @@
           </label>
         </div>
 
-        <!-- Section 3: REB CBC Official 5-Column 6-Step Format -->
-        <div class="form-section-header">
-          <h3>3. REB CBC Official Format — 5-Column Table (Timing · Teacher Activities · Learners Activities · Generic Competence · Cross-Cutting Issue) — 6 Steps</h3>
+        <div class="row">
+          <label>Description of teaching and learning activity (overview)
+            <textarea name="activityOverview" rows="3" placeholder="In introduction, learners brainstorm... In new lesson, learners play in pairs... In the conclusion, learners work with the teacher to summarize the lesson."></textarea>
+          </label>
         </div>
-        <p class="small" style="margin-top:-8px;margin-bottom:12px;color:#6b7280;">Official REB CBC structure: Introduction → Development Part 1 &amp; 2 → Conclusion/Summary → Assessment → New Lesson/Discovery Activity. Each step has dropdowns for G.C. and C.C.I.</p>
+        <div class="row">
+          <label>Self-assessment
+            <textarea name="selfAssessment" rows="2" placeholder="e.g., The lesson was completed as planned. / The lesson did not finish due to..."></textarea>
+          </label>
+        </div>
+
+        <!-- Section 3: Official REB sample lesson-plan activity table -->
+        <div class="form-section-header">
+          <h3>3. Official REB format — Timing · Teacher’s activities · Learners activities · G.C. and C.C.I. + short explanation</h3>
+        </div>
+        <p class="small" style="margin-top:-8px;margin-bottom:12px;color:#6b7280;">Follow the Teacher’s Guide sample: Introduction → New lesson (Discovery) → Presentation of learners’ productions → Exploitation of learners’ productions → Conclusion/Summary → Assessment → Self-assessment.</p>
 
         <!-- Step 1 -->
         <div class="step-card">
-          <h4>Step 1 — Introduction (5–10 mins)</h4>
+          <h4>Introduction (5 minutes)</h4>
           <div class="row">
             <label>Teacher Activities<textarea name="step1_teacher" rows="2" placeholder="What the teacher does... e.g., Greets class, sings counting rhyme, checks homework, activates prior knowledge"></textarea></label>
             <label>Learners Activities<textarea name="step1_learner" rows="2" placeholder="What learners do... e.g., Respond to greeting, sing along, count aloud, answer probing questions"></textarea></label>
@@ -218,6 +231,9 @@
                 <option value="Cultural Identity">Cultural Identity</option>
                 <option value="Self-Confidence">Self-Confidence</option>
               </select>
+            </label>
+            <label>G.C. / C.C.I. short explanation
+              <textarea name="step1_note" rows="2" placeholder="e.g., G.C: Critical thinking — Learners are trying to brainstorm on the key words."></textarea>
             </label>
             <label>Cross-Cutting Issue (C.C.I.)
               <select name="step1_cci">
@@ -239,7 +255,7 @@
 
         <!-- Step 2 -->
         <div class="step-card">
-          <h4>Step 2 — Development Part 1 (15 mins)</h4>
+          <h4>New lesson — a) Discovery activity</h4>
           <div class="row">
             <label>Teacher Activities<textarea name="step2_teacher" rows="3" placeholder="Teacher models/demonstrates concept on chalkboard, explains using REB SB, provides visual aids..."></textarea></label>
             <label>Learners Activities<textarea name="step2_learner" rows="3" placeholder="Learners observe, work in groups of 4 with counters/manipulatives, discuss, practice on mini-boards..."></textarea></label>
@@ -258,6 +274,9 @@
                 <option value="Cultural Identity">Cultural Identity</option>
                 <option value="Self-Confidence">Self-Confidence</option>
               </select>
+            </label>
+            <label>G.C. / C.C.I. short explanation
+              <textarea name="step2_note" rows="2" placeholder="e.g., GC: Creativity and innovation — developed when learners are manipulating and playing with coin, in their groups."></textarea>
             </label>
             <label>Cross-Cutting Issue (C.C.I.)
               <select name="step2_cci">
@@ -279,7 +298,7 @@
 
         <!-- Step 3 -->
         <div class="step-card">
-          <h4>Step 3 — Development Part 2 (15 mins)</h4>
+          <h4>Presentation of learners’ productions</h4>
           <div class="row">
             <label>Teacher Activities<textarea name="step3_teacher" rows="3" placeholder="Teacher guides second development activity, circulates to support SEN learners, provides differentiated tasks..."></textarea></label>
             <label>Learners Activities<textarea name="step3_learner" rows="3" placeholder="Learners continue group work, present solutions on chalkboard, peer-teach, verify answers..."></textarea></label>
@@ -298,6 +317,9 @@
                 <option value="Cultural Identity">Cultural Identity</option>
                 <option value="Self-Confidence">Self-Confidence</option>
               </select>
+            </label>
+            <label>G.C. / C.C.I. short explanation
+              <textarea name="step3_note" rows="2" placeholder="e.g., C.C.I: Gender education: Boys and girls learners will be encouraged to participate actively in the activity."></textarea>
             </label>
             <label>Cross-Cutting Issue (C.C.I.)
               <select name="step3_cci">
@@ -319,7 +341,7 @@
 
         <!-- Step 4 -->
         <div class="step-card">
-          <h4>Step 4 — Conclusion / Summary (5 mins)</h4>
+          <h4>Exploitation of learners’ productions</h4>
           <div class="row">
             <label>Teacher Activities<textarea name="step4_teacher" rows="2" placeholder="Teacher recaps key points, asks summary questions, clarifies misconceptions, praises learners..."></textarea></label>
             <label>Learners Activities<textarea name="step4_learner" rows="2" placeholder="Learners summarise lesson, answer reflection questions, explain key rules to class..."></textarea></label>
@@ -338,6 +360,9 @@
                 <option value="Cultural Identity">Cultural Identity</option>
                 <option value="Self-Confidence">Self-Confidence</option>
               </select>
+            </label>
+            <label>G.C. / C.C.I. short explanation
+              <textarea name="step4_note" rows="2" placeholder="e.g., G.C: Critical thinking + C.C.I: Gender education + Peace and value education"></textarea>
             </label>
             <label>Cross-Cutting Issue (C.C.I.)
               <select name="step4_cci">
@@ -359,7 +384,7 @@
 
         <!-- Step 5 -->
         <div class="step-card">
-          <h4>Step 5 — Assessment (5 mins)</h4>
+          <h4>Conclusion / Summary</h4>
           <div class="row">
             <label>Teacher Activities<textarea name="step5_teacher" rows="2" placeholder="Teacher administers formative quiz, writes 3–4 problems on board, marks exercise books, gives feedback..."></textarea></label>
             <label>Learners Activities<textarea name="step5_learner" rows="2" placeholder="Learners solve assessment individually, demonstrate on chalkboard, self/peer-check answers..."></textarea></label>
@@ -378,6 +403,9 @@
                 <option value="Cultural Identity">Cultural Identity</option>
                 <option value="Self-Confidence">Self-Confidence</option>
               </select>
+            </label>
+            <label>G.C. / C.C.I. short explanation
+              <textarea name="step5_note" rows="2" placeholder="e.g., G.C. Critical thinking: developed as learners try to find the meaning of the concept of chance and where it is used."></textarea>
             </label>
             <label>Cross-Cutting Issue (C.C.I.)
               <select name="step5_cci">
@@ -418,6 +446,9 @@
                 <option value="Cultural Identity">Cultural Identity</option>
                 <option value="Self-Confidence">Self-Confidence</option>
               </select>
+            </label>
+            <label>G.C. / C.C.I. short explanation
+              <textarea name="step6_note" rows="2" placeholder="e.g., G.C: Critical thinking: when learners are trying to define the concept of chance by using examples."></textarea>
             </label>
             <label>Cross-Cutting Issue (C.C.I.)
               <select name="step6_cci">
@@ -461,98 +492,127 @@
     <section class="preview-section">
       <div class="preview-header">
         <h2>Preview / Printable Lesson Plan</h2>
-        <span class="preview-tag">Rwanda CBC Official Format — 5 Columns</span>
+        <span class="preview-tag">Official REB sample lesson plan format</span>
       </div>
       <div id="printable" class="printable">
         <div class="lp-doc-header">
-          <h1>REPUBLIC OF RWANDA — BASIC EDUCATION BOARD (REB)</h1>
-          <h2>COMPETENCY-BASED CURRICULUM — MATHEMATICS LESSON PLAN</h2>
+          <h1 id="p_partTitle">SAMPLE LESSON PLAN FOR MATHEMATICS</h1>
         </div>
-        <table class="meta">
-          <tr><td><strong>School Name:</strong></td><td id="p_school"></td><td><strong>Teacher's Name:</strong></td><td id="p_teacher"></td></tr>
-          <tr><td><strong>Term:</strong></td><td id="p_term"></td><td><strong>Date:</strong></td><td id="p_date"></td></tr>
-          <tr><td><strong>Subject:</strong></td><td id="p_subject">Mathematics</td><td><strong>Class:</strong></td><td id="p_class"></td></tr>
-          <tr><td><strong>Unit No:</strong></td><td id="p_unitNo"></td><td><strong>Lesson No:</strong></td><td id="p_lessonNo"></td></tr>
-          <tr><td><strong>Duration:</strong></td><td id="p_duration"></td><td><strong>Class Size:</strong></td><td id="p_classSize"></td></tr>
+        <p class="lp-school-line"><strong>School Name:</strong> <span id="p_school"></span> &nbsp;&nbsp;&nbsp; <strong>Teacher’s name:</strong> <span id="p_teacher"></span></p>
+        <table class="meta reb-header-grid">
+          <tr>
+            <th>Term</th>
+            <th>Date</th>
+            <th>Subject</th>
+            <th>Class</th>
+            <th>Unit N°</th>
+            <th>Lesson N°</th>
+            <th>Duration</th>
+            <th>Class size</th>
+          </tr>
+          <tr>
+            <td id="p_term"></td>
+            <td id="p_date"></td>
+            <td id="p_subject">Maths</td>
+            <td id="p_class"></td>
+            <td id="p_unitNo"></td>
+            <td id="p_lessonNo"></td>
+            <td id="p_duration"></td>
+            <td id="p_classSize"></td>
+          </tr>
         </table>
-        <div class="lp-section-block">
-          <p><strong>SEN Info (Special Educational Needs):</strong> <span id="p_sen"></span></p>
-          <p><strong>Unit Title:</strong> <span id="p_unitTitle"></span></p>
-          <p><strong>Key Unit Competence:</strong> <span id="p_keyUnitCompetence"></span></p>
-          <p><strong>Title of the Lesson:</strong> <span id="p_lessonTitle"></span></p>
-          <p><strong>Instructional Objective:</strong> <span id="p_instrObjective"></span></p>
-          <p><strong>Plan Location:</strong> <span id="p_planLocation"></span></p>
-          <p><strong>Learning Materials:</strong> <span id="p_learningMaterials"></span></p>
-          <p><strong>References (REB SB & TG):</strong> <span id="p_references"></span></p>
-          <p><strong>Cross-cutting Issue:</strong> <span id="p_crossCutting"></span></p>
-        </div>
-        <h3>Lesson Development — REB CBC Official 5-Column Table</h3>
-        <table class="timing">
+        <table class="meta reb-field-table">
+          <tr>
+            <th>Types/category/number of special Educational need to be catered for in this lesson</th>
+            <td id="p_sen"></td>
+          </tr>
+          <tr>
+            <th>Unit title</th>
+            <td id="p_unitTitle"></td>
+          </tr>
+          <tr>
+            <th>Key Unit Competence</th>
+            <td id="p_keyUnitCompetence"></td>
+          </tr>
+          <tr>
+            <th>Title of the lesson</th>
+            <td id="p_lessonTitle"></td>
+          </tr>
+          <tr>
+            <th>Instructional Objective</th>
+            <td id="p_instrObjective"></td>
+          </tr>
+          <tr>
+            <th>Plan for this Class (location: in / outside)</th>
+            <td id="p_planLocation"></td>
+          </tr>
+          <tr>
+            <th>Learning Materials (for all learners)</th>
+            <td><span id="p_learningMaterials"></span><br><span id="p_references"></span></td>
+          </tr>
+        </table>
+        <table class="timing reb-activity-table">
           <thead>
             <tr>
-              <th style="width:13%;">Timing</th>
-              <th style="width:27%;">Teacher Activities</th>
-              <th style="width:27%;">Learners Activities</th>
-              <th style="width:16%;">Generic Competence (G.C.)</th>
-              <th style="width:17%;">Cross-Cutting Issue (C.C.I.)</th>
+              <th style="width:16%;">Timing for each steps</th>
+              <th colspan="2">Description of teaching and learning activity</th>
+              <th style="width:24%;">Generic competences (G.C) and Cross cutting issues (C.C.I) to be addressed + a short explanation</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Step 1: Introduction</strong><br><small>(5–10 mins)</small></td>
+              <td></td>
+              <td colspan="2" id="p_activityOverview"></td>
+              <td></td>
+            </tr>
+            <tr class="subhead">
+              <td></td>
+              <th>Teacher’s activities</th>
+              <th>Learners activities</th>
+              <td></td>
+            </tr>
+            <tr>
+              <td><strong>Introduction</strong><br>5 minutes</td>
               <td id="p_step1_teacher"></td>
               <td id="p_step1_learner"></td>
-              <td id="p_step1_gc"></td>
-              <td id="p_step1_cci"></td>
+              <td id="p_step1_gcci"></td>
             </tr>
             <tr>
-              <td><strong>Step 2: Development Part 1</strong><br><small>(15 mins)</small></td>
+              <td><strong>New lesson</strong><br>a) Discovery activity</td>
               <td id="p_step2_teacher"></td>
               <td id="p_step2_learner"></td>
-              <td id="p_step2_gc"></td>
-              <td id="p_step2_cci"></td>
+              <td id="p_step2_gcci"></td>
             </tr>
             <tr>
-              <td><strong>Step 3: Development Part 2</strong><br><small>(15 mins)</small></td>
+              <td><strong>Presentation of learners’ productions</strong></td>
               <td id="p_step3_teacher"></td>
               <td id="p_step3_learner"></td>
-              <td id="p_step3_gc"></td>
-              <td id="p_step3_cci"></td>
+              <td id="p_step3_gcci"></td>
             </tr>
             <tr>
-              <td><strong>Step 4: Conclusion / Summary</strong><br><small>(5 mins)</small></td>
+              <td><strong>Exploitation of learners’ productions</strong></td>
               <td id="p_step4_teacher"></td>
               <td id="p_step4_learner"></td>
-              <td id="p_step4_gc"></td>
-              <td id="p_step4_cci"></td>
+              <td id="p_step4_gcci"></td>
             </tr>
             <tr>
-              <td><strong>Step 5: Assessment</strong><br><small>(5 mins)</small></td>
+              <td><strong>Conclusion / Summary</strong></td>
               <td id="p_step5_teacher"></td>
               <td id="p_step5_learner"></td>
-              <td id="p_step5_gc"></td>
-              <td id="p_step5_cci"></td>
+              <td id="p_step5_gcci"></td>
             </tr>
             <tr>
-              <td><strong>Step 6: New Lesson / Discovery Activity</strong><br><small>(5 mins / Homework)</small></td>
+              <td><strong>Assessment</strong><br>5 minutes</td>
               <td id="p_step6_teacher"></td>
               <td id="p_step6_learner"></td>
-              <td id="p_step6_gc"></td>
-              <td id="p_step6_cci"></td>
+              <td id="p_step6_gcci"></td>
+            </tr>
+            <tr>
+              <td><strong>Self-assessment</strong></td>
+              <td colspan="3" id="p_selfAssessment"></td>
             </tr>
           </tbody>
         </table>
-        <div class="lp-footer-signatures">
-          <div class="signature-block">
-            <p><strong>Teacher Self-Evaluation & Remarks:</strong></p>
-            <p class="sig-line">__________________________________________________________________________________________</p>
-            <p class="sig-line">__________________________________________________________________________________________</p>
-          </div>
-          <div class="signature-row">
-            <div><p><strong>Teacher's Signature:</strong> _______________________</p></div>
-            <div><p><strong>Head Teacher / DOS Signature:</strong> _______________________</p></div>
-          </div>
-        </div>
       </div>
     </section>
   </main>

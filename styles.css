@@ -398,11 +398,52 @@ button {
 
 .printable {
   background: #fff;
-  padding: 30px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  padding: 22px 18px;
+  border: 1px solid #111;
+  border-radius: 0;
   color: #000;
+  font-family: "Times New Roman", Times, serif;
   box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+.lp-school-line {
+  font-size: 13px;
+  margin: 0 0 8px;
+}
+.reb-header-grid th,
+.reb-header-grid td,
+.reb-field-table th,
+.reb-field-table td,
+.reb-activity-table th,
+.reb-activity-table td {
+  border: 1px solid #111 !important;
+  background: #fff;
+  white-space: pre-line;
+}
+.reb-header-grid th {
+  text-align: center;
+  font-size: 12px;
+}
+.reb-header-grid td {
+  text-align: center;
+  font-size: 12.5px;
+  white-space: pre-line;
+}
+.reb-field-table th {
+  width: 32%;
+  text-align: left;
+  font-weight: 700;
+  font-size: 12.5px;
+  background: #fff;
+}
+.reb-field-table {
+  margin-bottom: 0;
+}
+.reb-activity-table {
+  margin-top: 0;
+}
+.reb-activity-table .subhead th {
+  font-weight: 700;
+  text-align: center;
 }
 
 .lp-doc-header {
