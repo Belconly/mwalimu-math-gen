@@ -55,7 +55,8 @@
           }
         ]
       }
-    ]
+    ],
+    "pupilBookTitle": "REB Primary Mathematics P1 Pupil's Book (PB)"
   },
   "P2": {
     "classLevel": "Primary 2 (P2)",
@@ -113,7 +114,8 @@
           }
         ]
       }
-    ]
+    ],
+    "pupilBookTitle": "REB Primary Mathematics P2 Pupil's Book (PB)"
   },
   "P3": {
     "classLevel": "Primary 3 (P3)",
@@ -171,7 +173,8 @@
           }
         ]
       }
-    ]
+    ],
+    "pupilBookTitle": "REB Primary Mathematics P3 Pupil's Book (PB)"
   },
   "P4": {
     "classLevel": "Primary 4 (P4)",
@@ -229,7 +232,8 @@
           }
         ]
       }
-    ]
+    ],
+    "pupilBookTitle": "REB Primary Mathematics P4 Pupil's Book (PB)"
   },
   "P5": {
     "classLevel": "Primary 5 (P5)",
@@ -275,7 +279,8 @@
           }
         ]
       }
-    ]
+    ],
+    "pupilBookTitle": "REB Primary Mathematics P5 Pupil's Book (PB)"
   },
   "P6": {
     "classLevel": "Primary 6 (P6)",
@@ -321,6 +326,7 @@
           }
         ]
       }
-    ]
+    ],
+    "pupilBookTitle": "REB Primary Mathematics P6 Pupil's Book (PB)"
   }
 }
