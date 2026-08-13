@@ -195,7 +195,7 @@
 
         <div class="row">
           <label>Description of teaching and learning activity (overview)
-            <textarea name="activityOverview" rows="3" placeholder="In introduction, learners brainstorm... In new lesson, learners play in pairs... In the conclusion, learners work with the teacher to summarize the lesson."></textarea>
+            <textarea name="activityOverview" rows="3" placeholder="In introduction, learners brainstorm... In lesson development, learners work in pairs... In the conclusion, learners summarize with the teacher."></textarea>
           </label>
         </div>
         <div class="row">
@@ -204,18 +204,23 @@
           </label>
         </div>
 
-        <!-- Section 3: Official REB sample lesson-plan activity table -->
+        <!-- Section 3: 3-row activity table — Introduction, Lesson development, Conclusion -->
         <div class="form-section-header">
-          <h3>3. Official REB format — Timing · Teacher’s activities · Learners activities · G.C. and C.C.I. + short explanation</h3>
+          <h3>3. Lesson development table — Timing · Teacher’s activities · Learners activities · G.C. and C.C.I.</h3>
         </div>
-        <p class="small" style="margin-top:-8px;margin-bottom:12px;color:#6b7280;">Follow the Teacher’s Guide sample: Introduction → New lesson (Discovery) → Presentation of learners’ productions → Exploitation of learners’ productions → Conclusion/Summary → Assessment → Self-assessment.</p>
+        <p class="small" style="margin-top:-8px;margin-bottom:12px;color:#6b7280;">Three rows only: Introduction, Lesson development, and Conclusion. Edit each timing. Write teacher/learner activities as hyphen bullets (one action per line).</p>
 
-        <!-- Step 1 -->
+        <!-- Step 1 — Introduction -->
         <div class="step-card">
-          <h4>Introduction (5 minutes)</h4>
+          <h4>Introduction</h4>
           <div class="row">
-            <label>Teacher Activities<textarea name="step1_teacher" rows="2" placeholder="What the teacher does... e.g., Greets class, sings counting rhyme, checks homework, activates prior knowledge"></textarea></label>
-            <label>Learners Activities<textarea name="step1_learner" rows="2" placeholder="What learners do... e.g., Respond to greeting, sing along, count aloud, answer probing questions"></textarea></label>
+            <label class="timing-field">Timing
+              <input name="step1_time" value="5 minutes" placeholder="e.g., 5 minutes">
+            </label>
+          </div>
+          <div class="row">
+            <label>Teacher Activities<textarea name="step1_teacher" rows="4" placeholder="- Greet the class and check attendance&#10;- Sing a counting rhyme&#10;- Ask probing questions to activate prior knowledge"></textarea></label>
+            <label>Learners Activities<textarea name="step1_learner" rows="4" placeholder="- Respond to the greeting&#10;- Sing along and count aloud&#10;- Answer probing questions"></textarea></label>
           </div>
           <div class="row">
             <label>Generic Competence (G.C.)
@@ -233,7 +238,7 @@
               </select>
             </label>
             <label>G.C. / C.C.I. short explanation
-              <textarea name="step1_note" rows="2" placeholder="e.g., G.C: Critical thinking — Learners are trying to brainstorm on the key words."></textarea>
+              <textarea name="step1_note" rows="2" placeholder="e.g., G.C: Communication — Learners brainstorm key words.&#10;C.C.I: Inclusive Education"></textarea>
             </label>
             <label>Cross-Cutting Issue (C.C.I.)
               <select name="step1_cci">
@@ -253,12 +258,17 @@
           </div>
         </div>
 
-        <!-- Step 2 -->
+        <!-- Step 2 — Lesson development -->
         <div class="step-card">
-          <h4>New lesson — a) Discovery activity</h4>
+          <h4>Lesson development</h4>
           <div class="row">
-            <label>Teacher Activities<textarea name="step2_teacher" rows="3" placeholder="Teacher models/demonstrates concept on chalkboard, explains using REB SB, provides visual aids..."></textarea></label>
-            <label>Learners Activities<textarea name="step2_learner" rows="3" placeholder="Learners observe, work in groups of 4 with counters/manipulatives, discuss, practice on mini-boards..."></textarea></label>
+            <label class="timing-field">Timing
+              <input name="step2_time" value="25 minutes" placeholder="e.g., 25 minutes">
+            </label>
+          </div>
+          <div class="row">
+            <label>Teacher Activities<textarea name="step2_teacher" rows="5" placeholder="- Model the concept on the chalkboard using REB SB examples&#10;- Guide group discovery with concrete materials&#10;- Invite groups to present and exploit their productions&#10;- Support SEN learners with tactile / enlarged materials"></textarea></label>
+            <label>Learners Activities<textarea name="step2_learner" rows="5" placeholder="- Observe the demonstration&#10;- Work in groups of 4 with counters / manipulatives&#10;- Present productions on the chalkboard&#10;- Discuss and verify each other's answers"></textarea></label>
           </div>
           <div class="row">
             <label>Generic Competence (G.C.)
@@ -276,7 +286,7 @@
               </select>
             </label>
             <label>G.C. / C.C.I. short explanation
-              <textarea name="step2_note" rows="2" placeholder="e.g., GC: Creativity and innovation — developed when learners are manipulating and playing with coin, in their groups."></textarea>
+              <textarea name="step2_note" rows="2" placeholder="e.g., G.C: Collaboration — developed when learners manipulate materials in groups.&#10;C.C.I: Inclusive Education"></textarea>
             </label>
             <label>Cross-Cutting Issue (C.C.I.)
               <select name="step2_cci">
@@ -296,12 +306,17 @@
           </div>
         </div>
 
-        <!-- Step 3 -->
+        <!-- Step 3 — Conclusion -->
         <div class="step-card">
-          <h4>Presentation of learners’ productions</h4>
+          <h4>Conclusion</h4>
           <div class="row">
-            <label>Teacher Activities<textarea name="step3_teacher" rows="3" placeholder="Teacher guides second development activity, circulates to support SEN learners, provides differentiated tasks..."></textarea></label>
-            <label>Learners Activities<textarea name="step3_learner" rows="3" placeholder="Learners continue group work, present solutions on chalkboard, peer-teach, verify answers..."></textarea></label>
+            <label class="timing-field">Timing
+              <input name="step3_time" value="10 minutes" placeholder="e.g., 10 minutes">
+            </label>
+          </div>
+          <div class="row">
+            <label>Teacher Activities<textarea name="step3_teacher" rows="4" placeholder="- Lead a short recap of the golden rules&#10;- Clarify misconceptions&#10;- Administer a short formative assessment from REB SB"></textarea></label>
+            <label>Learners Activities<textarea name="step3_learner" rows="4" placeholder="- Summarise key points of the lesson&#10;- Complete the assessment individually&#10;- Self-check answers and note homework"></textarea></label>
           </div>
           <div class="row">
             <label>Generic Competence (G.C.)
@@ -319,139 +334,10 @@
               </select>
             </label>
             <label>G.C. / C.C.I. short explanation
-              <textarea name="step3_note" rows="2" placeholder="e.g., C.C.I: Gender education: Boys and girls learners will be encouraged to participate actively in the activity."></textarea>
+              <textarea name="step3_note" rows="2" placeholder="e.g., G.C: Problem Solving — learners recall and apply the concept.&#10;C.C.I: Gender"></textarea>
             </label>
             <label>Cross-Cutting Issue (C.C.I.)
               <select name="step3_cci">
-                <option value="">--Select C.C.I.--</option>
-                <option value="Peace and Values Education">Peace and Values Education</option>
-                <option value="Gender">Gender</option>
-                <option value="Inclusive Education">Inclusive Education</option>
-                <option value="Environment">Environment</option>
-                <option value="Financial Education">Financial Education</option>
-                <option value="Standardization Culture">Standardization Culture</option>
-                <option value="Impact of Social Media">Impact of Social Media</option>
-                <option value="Comprehensive Sexuality Education">Comprehensive Sexuality Education</option>
-                <option value="Genocide Studies">Genocide Studies</option>
-                <option value="Disaster Risk Reduction">Disaster Risk Reduction</option>
-              </select>
-            </label>
-          </div>
-        </div>
-
-        <!-- Step 4 -->
-        <div class="step-card">
-          <h4>Exploitation of learners’ productions</h4>
-          <div class="row">
-            <label>Teacher Activities<textarea name="step4_teacher" rows="2" placeholder="Teacher recaps key points, asks summary questions, clarifies misconceptions, praises learners..."></textarea></label>
-            <label>Learners Activities<textarea name="step4_learner" rows="2" placeholder="Learners summarise lesson, answer reflection questions, explain key rules to class..."></textarea></label>
-          </div>
-          <div class="row">
-            <label>Generic Competence (G.C.)
-              <select name="step4_gc">
-                <option value="">--Select G.C.--</option>
-                <option value="Critical Thinking">Critical Thinking</option>
-                <option value="Problem Solving">Problem Solving</option>
-                <option value="Creativity and Innovation">Creativity and Innovation</option>
-                <option value="Communication">Communication</option>
-                <option value="Collaboration">Collaboration</option>
-                <option value="Digital Literacy">Digital Literacy</option>
-                <option value="Lifelong Learning">Lifelong Learning</option>
-                <option value="Cultural Identity">Cultural Identity</option>
-                <option value="Self-Confidence">Self-Confidence</option>
-              </select>
-            </label>
-            <label>G.C. / C.C.I. short explanation
-              <textarea name="step4_note" rows="2" placeholder="e.g., G.C: Critical thinking + C.C.I: Gender education + Peace and value education"></textarea>
-            </label>
-            <label>Cross-Cutting Issue (C.C.I.)
-              <select name="step4_cci">
-                <option value="">--Select C.C.I.--</option>
-                <option value="Peace and Values Education">Peace and Values Education</option>
-                <option value="Gender">Gender</option>
-                <option value="Inclusive Education">Inclusive Education</option>
-                <option value="Environment">Environment</option>
-                <option value="Financial Education">Financial Education</option>
-                <option value="Standardization Culture">Standardization Culture</option>
-                <option value="Impact of Social Media">Impact of Social Media</option>
-                <option value="Comprehensive Sexuality Education">Comprehensive Sexuality Education</option>
-                <option value="Genocide Studies">Genocide Studies</option>
-                <option value="Disaster Risk Reduction">Disaster Risk Reduction</option>
-              </select>
-            </label>
-          </div>
-        </div>
-
-        <!-- Step 5 -->
-        <div class="step-card">
-          <h4>Conclusion / Summary</h4>
-          <div class="row">
-            <label>Teacher Activities<textarea name="step5_teacher" rows="2" placeholder="Teacher administers formative quiz, writes 3–4 problems on board, marks exercise books, gives feedback..."></textarea></label>
-            <label>Learners Activities<textarea name="step5_learner" rows="2" placeholder="Learners solve assessment individually, demonstrate on chalkboard, self/peer-check answers..."></textarea></label>
-          </div>
-          <div class="row">
-            <label>Generic Competence (G.C.)
-              <select name="step5_gc">
-                <option value="">--Select G.C.--</option>
-                <option value="Critical Thinking">Critical Thinking</option>
-                <option value="Problem Solving">Problem Solving</option>
-                <option value="Creativity and Innovation">Creativity and Innovation</option>
-                <option value="Communication">Communication</option>
-                <option value="Collaboration">Collaboration</option>
-                <option value="Digital Literacy">Digital Literacy</option>
-                <option value="Lifelong Learning">Lifelong Learning</option>
-                <option value="Cultural Identity">Cultural Identity</option>
-                <option value="Self-Confidence">Self-Confidence</option>
-              </select>
-            </label>
-            <label>G.C. / C.C.I. short explanation
-              <textarea name="step5_note" rows="2" placeholder="e.g., G.C. Critical thinking: developed as learners try to find the meaning of the concept of chance and where it is used."></textarea>
-            </label>
-            <label>Cross-Cutting Issue (C.C.I.)
-              <select name="step5_cci">
-                <option value="">--Select C.C.I.--</option>
-                <option value="Peace and Values Education">Peace and Values Education</option>
-                <option value="Gender">Gender</option>
-                <option value="Inclusive Education">Inclusive Education</option>
-                <option value="Environment">Environment</option>
-                <option value="Financial Education">Financial Education</option>
-                <option value="Standardization Culture">Standardization Culture</option>
-                <option value="Impact of Social Media">Impact of Social Media</option>
-                <option value="Comprehensive Sexuality Education">Comprehensive Sexuality Education</option>
-                <option value="Genocide Studies">Genocide Studies</option>
-                <option value="Disaster Risk Reduction">Disaster Risk Reduction</option>
-              </select>
-            </label>
-          </div>
-        </div>
-
-        <!-- Step 6 -->
-        <div class="step-card">
-          <h4>Step 6 — New Lesson / Discovery Activity</h4>
-          <div class="row">
-            <label>Teacher Activities<textarea name="step6_teacher" rows="2" placeholder="Teacher previews next lesson, assigns discovery/homework activity, gives remedial guidance..."></textarea></label>
-            <label>Learners Activities<textarea name="step6_learner" rows="2" placeholder="Learners note homework, ask questions, engage in discovery task, prepare materials for next lesson..."></textarea></label>
-          </div>
-          <div class="row">
-            <label>Generic Competence (G.C.)
-              <select name="step6_gc">
-                <option value="">--Select G.C.--</option>
-                <option value="Critical Thinking">Critical Thinking</option>
-                <option value="Problem Solving">Problem Solving</option>
-                <option value="Creativity and Innovation">Creativity and Innovation</option>
-                <option value="Communication">Communication</option>
-                <option value="Collaboration">Collaboration</option>
-                <option value="Digital Literacy">Digital Literacy</option>
-                <option value="Lifelong Learning">Lifelong Learning</option>
-                <option value="Cultural Identity">Cultural Identity</option>
-                <option value="Self-Confidence">Self-Confidence</option>
-              </select>
-            </label>
-            <label>G.C. / C.C.I. short explanation
-              <textarea name="step6_note" rows="2" placeholder="e.g., G.C: Critical thinking: when learners are trying to define the concept of chance by using examples."></textarea>
-            </label>
-            <label>Cross-Cutting Issue (C.C.I.)
-              <select name="step6_cci">
                 <option value="">--Select C.C.I.--</option>
                 <option value="Peace and Values Education">Peace and Values Education</option>
                 <option value="Gender">Gender</option>
@@ -492,7 +378,7 @@
     <section class="preview-section">
       <div class="preview-header">
         <h2>Preview / Printable Lesson Plan</h2>
-        <span class="preview-tag">Official REB sample lesson plan format</span>
+        <span class="preview-tag">3-row plan · Introduction · Lesson development · Conclusion</span>
       </div>
       <div id="printable" class="printable">
         <div class="lp-doc-header">
@@ -572,40 +458,22 @@
               <td></td>
             </tr>
             <tr>
-              <td><strong>Introduction</strong><br>5 minutes</td>
+              <td><strong>Introduction</strong><br><span id="p_step1_time">5 minutes</span></td>
               <td id="p_step1_teacher"></td>
               <td id="p_step1_learner"></td>
               <td id="p_step1_gcci"></td>
             </tr>
             <tr>
-              <td><strong>New lesson</strong><br>a) Discovery activity</td>
+              <td><strong>Lesson development</strong><br><span id="p_step2_time">25 minutes</span></td>
               <td id="p_step2_teacher"></td>
               <td id="p_step2_learner"></td>
               <td id="p_step2_gcci"></td>
             </tr>
             <tr>
-              <td><strong>Presentation of learners’ productions</strong></td>
+              <td><strong>Conclusion</strong><br><span id="p_step3_time">10 minutes</span></td>
               <td id="p_step3_teacher"></td>
               <td id="p_step3_learner"></td>
               <td id="p_step3_gcci"></td>
-            </tr>
-            <tr>
-              <td><strong>Exploitation of learners’ productions</strong></td>
-              <td id="p_step4_teacher"></td>
-              <td id="p_step4_learner"></td>
-              <td id="p_step4_gcci"></td>
-            </tr>
-            <tr>
-              <td><strong>Conclusion / Summary</strong></td>
-              <td id="p_step5_teacher"></td>
-              <td id="p_step5_learner"></td>
-              <td id="p_step5_gcci"></td>
-            </tr>
-            <tr>
-              <td><strong>Assessment</strong><br>5 minutes</td>
-              <td id="p_step6_teacher"></td>
-              <td id="p_step6_learner"></td>
-              <td id="p_step6_gcci"></td>
             </tr>
             <tr>
               <td><strong>Self-assessment</strong></td>

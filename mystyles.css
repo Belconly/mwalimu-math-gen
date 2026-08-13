@@ -622,6 +622,11 @@ button {
   padding-bottom: 6px;
 }
 
+.timing-field {
+  flex: 0 1 180px;
+  max-width: 220px;
+}
+
 /* Footer */
 .site-footer {
   padding: 20px;
