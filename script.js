@@ -6,8 +6,11 @@ const printable = document.getElementById('printable');
 const classSelect = document.getElementById('classSelect');
 const dateInput = document.getElementById('dateInput');
 const rebStatusText = document.getElementById('rebStatusText');
-const unitTopicSelect = document.getElementById('unitTopicSelect');
-const customTopicInput = document.getElementById('customTopicInput');
+const unitTitleSearch = document.getElementById('unitTitleSearch');
+const lessonTitleSearch = document.getElementById('lessonTitleSearch');
+const lookupResult = document.getElementById('lookupResult');
+const yearUnitList = document.getElementById('yearUnitList');
+const yearUnitIndex = document.getElementById('yearUnitIndex');
 
 const aiGenerateBtn = document.getElementById('aiGenerateBtn');
 const aiGenerateBtnBottom = document.getElementById('aiGenerateBtnBottom');
@@ -35,7 +38,7 @@ const printBtn = document.getElementById('printBtn');
 const LS_HEADER_KEY = 'mwalimu_lp_header_metadata_v2';
 const LS_AI_SETTINGS_KEY = 'mwalimu_ai_settings_v2';
 
-const HEADER_FIELDS = ['school','teacher','term','date','subject','class','unitNo','lessonNo','duration','classBoys','classGirls','classSize','sen','planLocation'];
+const HEADER_FIELDS = ['school','teacher','term','date','subject','class','unitNo','lessonNo','duration','classSize','sen','planLocation'];
 
 // REB Official Lists
 const REB_GC_LIST = ["Critical Thinking","Problem Solving","Creativity and Innovation","Communication","Collaboration","Digital Literacy","Lifelong Learning","Cultural Identity","Self-Confidence"];
@@ -186,46 +189,273 @@ function saveAiSettings() {
   } catch (err) { console.error('Error saving AI settings', err); }
 }
 
-function updateRebStatusCard(selectedClass) {
-  if (!selectedClass) {
-    rebStatusText.textContent = 'Select Class (P1–P6) to load REB Student Book (SB), Teacher\'s Guide (TG), & Scheme of Work.';
-    unitTopicSelect.innerHTML = '<option value="">-- Choose Class First --</option>';
+// ---------------------------------------------------------------------------
+// YEAR-LOCKED LOOKUP ENGINE
+// The generator may ONLY read the Teacher's Guide (TG) and Pupil's Book (PB)
+// of the class/year the teacher selected. It never falls back to another class.
+// ---------------------------------------------------------------------------
+
+function getYearBooks(cls) {
+  const clsData = syllabus[cls];
+  if (!clsData) return null;
+  return {
+    cls,
+    teacherGuideTitle: clsData.teacherGuideTitle || `REB Primary Mathematics ${cls} Teacher's Guide (TG)`,
+    pupilBookTitle: (clsData.pupilBookTitle || clsData.studentBookTitle || `REB Primary Mathematics ${cls} Pupil's Book (PB)`).replace(/Student Book \(SB\)/i, "Pupil's Book (PB)"),
+    units: Array.isArray(clsData.units) ? clsData.units : []
+  };
+}
+
+function normaliseTitle(text) {
+  return String(text || '')
+    .toLowerCase()
+    .replace(/[’']/g, '')
+    .replace(/(\d),(?=\d)/g, '$1')   // 1,000 -> 1000 so magnitudes stay distinguishable
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+const TITLE_STOPWORDS = new Set(['and','the','of','up','to','in','on','with','from','for','a','an','its','their','using']);
+
+function titleTokens(text) {
+  return normaliseTitle(text).split(' ').filter(Boolean);
+}
+
+function contentTokens(tokens) {
+  return tokens.filter(t => !TITLE_STOPWORDS.has(t) && t.length > 2);
+}
+
+function numericTokens(tokens) {
+  return tokens.filter(t => /^\d+$/.test(t));
+}
+
+// Score how well a typed title matches an indexed title (0 = no match).
+// Numbers are compared strictly so "up to 1,000" can never match "up to 100,000".
+function titleMatchScore(typed, candidate) {
+  const aNorm = normaliseTitle(typed);
+  const bNorm = normaliseTitle(candidate);
+  if (!aNorm || !bNorm) return 0;
+  if (aNorm === bNorm) return 100;
+
+  const aTok = titleTokens(typed);
+  const bTok = titleTokens(candidate);
+
+  // Magnitude guard: every number the teacher typed must appear in the candidate.
+  const aNums = numericTokens(aTok);
+  const bNums = numericTokens(bTok);
+  if (aNums.length && !aNums.every(n => bNums.includes(n))) return 0;
+
+  const aContent = contentTokens(aTok);
+  const bContent = contentTokens(bTok);
+  if (!aContent.length || !bContent.length) return 0;
+
+  // Contiguous run of the typed tokens inside the candidate (word-boundary safe).
+  const joinedA = ' ' + aTok.join(' ') + ' ';
+  const joinedB = ' ' + bTok.join(' ') + ' ';
+  if (joinedB.includes(joinedA)) return 90;
+  if (joinedA.includes(joinedB)) return 75;
+
+  // Otherwise require nearly all typed content words to be present.
+  const hits = aContent.filter(w => bContent.some(x => x === w || x.startsWith(w) || w.startsWith(x))).length;
+  const ratio = hits / aContent.length;
+  if (ratio < 0.8) return 0;
+  const coverage = hits / bContent.length; // penalise matching a much longer, different title
+  if (coverage < 0.4) return 0;
+  return Math.round(40 + ratio * 25);
+}
+
+// Find the unit ONLY inside the selected year's books.
+function findUnitInYear(cls, typedUnitTitle) {
+  const books = getYearBooks(cls);
+  if (!books) return { ok: false, reason: 'no-books', cls, units: [] };
+  const unitList = books.units.map(u => `${u.unitNo}: ${u.unitTitle}`);
+  const typed = String(typedUnitTitle || '').trim();
+  if (!typed) return { ok: false, reason: 'empty', cls, books, units: unitList };
+  let best = null, bestScore = 0;
+  books.units.forEach((u, uIdx) => {
+    const score = Math.max(
+      titleMatchScore(typed, u.unitTitle),
+      titleMatchScore(typed, `${u.unitNo} ${u.unitTitle}`),
+      titleMatchScore(typed, u.unitNo)
+    );
+    if (score > bestScore) { bestScore = score; best = { unit: u, unitIndex: uIdx }; }
+  });
+  if (!best || bestScore < 40) {
+    return { ok: false, reason: 'unit-not-in-year', cls, books, units: unitList, typed };
+  }
+  return { ok: true, cls, books, unit: best.unit, unitIndex: best.unitIndex, score: bestScore };
+}
+
+// Index the lesson the teacher typed INSIDE the matched unit only.
+function findLessonInUnit(unit, typedLessonTitle) {
+  const lessons = Array.isArray(unit.lessons) ? unit.lessons : [];
+  const lessonList = lessons.map(l => `${l.lessonNo}: ${l.lessonTitle}`);
+  const typed = String(typedLessonTitle || '').trim();
+  if (!lessons.length) return { ok: false, reason: 'no-lessons', lessons: lessonList };
+  if (!typed) return { ok: true, lesson: lessons[0], lessonIndex: 0, lessons: lessonList, assumed: true };
+  let best = null, bestScore = 0;
+  lessons.forEach((l, lIdx) => {
+    const score = Math.max(
+      titleMatchScore(typed, l.lessonTitle),
+      titleMatchScore(typed, `${l.lessonNo} ${l.lessonTitle}`),
+      titleMatchScore(typed, l.lessonNo)
+    );
+    if (score > bestScore) { bestScore = score; best = { lesson: l, lessonIndex: lIdx }; }
+  });
+  if (!best || bestScore < 40) {
+    return { ok: false, reason: 'lesson-not-in-unit', lessons: lessonList, typed };
+  }
+  return { ok: true, lesson: best.lesson, lessonIndex: best.lessonIndex, lessons: lessonList, score: bestScore };
+}
+
+function renderYearUnitList(cls) {
+  if (!yearUnitList) return;
+  const books = getYearBooks(cls);
+  if (!books) {
+    yearUnitList.innerHTML = '<p class="small">Select a Class / Year (P1–P6) to list its units.</p>';
     return;
   }
-  const clsData = syllabus[selectedClass];
-  if (clsData) {
-    rebStatusText.innerHTML = `📚 Active Curriculum: <strong>${clsData.studentBookTitle}</strong> & <strong>${clsData.teacherGuideTitle}</strong> loaded from <a href="https://elearning.reb.rw/course/index.php?categoryid=19" target="_blank">elearning.reb.rw</a>.`;
-    let opts = '<option value="">-- Let AI Decide / Choose from REB Unit --</option>';
-    clsData.units.forEach((u, uIdx) => {
-      opts += `<optgroup label="${u.unitNo}: ${u.unitTitle}">`;
-      u.lessons.forEach((l, lIdx) => { opts += `<option value="${uIdx}_${lIdx}">${u.unitNo} — ${l.lessonTitle}</option>`; });
-      opts += `</optgroup>`;
-    });
-    unitTopicSelect.innerHTML = opts;
-  } else {
-    rebStatusText.textContent = `Connected to REB Math Category ID 19 for ${selectedClass}.`;
-    unitTopicSelect.innerHTML = '<option value="">-- REB Mathematics Standard Units --</option>';
+  let html = `<p class="small"><strong>${cls}</strong> — indexed from <em>${books.teacherGuideTitle}</em> and <em>${books.pupilBookTitle}</em>:</p><ul class="unit-index-list">`;
+  books.units.forEach(u => {
+    const lessons = (u.lessons || []).map(l => `<li>${l.lessonNo}: ${l.lessonTitle}</li>`).join('');
+    html += `<li><strong>${u.unitNo}: ${u.unitTitle}</strong>${lessons ? `<ul>${lessons}</ul>` : ''}</li>`;
+  });
+  html += '</ul>';
+  yearUnitList.innerHTML = html;
+}
+
+function showLookupMessage(kind, html) {
+  if (!lookupResult) return;
+  lookupResult.className = `lookup-result lookup-${kind}`;
+  lookupResult.innerHTML = html;
+  lookupResult.classList.remove('hidden');
+}
+
+function clearLookupMessage() {
+  if (!lookupResult) return;
+  lookupResult.classList.add('hidden');
+  lookupResult.innerHTML = '';
+}
+
+function reportUnitNotInYear(res) {
+  const listHtml = res.units.length
+    ? `<ul class="unit-index-list">${res.units.map(u => `<li>${u}</li>`).join('')}</ul>`
+    : '<p class="small">No units are indexed for this year.</p>';
+  showLookupMessage('error',
+    `<strong>⛔ Stopped — “${res.typed || ''}” is not a unit in ${res.cls}.</strong>` +
+    `<p class="small">The generator only reads <em>${res.books ? res.books.teacherGuideTitle : res.cls + " Teacher's Guide"}</em> and <em>${res.books ? res.books.pupilBookTitle : res.cls + " Pupil's Book"}</em>. It will not pull a unit from another class's book.</p>` +
+    `<p class="small">Units available in ${res.cls}:</p>${listHtml}`);
+  if (yearUnitIndex) yearUnitIndex.open = true;
+}
+
+function updateRebStatusCard(selectedClass) {
+  if (!selectedClass) {
+    rebStatusText.textContent = "Select the Class / Year (P1–P6). The AI will then read ONLY that year's Teacher's Guide (TG) and Pupil's Book (PB).";
+    renderYearUnitList('');
+    clearLookupMessage();
+    return;
   }
+  const books = getYearBooks(selectedClass);
+  if (books) {
+    rebStatusText.innerHTML = `📚 Locked to <strong>${selectedClass}</strong> only: <strong>${books.teacherGuideTitle}</strong> &amp; <strong>${books.pupilBookTitle}</strong> (source: <a href="https://elearning.reb.rw/course/index.php?categoryid=19" target="_blank">elearning.reb.rw</a>). ${books.units.length} unit(s) indexed.`;
+  } else {
+    rebStatusText.textContent = `No indexed Teacher's Guide / Pupil's Book found for ${selectedClass}.`;
+  }
+  renderYearUnitList(selectedClass);
+  clearLookupMessage();
 }
 
 async function handleAiGenerate() {
   const cls = form.class.value;
-  if (!cls) { alert('Please select a Class (P1–P6) first so the AI can consult REB Student Books and Teacher\'s Guides!'); classSelect.focus(); return; }
+  if (!cls) {
+    alert("Please select a Class / Year (P1–P6) first — the AI reads only that year's Teacher's Guide and Pupil's Book.");
+    classSelect.focus();
+    return;
+  }
+
+  // The lookup boxes are the single source of truth (they mirror the form fields).
+  const typedUnit = (unitTitleSearch ? unitTitleSearch.value : (form.unitTitle ? form.unitTitle.value : '')).trim();
+  const typedLesson = (lessonTitleSearch ? lessonTitleSearch.value : (form.lessonTitle ? form.lessonTitle.value : '')).trim();
+
+  // STEP 1 — search ONLY the selected year's TG & Pupil's Book for the unit.
+  const unitRes = findUnitInYear(cls, typedUnit);
+  if (!unitRes.ok) {
+    if (unitRes.reason === 'no-books') {
+      showLookupMessage('error', `<strong>⛔ Stopped — no Teacher's Guide / Pupil's Book is indexed for ${cls}.</strong><p class="small">Nothing will be generated from another class's book.</p>`);
+      return;
+    }
+    if (unitRes.reason === 'empty') {
+      const listHtml = unitRes.units.length ? `<ul class="unit-index-list">${unitRes.units.map(u => `<li>${u}</li>`).join('')}</ul>` : '';
+      showLookupMessage('warn', `<strong>Type a Unit title first.</strong><p class="small">Units in ${cls}'s Teacher's Guide &amp; Pupil's Book:</p>${listHtml}`);
+      if (yearUnitIndex) yearUnitIndex.open = true;
+      if (unitTitleSearch) unitTitleSearch.focus();
+      return;
+    }
+    reportUnitNotInYear(unitRes);
+    return;
+  }
+
+  // STEP 2 — index the typed Lesson title INSIDE that unit only.
+  const lessonRes = findLessonInUnit(unitRes.unit, typedLesson);
+  if (!lessonRes.ok) {
+    const listHtml = lessonRes.lessons.length ? `<ul class="unit-index-list">${lessonRes.lessons.map(l => `<li>${l}</li>`).join('')}</ul>` : '';
+    showLookupMessage('error',
+      `<strong>⛔ Stopped — “${typedLesson}” is not a lesson inside ${unitRes.unit.unitNo}: ${unitRes.unit.unitTitle} (${cls}).</strong>` +
+      `<p class="small">Lessons indexed in this unit:</p>${listHtml}`);
+    if (lessonTitleSearch) lessonTitleSearch.focus();
+    return;
+  }
+
+  const matchedUnit = unitRes.unit;
+  const matchedLesson = lessonRes.lesson;
+  showLookupMessage('ok',
+    `<strong>✅ Found in ${cls} only.</strong>` +
+    `<p class="small">Unit indexed: <strong>${matchedUnit.unitNo}: ${matchedUnit.unitTitle}</strong><br>` +
+    `Lesson indexed: <strong>${matchedLesson.lessonNo}: ${matchedLesson.lessonTitle}</strong>${lessonRes.assumed ? ' <em>(first lesson of the unit — no lesson title typed)</em>' : ''}<br>` +
+    `Sources: ${unitRes.books.teacherGuideTitle} · ${unitRes.books.pupilBookTitle}</p>`);
+
   showModalProgress();
   const provider = aiProviderSelect ? aiProviderSelect.value : 'builtin';
   const apiKey = aiApiKeyInput ? aiApiKeyInput.value.trim() : '';
   const model = aiModelInput ? aiModelInput.value.trim() : '';
   const endpoint = aiEndpointInput ? aiEndpointInput.value.trim() : '';
-  const selectedUnitIndex = unitTopicSelect ? unitTopicSelect.value : '';
-  const customTopic = customTopicInput ? customTopicInput.value.trim() : '';
-  const headerContext = { school: form.school.value || 'Primary School', teacher: form.teacher.value || 'Teacher', term: form.term.value || 'Term 1', date: form.date.value || getTodayDateString(), class: cls, unitNo: form.unitNo.value || '', lessonNo: form.lessonNo.value || '', duration: form.duration.value || '40', classSize: form.classSize.value || '30', sen: form.sen.value || '2 learners with mild visual impairment, 1 slow learner', planLocation: form.planLocation.value || `${cls} Classroom / Math Learning Corner` };
+  const headerContext = {
+    school: form.school.value || 'Primary School',
+    teacher: form.teacher.value || 'Teacher',
+    term: form.term.value || 'Term 1',
+    date: form.date.value || getTodayDateString(),
+    class: cls,
+    unitNo: form.unitNo.value || matchedUnit.unitNo || '',
+    lessonNo: form.lessonNo.value || matchedLesson.lessonNo || '',
+    duration: form.duration.value || '40',
+    classSize: form.classSize.value || '30',
+    sen: form.sen.value || '2 learners with mild visual impairment, 1 slow learner',
+    planLocation: form.planLocation.value || `${cls} Classroom / Math Learning Corner`
+  };
+  const bookContext = {
+    teacherGuideTitle: unitRes.books.teacherGuideTitle,
+    pupilBookTitle: unitRes.books.pupilBookTitle,
+    unit: matchedUnit,
+    lesson: matchedLesson
+  };
+
   try {
     if (provider !== 'builtin' && apiKey) {
-      const aiResult = await callExternalLLM(provider, apiKey, model, endpoint, headerContext, selectedUnitIndex, customTopic);
-      if (aiResult) { populateFormWithAiResult(aiResult, headerContext); finishModalAndPreview(); return; }
+      const aiResult = await callExternalLLM(provider, apiKey, model, endpoint, headerContext, bookContext);
+      if (aiResult) {
+        // Never let an external model drift to another year's unit.
+        aiResult.unitTitle = matchedUnit.unitTitle;
+        aiResult.unitNo = aiResult.unitNo || matchedUnit.unitNo;
+        aiResult.lessonTitle = matchedLesson.lessonTitle;
+        aiResult.lessonNo = aiResult.lessonNo || matchedLesson.lessonNo;
+        populateFormWithAiResult(aiResult, headerContext);
+        finishModalAndPreview();
+        return;
+      }
     }
-  } catch (err) { console.warn('External AI API call failed, fallback to builtin', err); }
-  const builtinResult = generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, headerContext);
+  } catch (err) { console.warn('External AI API call failed, falling back to the built-in year-locked engine', err); }
+
+  const builtinResult = generateBuiltinAiLessonPlan(cls, matchedUnit, matchedLesson, unitRes.books, headerContext);
   populateFormWithAiResult(builtinResult, headerContext);
   finishModalAndPreview();
 }
@@ -244,7 +474,7 @@ function finishModalAndPreview() {
     modalTitle.textContent = 'Lesson Plan Generated Successfully!';
     modalStepText.textContent = 'Updating standard administrative metadata and printable preview...';
     modalProgressBar.style.width = '100%';
-    setTimeout(() => { aiProgressModal.classList.add('hidden'); saveHeadersToLocalStorage(true); fillPrintableFromForm(); highlightUpdatedFields(); }, 400);
+    setTimeout(() => { aiProgressModal.classList.add('hidden'); saveHeadersToLocalStorage(true); fillPrintableFromForm(); syncSearchBoxesFromForm(); highlightUpdatedFields(); }, 400);
   }, 1900);
 }
 
@@ -292,13 +522,7 @@ function formatGcciCell(gc, cci, note) {
 }
 
 function formatClassSize(data) {
-  const boys = data.get('classBoys');
-  const girls = data.get('classGirls');
-  const total = data.get('classSize') || '';
-  if (boys !== null && boys !== '' || girls !== null && girls !== '') {
-    return `Boys: ${boys || 0}\nGirls: ${girls || 0}\nTotal: ${total || ((parseInt(boys, 10) || 0) + (parseInt(girls, 10) || 0))}`;
-  }
-  return total;
+  return data.get('classSize') || '';
 }
 
 function collapseLegacySteps(aiData) {
@@ -352,19 +576,17 @@ function parseGcCci(gcOrCci) {
   return {gc:'', cci: label };
 }
 
-function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, headers) {
-  const clsData = syllabus[cls] || FALLBACK_SYLLABUS["P4"];
-  let unitObj = clsData.units[0];
-  let lessonObj = unitObj.lessons[0];
-  if (selectedUnitIndex && selectedUnitIndex.includes('_')) {
-    const [uIdx,lIdx] = selectedUnitIndex.split('_').map(Number);
-    if (clsData.units[uIdx]) { unitObj = clsData.units[uIdx]; if (unitObj.lessons[lIdx]) lessonObj = unitObj.lessons[lIdx]; }
-  } else if (customTopic) {
-    for (const u of clsData.units) for (const l of u.lessons) if (l.lessonTitle.toLowerCase().includes(customTopic.toLowerCase()) || u.unitTitle.toLowerCase().includes(customTopic.toLowerCase())) { unitObj=u; lessonObj=l; break; }
-  }
+function generateBuiltinAiLessonPlan(cls, unitObj, lessonObj, books, headers) {
+  // unitObj / lessonObj are already resolved from the SELECTED YEAR's TG & Pupil's Book.
+  if (!unitObj || !lessonObj) return null;
+  const tgTitle = (books && books.teacherGuideTitle) || `REB Primary Mathematics ${cls} Teacher's Guide (TG)`;
+  const pbTitle = (books && books.pupilBookTitle) || `REB Primary Mathematics ${cls} Pupil's Book (PB)`;
+  const yearReferences = lessonObj.references
+    ? String(lessonObj.references).replace(/Student Book \(SB\)/gi, "Pupil's Book (PB)")
+    : `${tgTitle}, ${unitObj.unitNo}; ${pbTitle}, ${unitObj.unitNo}; elearning.reb.rw/course/index.php?categoryid=19`;
 
-  const finalLessonTitle = customTopic ? `Rwanda CBC Focus: ${customTopic}` : lessonObj.lessonTitle;
-  const finalObjective = customTopic ? `Using concrete classroom materials and REB textbooks, learners should be able to understand, calculate, and solve problems involving ${customTopic} correctly and explain their steps in pairs.` : lessonObj.instrObjective;
+  const finalLessonTitle = lessonObj.lessonTitle;
+  const finalObjective = lessonObj.instrObjective;
 
   const timings = defaultStageTimings(headers.duration || (form.duration && form.duration.value) || 40);
 
@@ -395,7 +617,7 @@ function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, header
       instrObjective: finalObjective,
       planLocation: form.planLocation.value || `${cls} Primary Classroom / Math Corner`,
       learningMaterials: lessonObj.materials,
-      references: `${unitObj.unitTitle} — REB Primary Mathematics ${cls} Student Book (SB) & Teacher's Guide (TG); elearning.reb.rw/course/index.php?categoryid=19`,
+      references: yearReferences,
       crossCutting: lessonObj.crossCutting || m1.cci,
       activityOverview: `In introduction, learners brainstorm their experience related to ${lessonObj.lessonTitle}. In lesson development, learners work in pairs/groups to discover, present, and exploit the concept. In the conclusion, learners work with the teacher to summarize the lesson.`,
       selfAssessment: 'The lesson was completed as planned.',
@@ -424,7 +646,7 @@ function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, header
     instrObjective: finalObjective,
     planLocation: form.planLocation.value || `${cls} Primary Classroom / Math Corner`,
     learningMaterials: lessonObj.materials,
-    references: `${unitObj.unitTitle} — REB Primary Mathematics ${cls} Student Book (SB) & Teacher's Guide (TG); elearning.reb.rw/course/index.php?categoryid=19`,
+    references: yearReferences,
     crossCutting: lessonObj.crossCutting || 'Inclusive Education',
     activityOverview: `In introduction, learners brainstorm their experience related to ${lessonObj.lessonTitle}. In lesson development, learners work in pairs/groups to discover, present, and exploit the concept. In the conclusion, learners work with the teacher to summarize the lesson.`,
     selfAssessment: 'The lesson was completed as planned.',
@@ -435,13 +657,13 @@ function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, header
     step1_cci: "Inclusive Education",
     step1_note: `G.C: Communication\nLearners activate prior knowledge through discussion.\nC.C.I: Inclusive Education`,
     step2_time: timings.step2,
-    step2_teacher: toHyphenBullets(devSplit.teacher || `Teacher models ${lessonObj.lessonTitle} on the chalkboard using visual aids and REB SB examples.`, `Teacher circulates to support ${senContext} with enlarged charts and tactile materials.`, `Teacher invites groups to present productions and guides exploitation of their strategies.`),
+    step2_teacher: toHyphenBullets(devSplit.teacher || `Teacher models ${lessonObj.lessonTitle} on the chalkboard using visual aids and worked examples from the ${cls} Pupil's Book.`, `Teacher circulates to support ${senContext} with enlarged charts and tactile materials.`, `Teacher invites groups to present productions and guides exploitation of their strategies.`),
     step2_learner: toHyphenBullets(devSplit.learner || `Learners observe the demonstration and work in groups of 4 with concrete materials.`, `Learners present solutions on the chalkboard and verify each other's work respectfully.`),
     step2_gc: "Collaboration",
     step2_cci: "Inclusive Education",
     step2_note: `G.C: Collaboration\nDeveloped when learners manipulate materials, present productions, and discuss strategies.\nC.C.I: Inclusive Education`,
     step3_time: timings.step3,
-    step3_teacher: toHyphenBullets(concSplit.teacher || `Teacher leads a short recap and asks learners to state the golden rules learned.`, evalSplit.teacher || `Teacher administers a short formative assessment from REB SB and gives immediate feedback.`),
+    step3_teacher: toHyphenBullets(concSplit.teacher || `Teacher leads a short recap and asks learners to state the golden rules learned.`, evalSplit.teacher || `Teacher administers a short formative assessment from the ${cls} Pupil's Book and gives immediate feedback.`),
     step3_learner: toHyphenBullets(concSplit.learner || `Learners summarise key concepts and explain rules to the class.`, evalSplit.learner || `Learners complete the assessment individually, self-check answers, and note homework.`),
     step3_gc: "Problem Solving",
     step3_cci: "Gender",
@@ -449,9 +671,20 @@ function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, header
   };
 }
 
-async function callExternalLLM(provider, apiKey, model, endpoint, headers, selectedUnitIndex, customTopic) {
+async function callExternalLLM(provider, apiKey, model, endpoint, headers, bookContext) {
   const cls = headers.class || 'P4';
-  const prompt = `You are an expert Rwandan Primary School Mathematics teacher.\nGenerate a 3-row lesson plan JSON for Class ${cls}: Introduction, Lesson development, Conclusion.\nContext: Class ${cls}, Term ${headers.term}, Duration ${headers.duration} mins, SEN ${headers.sen}, Topic ${customTopic || 'standard REB unit for '+cls}\nReturn ONLY JSON with keys: unitNo, lessonNo, unitTitle, keyUnitCompetence, lessonTitle, instrObjective, planLocation, learningMaterials, references, crossCutting, activityOverview, selfAssessment, step1_time, step1_teacher, step1_learner, step1_gc, step1_cci, step1_note, step2_time, step2_teacher, step2_learner, step2_gc, step2_cci, step2_note, step3_time, step3_teacher, step3_learner, step3_gc, step3_cci, step3_note\nWrite teacher and learner activities as hyphen bullets, one action per line (e.g. \"- Greet the class\").\nGC must be one of: Critical Thinking, Problem Solving, Creativity and Innovation, Communication, Collaboration, Digital Literacy, Lifelong Learning, Cultural Identity, Self-Confidence\nCCI must be one of: Peace and Values Education, Gender, Inclusive Education, Environment, Financial Education, Standardization Culture, Impact of Social Media, Comprehensive Sexuality Education, Genocide Studies, Disaster Risk Reduction`;
+  const bc = bookContext || {};
+  const unit = bc.unit || {};
+  const lesson = bc.lesson || {};
+  const sourceBlock = `SOURCE RESTRICTION — you may use ONLY these two books for Class ${cls}:\n` +
+    `1) ${bc.teacherGuideTitle || cls + " Teacher's Guide (TG)"}\n` +
+    `2) ${bc.pupilBookTitle || cls + " Pupil's Book (PB)"}\n` +
+    `Do NOT use, cite, or borrow content from any other class/year's book.\n` +
+    `The unit has already been located in these books: ${unit.unitNo || ''} — ${unit.unitTitle || ''}\n` +
+    `Key Unit Competence (as printed): ${unit.keyUnitCompetence || ''}\n` +
+    `The lesson indexed inside that unit is: ${lesson.lessonNo || ''} — ${lesson.lessonTitle || ''}\n` +
+    `Keep unitTitle and lessonTitle EXACTLY as given above.`;
+  const prompt = `You are an expert Rwandan Primary School Mathematics teacher.\nGenerate a 3-row lesson plan JSON for Class ${cls}: Introduction, Lesson development, Conclusion.\n${sourceBlock}\nContext: Class ${cls}, Term ${headers.term}, Duration ${headers.duration} mins, Number of students ${headers.classSize}, SEN ${headers.sen}\nReturn ONLY JSON with keys: unitNo, lessonNo, unitTitle, keyUnitCompetence, lessonTitle, instrObjective, planLocation, learningMaterials, references, crossCutting, activityOverview, selfAssessment, step1_time, step1_teacher, step1_learner, step1_gc, step1_cci, step1_note, step2_time, step2_teacher, step2_learner, step2_gc, step2_cci, step2_note, step3_time, step3_teacher, step3_learner, step3_gc, step3_cci, step3_note\nWrite teacher and learner activities as hyphen bullets, one action per line (e.g. \"- Greet the class\").\nGC must be one of: Critical Thinking, Problem Solving, Creativity and Innovation, Communication, Collaboration, Digital Literacy, Lifelong Learning, Cultural Identity, Self-Confidence\nCCI must be one of: Peace and Values Education, Gender, Inclusive Education, Environment, Financial Education, Standardization Culture, Impact of Social Media, Comprehensive Sexuality Education, Genocide Studies, Disaster Risk Reduction`;
   let apiUrl='', fetchOptions={};
   if (provider==='openai' || provider==='custom') { apiUrl = endpoint || 'https://api.openai.com/v1/chat/completions'; const chosenModel=model||'gpt-4o-mini'; fetchOptions={method:'POST', headers:{'Content-Type':'application/json','Authorization':`Bearer ${apiKey}`}, body:JSON.stringify({model:chosenModel, messages:[{role:'user',content:prompt}], temperature:0.7})}; }
   else if (provider==='gemini') { const chosenModel=model||'gemini-1.5-flash'; apiUrl=`https://generativelanguage.googleapis.com/v1beta/models/${chosenModel}:generateContent?key=${apiKey}`; fetchOptions={method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})}; }
@@ -554,15 +787,25 @@ function fillPrintableFromForm() {
   for (const k in map) { const el = document.getElementById(k); if (el) el.textContent = map[k]; }
 }
 
-function syncClassTotal() {
-  if (!form.classBoys || !form.classGirls || !form.classSize) return;
-  const b = parseInt(form.classBoys.value, 10) || 0;
-  const g = parseInt(form.classGirls.value, 10) || 0;
-  form.classSize.value = String(b + g);
-}
-if (form.classBoys) form.classBoys.addEventListener('input', () => { syncClassTotal(); fillPrintableFromForm(); });
-if (form.classGirls) form.classGirls.addEventListener('input', () => { syncClassTotal(); fillPrintableFromForm(); });
 if (classSelect) classSelect.addEventListener('change', () => { updateRebStatusCard(classSelect.value); saveHeadersToLocalStorage(true); fillPrintableFromForm(); });
+// Keep the lookup boxes and the form's Unit/Lesson title fields in sync so a
+// stale value can never leak into the search. Typing also clears the last verdict.
+function mirrorTitles(fromEl, toEl) {
+  if (!fromEl || !toEl) return;
+  fromEl.addEventListener('input', () => {
+    toEl.value = fromEl.value;
+    clearLookupMessage();
+  });
+}
+mirrorTitles(unitTitleSearch, form.unitTitle);
+mirrorTitles(form.unitTitle, unitTitleSearch);
+mirrorTitles(lessonTitleSearch, form.lessonTitle);
+mirrorTitles(form.lessonTitle, lessonTitleSearch);
+
+function syncSearchBoxesFromForm() {
+  if (unitTitleSearch && form.unitTitle) unitTitleSearch.value = form.unitTitle.value || '';
+  if (lessonTitleSearch && form.lessonTitle) lessonTitleSearch.value = form.lessonTitle.value || '';
+}
 HEADER_FIELDS.forEach(field => { const el = form[field]; if (el) { el.addEventListener('input', () => { saveHeadersToLocalStorage(true); fillPrintableFromForm(); }); el.addEventListener('change', () => { saveHeadersToLocalStorage(true); fillPrintableFromForm(); }); } });
 if (saveHeadersBtn) saveHeadersBtn.addEventListener('click', () => saveHeadersToLocalStorage(false));
 if (clearHeadersBtn) clearHeadersBtn.addEventListener('click', clearHeadersFromLocalStorage);
@@ -585,6 +828,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (loadedSyllabus && Object.keys(loadedSyllabus).length > 0) syllabus = loadedSyllabus;
   loadHeadersFromLocalStorage();
   loadAiSettings();
-  if (classSelect && classSelect.value) updateRebStatusCard(classSelect.value);
+  updateRebStatusCard(classSelect ? classSelect.value : '');
+  syncSearchBoxesFromForm(); // pre-fill the lookup boxes from any saved titles
   fillPrintableFromForm();
 });

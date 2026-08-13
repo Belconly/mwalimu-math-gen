@@ -13,7 +13,7 @@
     <div class="header-inner">
       <div>
         <h1>Math Lesson Plan Generator — Rwanda CBC (Primary P1–P6)</h1>
-        <p class="note">AI-Powered Curriculum Assistant · REB Student Books (SB) & Teacher's Guides (TG)</p>
+        <p class="note">AI-Powered Curriculum Assistant · Reads ONLY the selected year's Teacher's Guide (TG) &amp; Pupil's Book (PB)</p>
       </div>
       <a href="https://elearning.reb.rw/course/index.php?categoryid=19" target="_blank" rel="noopener noreferrer" class="reb-portal-link">
         🌐 REB e-Learning Math Portal (Category ID 19)
@@ -25,14 +25,14 @@
     <section class="form-section">
       <div class="ai-panel">
         <div class="ai-panel-header">
-          <h2>✨ AI Lesson Plan Generator (REB SB, TG & Scheme of Work)</h2>
+          <h2>✨ AI Lesson Plan Generator (selected year's TG &amp; Pupil's Book only)</h2>
           <button type="button" id="toggleAiSettingsBtn" class="btn-icon" title="AI Model & API Settings">⚙️ AI Settings</button>
         </div>
         <div id="rebStatusCard" class="reb-status-card">
           <div class="reb-status-icon">📚</div>
           <div class="reb-status-content">
             <strong>REB Curriculum Status:</strong>
-            <span id="rebStatusText">Select Class (P1–P6) to load REB Student Book (SB), Teacher's Guide (TG), & Scheme of Work.</span>
+            <span id="rebStatusText">Select the Class / Year (P1–P6). The AI will then read ONLY that year's Teacher's Guide (TG) and Pupil's Book (PB).</span>
             <div class="reb-link-row">
               <a href="https://elearning.reb.rw/course/index.php?categoryid=19" target="_blank" class="reb-sublink">
                 🔗 View P1–P6 Books on elearning.reb.rw (Category 19)
@@ -42,19 +42,24 @@
         </div>
         <div class="ai-controls-row">
           <label class="ai-label">
-            Select REB Curriculum Unit / Topic
-            <select id="unitTopicSelect" class="ai-select">
-              <option value="">-- Choose Class First or Let AI Decide --</option>
-            </select>
+            Unit title (type it as written in this year's TG / PB)
+            <input type="text" id="unitTitleSearch" class="ai-input" placeholder="e.g., Whole Numbers up to 1,000" autocomplete="off" />
           </label>
           <label class="ai-label">
-            Optional Custom Focus / Keyword
-            <input type="text" id="customTopicInput" placeholder="e.g., Adding 3-digit numbers with carrying, place value..." />
+            Lesson title (inside that unit)
+            <input type="text" id="lessonTitleSearch" class="ai-input" placeholder="e.g., Addition of 3-Digit Numbers with Carrying" autocomplete="off" />
           </label>
         </div>
+        <div id="lookupResult" class="lookup-result hidden" role="status" aria-live="polite"></div>
+        <details id="yearUnitIndex" class="year-unit-index">
+          <summary>📖 Units available in the selected year's TG &amp; Pupil's Book</summary>
+          <div id="yearUnitList" class="year-unit-list">
+            <p class="small">Select a Class / Year (P1–P6) to list its units.</p>
+          </div>
+        </details>
         <div class="ai-action-row">
           <button type="button" id="aiGenerateBtn" class="btn-ai-primary">
-            ✨ AI Generate Lesson Plan (from REB SB, TG & Scheme of Work)
+            ✨ AI Generate Lesson Plan (from this year's TG &amp; Pupil's Book only)
           </button>
         </div>
         <div id="aiSettingsDrawer" class="ai-settings-drawer hidden">
@@ -133,9 +138,7 @@
         </div>
         <div class="row">
           <label>Duration (mins)<input name="duration" type="number" min="10" value="40" required></label>
-          <label>Boys<input name="classBoys" type="number" min="0" value="15" required></label>
-          <label>Girls<input name="classGirls" type="number" min="0" value="15" required></label>
-          <label>Class size (Total)<input name="classSize" type="number" min="1" value="30" required></label>
+          <label>Number of students<input name="classSize" type="number" min="1" value="30" required></label>
         </div>
         <div class="row">
           <label>SEN info (Special Educational Needs)
@@ -147,7 +150,7 @@
         </div>
 
         <div class="form-section-header">
-          <h3>2. Curriculum and Pedagogical Details (from REB SB & TG)</h3>
+          <h3>2. Curriculum and Pedagogical Details (from this year's TG &amp; Pupil's Book)</h3>
         </div>
         <div class="row">
           <label>Unit Title<input name="unitTitle" required placeholder="e.g., Whole Numbers up to 1,000"></label>
@@ -173,8 +176,8 @@
           </label>
         </div>
         <div class="row">
-          <label>References (REB Student Book SB & Teacher's Guide TG)
-            <textarea name="references" rows="2" placeholder="e.g., REB Primary Mathematics P3 Student Book (SB), Unit 2, pp. 24–28; Teacher's Guide (TG), pp. 18–22; elearning.reb.rw"></textarea>
+          <label>References (this year's Teacher's Guide TG &amp; Pupil's Book PB)
+            <textarea name="references" rows="2" placeholder="e.g., REB Primary Mathematics P3 Teacher's Guide (TG), Unit 2, pp. 18–22; Pupil's Book (PB), pp. 24–28; elearning.reb.rw"></textarea>
           </label>
           <label>Cross-cutting Issue (Header)
             <select name="crossCutting">
@@ -372,7 +375,7 @@
           <button type="button" id="printBtn" class="btn-secondary">🖨️ Print</button>
         </div>
       </form>
-        <p class="small">Tip: Select P1, Unit 1, Lesson 1 and click ✨ AI Generate to verify the 3-row plan (Introduction, Lesson development, Conclusion) with editable timings and hyphen bullets.</p>
+        <p class="small">Tip: Pick the Class / Year first, then type the <strong>Unit title</strong> exactly as it appears in that year's TG / Pupil's Book, and the <strong>Lesson title</strong> inside that unit. If the unit is not in that year's books the generator stops and lists that year's units — it never borrows another class's book.</p>
     </section>
 
     <section class="preview-section">
@@ -394,7 +397,7 @@
             <th>Unit N°</th>
             <th>Lesson N°</th>
             <th>Duration</th>
-            <th>Class size</th>
+            <th>Number of students</th>
           </tr>
           <tr>
             <td id="p_term"></td>
@@ -486,16 +489,16 @@
   </main>
 
   <footer class="site-footer">
-    <p>Rwanda CBC Mathematics Lesson Plan Generator · <a href="https://elearning.reb.rw/course/index.php?categoryid=19" target="_blank" rel="noopener noreferrer">REB e-Learning Math Books (Category 19)</a> · Integrated AI Model API &amp; LocalStorage Header Support</p>
+    <p>Rwanda CBC Mathematics Lesson Plan Generator · <a href="https://elearning.reb.rw/course/index.php?categoryid=19" target="_blank" rel="noopener noreferrer">REB e-Learning Math Books (Category 19)</a> · Year-locked TG &amp; Pupil's Book lookup · Integrated AI Model API &amp; LocalStorage Header Support</p>
   </footer>
 
   <div id="aiProgressModal" class="modal-overlay hidden">
     <div class="modal-content">
       <div class="modal-spinner">⚙️</div>
-      <h3 id="modalTitle">AI Reading REB Curriculum Books...</h3>
-      <p id="modalStepText" class="modal-step">Connecting to elearning.reb.rw (Category 19)...</p>
+      <h3 id="modalTitle">AI Reading this year's TG &amp; Pupil's Book...</h3>
+      <p id="modalStepText" class="modal-step">Opening the selected year's Teacher's Guide and Pupil's Book...</p>
       <div class="progress-bar-container"><div id="modalProgressBar" class="progress-bar-fill" style="width: 20%;"></div></div>
-      <p class="small text-muted" style="margin-top: 10px;">Synthesizing human-like SMART objectives, SEN differentiation, and timed stage activities...</p>
+      <p class="small text-muted" style="margin-top: 10px;">Indexing the unit, then the lesson inside it, from the selected year's books only...</p>
     </div>
   </div>
 
