@@ -35,7 +35,7 @@ const printBtn = document.getElementById('printBtn');
 const LS_HEADER_KEY = 'mwalimu_lp_header_metadata_v2';
 const LS_AI_SETTINGS_KEY = 'mwalimu_ai_settings_v2';
 
-const HEADER_FIELDS = ['school','teacher','term','date','subject','class','unitNo','lessonNo','duration','classSize','sen','planLocation'];
+const HEADER_FIELDS = ['school','teacher','term','date','subject','class','unitNo','lessonNo','duration','classBoys','classGirls','classSize','sen','planLocation'];
 
 // REB Official Lists
 const REB_GC_LIST = ["Critical Thinking","Problem Solving","Creativity and Innovation","Communication","Collaboration","Digital Literacy","Lifelong Learning","Cultural Identity","Self-Confidence"];
@@ -249,7 +249,7 @@ function finishModalAndPreview() {
 }
 
 function highlightUpdatedFields() {
-  const fields = ['unitTitle','keyUnitCompetence','lessonTitle','instrObjective','learningMaterials','references','crossCutting','step1_teacher','step1_learner','step2_teacher','step2_learner','step3_teacher','step3_learner','step4_teacher','step4_learner','step5_teacher','step5_learner','step6_teacher','step6_learner'];
+  const fields = ['unitTitle','keyUnitCompetence','lessonTitle','instrObjective','learningMaterials','references','crossCutting','activityOverview','selfAssessment','step1_teacher','step1_learner','step1_note','step2_teacher','step2_learner','step2_note','step3_teacher','step3_learner','step3_note','step4_teacher','step4_learner','step4_note','step5_teacher','step5_learner','step5_note','step6_teacher','step6_learner','step6_note'];
   fields.forEach(f => { const el = form[f]; if (el) { el.style.backgroundColor = '#f0fdf4'; setTimeout(() => el.style.backgroundColor = '', 1500); } });
 }
 
@@ -329,12 +329,14 @@ function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, header
       learningMaterials: lessonObj.materials,
       references: `${unitObj.unitTitle} — REB Primary Mathematics ${cls} Student Book (SB) & Teacher's Guide (TG); elearning.reb.rw/course/index.php?categoryid=19`,
       crossCutting: lessonObj.crossCutting || m1.cci,
-      step1_teacher: m1.teacher, step1_learner: m1.learner, step1_gc: m1.gc, step1_cci: m1.cci,
-      step2_teacher: m2.teacher, step2_learner: m2.learner, step2_gc: m2.gc, step2_cci: m2.cci,
-      step3_teacher: m3.teacher, step3_learner: m3.learner, step3_gc: m3.gc, step3_cci: m3.cci,
-      step4_teacher: m4.teacher, step4_learner: m4.learner, step4_gc: m4.gc, step4_cci: m4.cci,
-      step5_teacher: m5.teacher, step5_learner: m5.learner, step5_gc: m5.gc, step5_cci: m5.cci,
-      step6_teacher: m6.teacher, step6_learner: m6.learner, step6_gc: m6.gc, step6_cci: m6.cci
+      activityOverview: `In introduction, learners brainstorm their experience related to ${lessonObj.lessonTitle}. In new lesson, learners work in pairs/groups to discover the concept. In the conclusion, learners work with the teacher to summarize the lesson.`,
+      selfAssessment: 'The lesson was completed as planned.',
+      step1_teacher: m1.teacher, step1_learner: m1.learner, step1_gc: m1.gc, step1_cci: m1.cci, step1_note: `G.C: ${m1.gc}\nLearners activate prior knowledge through discussion.\nC.C.I: ${m1.cci}`,
+      step2_teacher: m2.teacher, step2_learner: m2.learner, step2_gc: m2.gc, step2_cci: m2.cci, step2_note: `G.C: ${m2.gc}\nDeveloped when learners manipulate materials in groups.\nC.C.I: ${m2.cci}`,
+      step3_teacher: m3.teacher, step3_learner: m3.learner, step3_gc: m3.gc, step3_cci: m3.cci, step3_note: `C.C.I: ${m3.cci}\nBoys and girls are encouraged to participate actively.`,
+      step4_teacher: m4.teacher, step4_learner: m4.learner, step4_gc: m4.gc, step4_cci: m4.cci, step4_note: `G.C: ${m4.gc}\nLearners discuss strategies and harmonize answers.\nC.C.I: ${m4.cci}`,
+      step5_teacher: m5.teacher, step5_learner: m5.learner, step5_gc: m5.gc, step5_cci: m5.cci, step5_note: `G.C: ${m5.gc}\nDeveloped as learners recall and explain the concept.`,
+      step6_teacher: m6.teacher, step6_learner: m6.learner, step6_gc: m6.gc, step6_cci: m6.cci, step6_note: `G.C: ${m6.gc}\nWhen learners define the concept using examples.`
     };
   }
 
@@ -381,7 +383,7 @@ function generateBuiltinAiLessonPlan(cls, selectedUnitIndex, customTopic, header
 
 async function callExternalLLM(provider, apiKey, model, endpoint, headers, selectedUnitIndex, customTopic) {
   const cls = headers.class || 'P4';
-  const prompt = `You are an expert Rwandan Primary School Mathematics teacher using REB CBC from elearning.reb.rw (SB, TG, Scheme of Work).\nGenerate JSON lesson plan for Class ${cls} with 5-column structure.\nContext: Class ${cls}, Term ${headers.term}, Duration ${headers.duration} mins, SEN ${headers.sen}, Topic ${customTopic || 'standard REB unit for '+cls}\nReturn ONLY JSON with keys: unitNo, lessonNo, unitTitle, keyUnitCompetence, lessonTitle, instrObjective, planLocation, learningMaterials, references, crossCutting, step1_teacher, step1_learner, step1_gc, step1_cci, step2_teacher, step2_learner, step2_gc, step2_cci, step3_teacher, step3_learner, step3_gc, step3_cci, step4_teacher, step4_learner, step4_gc, step4_cci, step5_teacher, step5_learner, step5_gc, step5_cci, step6_teacher, step6_learner, step6_gc, step6_cci\nGC must be one of: Critical Thinking, Problem Solving, Creativity and Innovation, Communication, Collaboration, Digital Literacy, Lifelong Learning, Cultural Identity, Self-Confidence\nCCI must be one of: Peace and Values Education, Gender, Inclusive Education, Environment, Financial Education, Standardization Culture, Impact of Social Media, Comprehensive Sexuality Education, Genocide Studies, Disaster Risk Reduction`;
+  const prompt = `You are an expert Rwandan Primary School Mathematics teacher using the official REB Teacher's Guide SAMPLE LESSON PLAN format.\nGenerate JSON lesson plan for Class ${cls} matching that table.\nContext: Class ${cls}, Term ${headers.term}, Duration ${headers.duration} mins, SEN ${headers.sen}, Topic ${customTopic || 'standard REB unit for '+cls}\nReturn ONLY JSON with keys: unitNo, lessonNo, unitTitle, keyUnitCompetence, lessonTitle, instrObjective, planLocation, learningMaterials, references, crossCutting, step1_teacher, step1_learner, step1_gc, step1_cci, step2_teacher, step2_learner, step2_gc, step2_cci, step3_teacher, step3_learner, step3_gc, step3_cci, step4_teacher, step4_learner, step4_gc, step4_cci, step5_teacher, step5_learner, step5_gc, step5_cci, step6_teacher, step6_learner, step6_gc, step6_cci\nGC must be one of: Critical Thinking, Problem Solving, Creativity and Innovation, Communication, Collaboration, Digital Literacy, Lifelong Learning, Cultural Identity, Self-Confidence\nCCI must be one of: Peace and Values Education, Gender, Inclusive Education, Environment, Financial Education, Standardization Culture, Impact of Social Media, Comprehensive Sexuality Education, Genocide Studies, Disaster Risk Reduction`;
   let apiUrl='', fetchOptions={};
   if (provider==='openai' || provider==='custom') { apiUrl = endpoint || 'https://api.openai.com/v1/chat/completions'; const chosenModel=model||'gpt-4o-mini'; fetchOptions={method:'POST', headers:{'Content-Type':'application/json','Authorization':`Bearer ${apiKey}`}, body:JSON.stringify({model:chosenModel, messages:[{role:'user',content:prompt}], temperature:0.7})}; }
   else if (provider==='gemini') { const chosenModel=model||'gemini-1.5-flash'; apiUrl=`https://generativelanguage.googleapis.com/v1beta/models/${chosenModel}:generateContent?key=${apiKey}`; fetchOptions={method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})}; }
@@ -410,12 +412,15 @@ function populateFormWithAiResult(aiData, headers) {
   if (aiData.learningMaterials) form.learningMaterials.value = aiData.learningMaterials;
   if (aiData.references) form.references.value = aiData.references;
   if (aiData.crossCutting) form.crossCutting.value = aiData.crossCutting;
-  // 5-column fields
+  if (aiData.activityOverview && form.activityOverview) form.activityOverview.value = aiData.activityOverview;
+  if (aiData.selfAssessment && form.selfAssessment) form.selfAssessment.value = aiData.selfAssessment;
+  // Official activity columns
   for (let i=1;i<=6;i++) {
     if (aiData[`step${i}_teacher`]) form[`step${i}_teacher`].value = aiData[`step${i}_teacher`];
     if (aiData[`step${i}_learner`]) form[`step${i}_learner`].value = aiData[`step${i}_learner`];
     if (aiData[`step${i}_gc`]) form[`step${i}_gc`].value = aiData[`step${i}_gc`];
     if (aiData[`step${i}_cci`]) form[`step${i}_cci`].value = aiData[`step${i}_cci`];
+    if (aiData[`step${i}_note`] && form[`step${i}_note`]) form[`step${i}_note`].value = aiData[`step${i}_note`];
     // Legacy single field support
     if (aiData[`step${i}`] && !aiData[`step${i}_teacher`]) {
       const split = splitTeacherLearner(aiData[`step${i}`]);
@@ -465,6 +470,14 @@ function fillPrintableFromForm() {
   for (const k in map) { const el = document.getElementById(k); if (el) el.textContent = map[k]; }
 }
 
+function syncClassTotal() {
+  if (!form.classBoys || !form.classGirls || !form.classSize) return;
+  const b = parseInt(form.classBoys.value, 10) || 0;
+  const g = parseInt(form.classGirls.value, 10) || 0;
+  form.classSize.value = String(b + g);
+}
+if (form.classBoys) form.classBoys.addEventListener('input', () => { syncClassTotal(); fillPrintableFromForm(); });
+if (form.classGirls) form.classGirls.addEventListener('input', () => { syncClassTotal(); fillPrintableFromForm(); });
 if (classSelect) classSelect.addEventListener('change', () => { updateRebStatusCard(classSelect.value); saveHeadersToLocalStorage(true); fillPrintableFromForm(); });
 HEADER_FIELDS.forEach(field => { const el = form[field]; if (el) { el.addEventListener('input', () => { saveHeadersToLocalStorage(true); fillPrintableFromForm(); }); el.addEventListener('change', () => { saveHeadersToLocalStorage(true); fillPrintableFromForm(); }); } });
 if (saveHeadersBtn) saveHeadersBtn.addEventListener('click', () => saveHeadersToLocalStorage(false));
